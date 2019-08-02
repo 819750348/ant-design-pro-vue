@@ -316,6 +316,15 @@ export const asyncRouterMap = [
             ]
           }
         ]
+      },
+      // 知识
+      // other
+      {
+        path: '/other',
+        name: 'otherPage',
+        component: () => import('@/views/other/IconSelectorView'),
+        meta: { title: '知识', icon: 'slack', permission: [ 'dashboard' ] },
+        redirect: '/other/icon-selector'
       }
     ]
   },

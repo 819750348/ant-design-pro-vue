@@ -318,13 +318,17 @@ export const asyncRouterMap = [
         ]
       },
       // 知识
-      // other
       {
-        path: '/other',
-        name: 'otherPage',
-        component: () => import('@/views/other/IconSelectorView'),
-        meta: { title: '知识', icon: 'slack', permission: [ 'dashboard' ] },
-        redirect: '/other/icon-selector'
+        path: 'know',
+        name: 'know',
+        // component: PageView,
+        component: () => import(/* webpackChunkName: "knowList" */ '@/views/know/knowTabs'),
+        meta: {
+          title: '知识',
+          icon: 'message',
+          hideHeader: true,
+          keepAlive: true
+        }
       }
     ]
   },
@@ -361,7 +365,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
   {
     path: '/test',
     component: BlankLayout,

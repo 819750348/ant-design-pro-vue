@@ -22,7 +22,7 @@
 <script>
 import 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
-import IKnowList from '@/views/knowledge/knowList'
+import IKnowList from '@/views/know/knowList'
 export default {
   name: 'Monitor',
   components: {

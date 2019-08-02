@@ -26,6 +26,11 @@
                     <a-input />
                   </a-form-item>
                 </a-col>
+                <a-col :md="7" :sm="24">
+                  <a-form-item label="作者">
+                    <a-input />
+                  </a-form-item>
+                </a-col>
                 <a-col :md="10" :sm="24">
                   <span class="table-page-search-submitButtons">
                     <a-button type="primary" @click="searchUser">查询</a-button>
@@ -65,8 +70,7 @@
 <script>
 import 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
-import STable from '@/components/table/'
-import RoleChecked from '@/components/admin/RoleChecked'
+import STable from '@/components/Table/'
 import 'timers'
 import TabPane from 'ant-design-vue/es/vc-tabs/src/TabPane'
 
@@ -76,8 +80,7 @@ export default {
   name: 'KnowList',
   components: {
     TabPane,
-    STable,
-    RoleChecked
+    STable
   },
   data () {
     return {

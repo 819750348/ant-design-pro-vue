@@ -1,6 +1,6 @@
 <template>
   <a-tabs @change="callback" type="card">
-    <a-tab-pane tab="Tab 1" key="1">
+    <a-tab-pane tab="个人知识" key="1">
       <personalKnowledge></personalKnowledge>
     </a-tab-pane>
     <a-tab-pane tab="共享知识" key="2">

@@ -164,7 +164,7 @@
   </div>
 </template>
 <script>
-// import './knowledge.less'
+import './knowledge.less'
 export default {
   data () {
     return {
@@ -191,6 +191,9 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-  @import "knowledge.less";
+<style src="">
+
+</style>
+<style scoped>
+
 </style>

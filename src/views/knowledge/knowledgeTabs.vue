@@ -6,8 +6,8 @@
     <a-tab-pane tab="共享知识" key="2">
       <shareKnowledge></shareKnowledge>
     </a-tab-pane>
-    <a-tab-pane tab="Tab 3" key="3">
-      Content of Tab Pane 3
+    <a-tab-pane tab="最近浏览" key="3">
+      <historyKnowledge></historyKnowledge>
     </a-tab-pane>
     <a-tab-pane tab="上传知识" key="4">
       <upload-knowledge v-if="state==0" @uploadedSuccessfully="upload"></upload-knowledge>
@@ -20,6 +20,7 @@ import uploadKnowledge from './uploadKnowledge'
 import knowledgeDetails from './knowledgeDetails'
 import shareKnowledge from './shareKnowledge'
 import personalKnowledge from './personalKnowledge'
+import historyKnowledge from './historyKnowledge'
 export default {
   data () {
     return {
@@ -30,7 +31,8 @@ export default {
     uploadKnowledge: uploadKnowledge,
     personalKnowledge: personalKnowledge,
     knowledgeDetails: knowledgeDetails,
-    shareKnowledge: shareKnowledge
+    shareKnowledge: shareKnowledge,
+    historyKnowledge: historyKnowledge
   },
   methods: {
     callback (key) {

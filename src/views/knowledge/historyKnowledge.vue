@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card :bordered="true" title="共享知识列表">
+    <a-card :bordered="true" title="浏览历史列表">
       <div>
         <a-form layout="inline">
           <a-row>

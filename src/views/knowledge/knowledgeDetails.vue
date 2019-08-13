@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="detailCard">
     <a-card>
       <a-row type="flex">
         <a-col :span="4" :offset="2">

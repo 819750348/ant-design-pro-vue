@@ -322,12 +322,20 @@ export const asyncRouterMap = [
         path: 'know',
         name: 'know',
         // component: PageView,
-        component: () => import(/* webpackChunkName: "knowList" */ '@/views/know/knowTabs'),
+        component: () => import(/* webpackChunkName: "knowList" */ '@/views/knowledge/knowledgeTabs'),
         meta: {
           title: '知识',
           icon: 'message',
           hideHeader: true,
-          keepAlive: true
+          keepAlive: true,
+          children: [
+            {
+              path: '/other/icon-selector',
+              name: 'TestIconSelect',
+              component: () => import('@/views/other/IconSelectorView'),
+              meta: { title: 'IconSelector', icon: 'tool', keepAlive: true, permission: [ 'dashboard' ] }
+            }
+          ]
         }
       }
     ]

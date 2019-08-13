@@ -1,12 +1,13 @@
 <template>
   <div>
     <a-tabs defaultActiveKey="1" onChange="">
-      <a-tab-pane tab="Tab 1" key="1">
+      <a-tab-pane tab="个人知识" key="1">
         <i-know-list>
         </i-know-list>
       </a-tab-pane>
-      <a-tab-pane tab="Tab 2" key="2">
-        Content of Tab Pane 2
+      <a-tab-pane tab="共享知识" key="2">
+        <A-know-list>
+        </A-know-list>
       </a-tab-pane>
       <a-tab-pane tab="Tab 3" key="3">
         Content of Tab Pane 3
@@ -23,10 +24,12 @@
 import 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 import IKnowList from '@/views/know/knowList'
+import AKnowList from '@/views/know/knowList2'
 export default {
   name: 'Monitor',
   components: {
-    IKnowList
+    IKnowList,
+    AKnowList
   }
 }
 

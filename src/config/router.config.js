@@ -322,7 +322,7 @@ export const asyncRouterMap = [
         path: 'know',
         name: 'know',
         // component: PageView,
-        component: () => import(/* webpackChunkName: "knowList" */ '@/views/know/knowTabs'),
+        component: () => import(/* webpackChunkName: "knowList" */ '@/views/knowledge/knowledgeTabs'),
         meta: {
           title: '知识',
           icon: 'message',

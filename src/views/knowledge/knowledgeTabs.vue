@@ -1,7 +1,7 @@
 <template>
   <a-tabs @change="callback" type="card">
     <a-tab-pane tab="Tab 1" key="1">
-      Content of Tab Pane 1
+      <personalKnowledge></personalKnowledge>
     </a-tab-pane>
     <a-tab-pane tab="共享知识" key="2">
       <shareKnowledge></shareKnowledge>
@@ -19,6 +19,7 @@
 import uploadKnowledge from './uploadKnowledge'
 import knowledgeDetails from './knowledgeDetails'
 import shareKnowledge from './shareKnowledge'
+import personalKnowledge from './personalKnowledge'
 export default {
   data () {
     return {
@@ -27,6 +28,7 @@ export default {
   },
   components: {
     uploadKnowledge: uploadKnowledge,
+    personalKnowledge: personalKnowledge,
     knowledgeDetails: knowledgeDetails,
     shareKnowledge: shareKnowledge
   },

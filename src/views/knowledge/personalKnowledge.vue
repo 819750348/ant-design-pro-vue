@@ -3,7 +3,7 @@
     <a-row :gutter="8">
       <a-col :span="6">
         <a-collapse style="padding:0px;margin:0px;" v-model="activeKey">
-          <a-collapse-panel header="研究室知识库" key="1">
+          <a-collapse-panel header="个人知识库导航" key="1">
             <a-tree
               showIcon
               @expand="onExpand"
@@ -18,17 +18,7 @@
               <a-icon slot="menu-unfold" type="menu-unfold" />
             </a-tree>
           </a-collapse-panel>
-          <a-collapse-panel header="企业知识库" key="2">
-            <a-menu style="padding:0px;margin:0px;" mode="inline">
-              <a-menu-item key="1">
-                <a-icon type="pie-chart" />
-                <span>术语知识</span>
-              </a-menu-item>
-              <a-menu-item key="2">
-                <a-icon type="desktop" />
-                <span>词条知识</span>
-              </a-menu-item>
-            </a-menu>
+          <a-collapse-panel header="编辑个人知识分类" key="2">
           </a-collapse-panel>
         </a-collapse>
       </a-col>
@@ -37,29 +27,30 @@
           <div>
             <a-form layout="inline">
               <a-row>
-                <a-col :span="6">
+                <a-col :span="5">
                   <a-form-item label="名称">
-                    <a-input style="width:120px;" />
+                    <a-input style="width:90px;" />
                   </a-form-item>
                 </a-col>
-                <a-col :span="6">
+                <a-col :span="5">
                   <a-form-item label="作者">
-                    <a-input style="width:120px;" />
+                    <a-input style="width:90px;" />
                   </a-form-item>
                 </a-col>
-                <a-col :span="6">
+                <a-col :span="5">
                   <a-form-item label="分类">
-                    <a-select style="width:120px;" placeholder="请选择" default-value="0">
+                    <a-select placeholder="请选择" default-value="0">
                       <a-select-option value="0">全部</a-select-option>
                       <a-select-option value="1">分类1</a-select-option>
                       <a-select-option value="2">分类2</a-select-option>
                     </a-select>
                   </a-form-item>
                 </a-col>
-                <a-col :span="6">
+                <a-col :span="9">
                   <span>
                     <a-button type="primary" @click="searchUser">查询</a-button>
                     <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
+                    <a-button style="margin-left: 30px" type="primary" @click="openEditModal('','1')" v-action:add>新增知识</a-button>
                   </span>
                 </a-col>
               </a-row>
@@ -79,11 +70,11 @@
                           <a-col :span="4"><a-button>详情</a-button></a-col>
                         </a-row>
                         <a-row>
-                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/views/know/2.png"></img>系统管理员</a-col>
-                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/views/know/1.png"></img>系统管理员</a-col>
-                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/views/know/5.png"></img>abcd</a-col>
-                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/views/know/3.png"></img>论文</a-col>
-                          <a-col :span="7"><img style="height: 15px;width: 15px;" src="@/views/know/4.png"></img>2019-05-24 13:47:46</a-col>
+                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>系统管理员</a-col>
+                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img>系统管理员</a-col>
+                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img>abcd</a-col>
+                          <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>论文</a-col>
+                          <a-col :span="7"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>2019-05-24 13:47:46</a-col>
                         </a-row>
                       </template>
                     </a-list-item>
@@ -137,7 +128,7 @@ export default {
         onChange: (page) => {
           // 分页事件
         },
-        pageSize: 5
+        pageSize: 3
       }
     }
   },

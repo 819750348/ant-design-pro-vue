@@ -13,7 +13,9 @@
             @select="handleClick"
             :selectedKeys="selectedKeys"
             :treeData="typeTree"
-          />
+          >
+            <a-icon slot="folder" type="folder" />
+          </a-tree>
         </a-card>
       </a-col>
 
@@ -90,9 +92,26 @@ import 'ant-design-vue/dist/antd.less'
 import STable from '@/components/Table/'
 import 'timers'
 import TabPane from 'ant-design-vue/es/vc-tabs/src/TabPane'
-
+// <!--@/views/know/1.png-->
 // 测试数据,没有后端支持时前端写死
-const typeTest = [{ 'id': '01', 'icon': '@/views/know/1.png', 'parentId': 'root', 'children': [{ 'id': '0101', 'parentId': '01', 'children': [{ 'id': '010101', 'parentId': '0101', 'children': [], 'label': '第一个子分类', 'order': 1 }, { 'id': '010102', 'parentId': '0101', 'children': [], 'label': '第二个子分类', 'order': 2 }], 'label': '第一个分类', 'order': 1 }, { 'id': '0102', 'parentId': '01', 'children': [], 'label': '第二个分类', 'order': 2 }], 'label': '根节点分类', 'order': 1 }]
+const typeTest = [{ 'id': '01',
+  slots: {
+    icon: 'folder'
+  },
+  'parentId': 'root',
+  'children': [{ 'id': '0101', 'parentId': '01', 'children': [{ 'id': '010101', 'parentId': '0101', 'children': [], 'label': '第一个子分类', 'order': 1 }, { 'id': '010102', 'parentId': '0101', 'children': [], 'label': '第二个子分类', 'order': 2 }], 'label': '第一个分类', 'order': 1 }, { 'id': '0102', 'parentId': '01', 'children': [], 'label': '第二个分类', 'order': 2 }],
+  'label': '根节点分类',
+  'order': 1 }]
+// const typeTest = [{
+//   title: 'parent 1',
+//   key: '0-0',
+//   slots: {
+//     icon: 'smile'
+//   },
+//   children: [
+//     { title: 'leaf', key: '0-0-0', slots: { icon: 'meh' } },
+//     { title: 'leaf', key: '0-0-1', scopedSlots: { icon: 'custom' } }]
+// }]
 const listData = []
 for (let i = 0; i < 10; i++) {
   listData.push({

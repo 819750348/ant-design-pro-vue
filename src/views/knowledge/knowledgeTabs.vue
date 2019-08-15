@@ -16,11 +16,11 @@
   </a-tabs>
 </template>
 <script>
-import uploadKnowledge from './uploadKnowledge'
-import knowledgeDetails from './knowledgeDetails'
+import uploadKnowledge from './upload'
+import knowledgeDetails from './edit'
 import shareKnowledge from './shareKnowledge'
 import personalKnowledge from './personalKnowledge'
-import historyKnowledge from './historyKnowledge'
+import historyKnowledge from './history'
 export default {
   data () {
     return {

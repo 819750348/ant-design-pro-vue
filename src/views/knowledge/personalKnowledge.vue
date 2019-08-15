@@ -6,12 +6,10 @@
           <a-collapse-panel header="个人知识库导航" key="1">
             <a-tree
               showIcon
-              @expand="onExpand"
               :expandedKeys="expandedKeys"
               :autoExpandParent="autoExpandParent"
               v-model="checkedKeys"
               :selectedKeys="selectedKeys"
-              @select="selectNode"
               :treeData="typeTree"
             >
               <a-icon slot="folder" type="folder" />
@@ -50,7 +48,6 @@
                   <span>
                     <a-button type="primary" @click="searchUser">查询</a-button>
                     <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
-                    <a-button style="margin-left: 30px" type="primary" @click="openEditModal('','1')" v-action:add>新增知识</a-button>
                   </span>
                 </a-col>
               </a-row>
@@ -123,10 +120,6 @@ export default {
       cardvisible: true,
       typeTree: typeTest,
       activeKey: ['1'],
-      TypeTreeSelects: [],
-      expandedKeys: ['01'],
-      autoExpandParent: true,
-      selectedKeys: [],
       listData,
       pagination: {
         onChange: (page) => {
@@ -137,20 +130,12 @@ export default {
     }
   },
   watch: {
-    checkedKeys (val) {
-      // console.log('onCheck', val)
-    },
     activeKey (key) {
-      console.log(key)
+      // console.log(key)
     }
   },
   created () {
     this.getTypeTree()
-  },
-  actions: {
-    add () {
-      console.log(1)
-    }
   },
   methods: {
     genernateTree (value) {
@@ -179,10 +164,6 @@ export default {
     onCheck (checkedKeys) {
       // console.log('onCheck', checkedKeys)
       this.checkedKeys = checkedKeys
-    },
-    onSelect (selectedKeys, info) {
-      // console.log('onSelect', info)
-      this.selectedKeys = selectedKeys
     }
   }
 }

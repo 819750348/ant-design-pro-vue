@@ -27,17 +27,17 @@
           <div>
             <a-form layout="inline">
               <a-row>
-                <a-col :span="5">
+                <a-col :md="5" :sm="24" :span="5">
                   <a-form-item label="名称">
                     <a-input style="width:90px;" />
                   </a-form-item>
                 </a-col>
-                <a-col :span="5">
+                <a-col :md="5" :sm="24" :span="5">
                   <a-form-item label="作者">
                     <a-input style="width:90px;" />
                   </a-form-item>
                 </a-col>
-                <a-col :span="5">
+                <a-col :md="5" :sm="24" :span="5">
                   <a-form-item label="分类">
                     <a-select placeholder="请选择" default-value="0">
                       <a-select-option value="0">全部</a-select-option>
@@ -46,7 +46,7 @@
                     </a-select>
                   </a-form-item>
                 </a-col>
-                <a-col :span="9">
+                <a-col :md="9" :sm="24" :span="9">
                   <span>
                     <a-button type="primary" @click="searchUser">查询</a-button>
                     <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
@@ -60,14 +60,18 @@
                     <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
                       <template>
                         <a-row>
-                          <a-col :span="20">
+                          <a-col :span="14">
                             <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                               <a-list-item-meta>
                                 <a slot="title" :href="item.href">{{ item.title }},{{ index }}</a>
                               </a-list-item-meta>
                             </div>
                           </a-col>
-                          <a-col :span="4"><a-button>详情</a-button></a-col>
+                          <a-col :span="10">
+                            <a-button>发起共享申请</a-button>
+                            <a-button>修改分类</a-button>
+                            <a-button>详情</a-button>
+                          </a-col>
                         </a-row>
                         <a-row>
                           <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>系统管理员</a-col>

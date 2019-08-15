@@ -36,18 +36,18 @@
         <a-card :bordered="true" title="共享知识列表">
           <div>
             <a-form layout="inline">
-              <a-row>
-                <a-col :span="6">
+              <a-row :gutter="0">
+                <a-col :md="6" :sm="24" :span="6">
                   <a-form-item label="名称">
                     <a-input style="width:120px;" />
                   </a-form-item>
                 </a-col>
-                <a-col :span="6">
+                <a-col :md="6" :sm="24" :span="6">
                   <a-form-item label="作者">
                     <a-input style="width:120px;" />
                   </a-form-item>
                 </a-col>
-                <a-col :span="6">
+                <a-col :md="6" :sm="24" :span="6">
                   <a-form-item label="分类">
                     <a-select style="width:120px;" placeholder="请选择" default-value="0">
                       <a-select-option value="0">全部</a-select-option>
@@ -56,10 +56,9 @@
                     </a-select>
                   </a-form-item>
                 </a-col>
-                <a-col :span="6">
+                <a-col :md="6" :sm="24" :span="6">
                   <span>
-                    <a-button type="primary" @click="searchUser">查询</a-button>
-                    <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
+                    <a-button type="primary" @click="searchUser">过滤</a-button>
                   </span>
                 </a-col>
               </a-row>

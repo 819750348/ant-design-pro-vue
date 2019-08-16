@@ -1,15 +1,18 @@
 <template>
   <div>
+    <creat-approval :apply="applymodel" @shareApply="shareApply"></creat-approval>
     <a-row :gutter="8">
       <a-col :span="6">
         <a-collapse style="padding:0px;margin:0px;" v-model="activeKey">
           <a-collapse-panel header="个人知识库导航" key="1">
             <a-tree
               showIcon
+              @expand="onExpand"
               :expandedKeys="expandedKeys"
               :autoExpandParent="autoExpandParent"
               v-model="checkedKeys"
               :selectedKeys="selectedKeys"
+              @select="selectNode"
               :treeData="typeTree"
             >
               <a-icon slot="folder" type="folder" />
@@ -48,6 +51,7 @@
                   <span>
                     <a-button type="primary" @click="searchUser">查询</a-button>
                     <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
+                    <a-button style="margin-left: 30px" type="primary" @click="openEditModal('','1')" v-action:add>新增知识</a-button>
                   </span>
                 </a-col>
               </a-row>
@@ -65,7 +69,7 @@
                             </div>
                           </a-col>
                           <a-col :span="10">
-                            <a-button>发起共享申请</a-button>
+                            <a-button @click="visibleApply">发起共享申请</a-button>
                             <a-button>修改分类</a-button>
                             <a-button>详情</a-button>
                           </a-col>
@@ -96,6 +100,7 @@ import 'ant-design-vue/dist/antd.less'
 import STable from '@/components/Table/'
 import 'timers'
 import TabPane from 'ant-design-vue/es/vc-tabs/src/TabPane'
+import creatApproval from './creatApproval'
 
 // 测试数据,没有后端支持时前端写死
 const typeTest = [{ 'id': '01', slots: { icon: 'folder' }, 'parentId': 'root', 'children': [{ 'id': '0101', slots: { icon: 'folder' }, 'parentId': '01', 'children': [{ 'id': '010101', slots: { icon: 'menu-unfold' }, 'parentId': '0101', 'children': [], 'label': '第一个子分类', 'order': 1 }, { 'id': '010102', slots: { icon: 'menu-unfold' }, 'parentId': '0101', 'children': [], 'label': '第二个子分类', 'order': 2 }], 'label': '第一个分类', 'order': 1 }, { 'id': '0102', slots: { icon: 'menu-unfold' }, 'parentId': '01', 'children': [], 'label': '第二个分类', 'order': 2 }], 'label': '根节点分类', 'order': 1 }]
@@ -113,29 +118,45 @@ export default {
   name: 'KnowList',
   components: {
     TabPane,
-    STable
+    STable,
+    creatApproval
   },
   data () {
     return {
       cardvisible: true,
       typeTree: typeTest,
       activeKey: ['1'],
+      TypeTreeSelects: [],
+      expandedKeys: ['01'],
+      autoExpandParent: true,
+      selectedKeys: [],
       listData,
       pagination: {
         onChange: (page) => {
           // 分页事件
         },
         pageSize: 3
-      }
+      },
+      visible: false,
+      // 显示共享模态框
+      applymodel: false
     }
   },
   watch: {
+    checkedKeys (val) {
+      // console.log('onCheck', val)
+    },
     activeKey (key) {
-      // console.log(key)
+      console.log(key)
     }
   },
   created () {
     this.getTypeTree()
+  },
+  actions: {
+    add () {
+      console.log(1)
+    }
   },
   methods: {
     genernateTree (value) {
@@ -164,6 +185,16 @@ export default {
     onCheck (checkedKeys) {
       // console.log('onCheck', checkedKeys)
       this.checkedKeys = checkedKeys
+    },
+    onSelect (selectedKeys, info) {
+      // console.log('onSelect', info)
+      this.selectedKeys = selectedKeys
+    },
+    shareApply (val) {
+      this.applymodel = val
+    },
+    visibleApply () {
+      this.applymodel = true
     }
   }
 }

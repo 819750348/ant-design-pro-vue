@@ -1,16 +1,17 @@
 <template>
   <a-card :bordered="true" title="共享知识列表">
     <div>
+      <creat-approval :apply="applymodel" @shareApply="shareApply"></creat-approval>
       <a-form layout="inline">
         <a-row>
           <a-col :md="5" :sm="24" :span="5">
             <a-form-item label="名称">
-              <a-input style="width:90px;" />
+              <a-input style="width:90px;"/>
             </a-form-item>
           </a-col>
           <a-col :md="5" :sm="24" :span="5">
             <a-form-item label="作者">
-              <a-input style="width:90px;" />
+              <a-input style="width:90px;"/>
             </a-form-item>
           </a-col>
           <a-col :md="5" :sm="24" :span="5">
@@ -42,17 +43,23 @@
                       </div>
                     </a-col>
                     <a-col :span="10">
-                      <a-button>发起共享申请</a-button>
+                      <a-button @click="visibleApply">发起共享申请</a-button>
                       <a-button>修改分类</a-button>
                       <a-button>详情</a-button>
                     </a-col>
                   </a-row>
                   <a-row>
-                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>{{item.manage}}</a-col>
-                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img>{{item.createUser}}</a-col>
-                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img>{{item.abcd}}</a-col>
-                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{item.type}}</a-col>
-                    <a-col :span="7"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{item.timer}}</a-col>
+                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>{{ item.manage }}
+                    </a-col>
+                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img>{{
+                      item.createUser }}
+                    </a-col>
+                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img>{{ item.abcd }}
+                    </a-col>
+                    <a-col :span="4"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.type }}
+                    </a-col>
+                    <a-col :span="7"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{ item.timer }}
+                    </a-col>
                   </a-row>
                 </template>
               </a-list-item>
@@ -65,6 +72,8 @@
 </template>
 
 <script>
+import creatApproval from './creatApproval'
+
 const listData = []
 for (let i = 0; i < 10; i++) {
   listData.push({
@@ -86,10 +95,22 @@ export default {
       listData,
       pagination: {
         onChange: (page) => {
-        // 分页事件
+          // 分页事件
         },
         pageSize: 5
-      }
+      },
+      applymodel: false
+    }
+  },
+  components: {
+    creatApproval
+  },
+  methods: {
+    shareApply (val) {
+      this.applymodel = val
+    },
+    visibleApply () {
+      this.applymodel = true
     }
   }
 }

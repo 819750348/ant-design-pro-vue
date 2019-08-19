@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import './majorTree.less'
+import '../majorTree.less'
 const treeData = [{
   title: '仿真',
   key: '0-0',

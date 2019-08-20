@@ -18,7 +18,10 @@
           <major-tree @personnelModal="showPersonnelModal"></major-tree>
         </div>
         <div v-if="personnelModal">
-          <personnel-list></personnel-list>
+          <personnel-list @nextSubmitModal="showSubmitModal"></personnel-list>
+        </div>
+        <div v-if="submitModal">
+          <submit-modal></submit-modal>
         </div>
       </a-card>
       <template slot="footer">
@@ -30,15 +33,17 @@
 <script>
 import './model.less'
 import personalModal from './PersonalModal'
-import majorTree from './majorTree'
-import personnelList from './personnelList'
+import majorTree from './MajorTree'
+import personnelList from './PersonnelList'
+import submitModal from './SubmitModal'
 
 export default {
   data () {
     return {
       personalModal: true,
       majorModal: false,
-      personnelModal: false
+      personnelModal: false,
+      submitModal: false
     }
   },
   props: {
@@ -49,6 +54,7 @@ export default {
   },
   components: {
     personalModal,
+    submitModal,
     majorTree: majorTree,
     personnelList: personnelList
   },
@@ -64,16 +70,30 @@ export default {
       this.personalModal = false
       this.majorModal = true
       this.personnelModal = false
+      this.submitModal = false
     },
     showPersonnelModal () {
       this.personalModal = false
       this.majorModal = false
       this.personnelModal = true
+      this.submitModal = false
+    },
+    showSubmitModal () {
+      this.personalModal = false
+      this.majorModal = false
+      this.personnelModal = false
+      this.submitModal = true
     }
   },
   watch: {
     apply (val) {
       this.apply = val
+      if (val === true) {
+        this.personalModal = true
+        this.majorModal = false
+        this.personnelModal = false
+        this.submitModal = false
+      }
       this.$emit('shareApply', this.apply)
     }
   }

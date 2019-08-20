@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import creatApproval from './creatApproval/creatApproval'
+import creatApproval from './creatApproval/CreatApproval'
 
 const listData = []
 for (let i = 0; i < 10; i++) {

@@ -63,7 +63,7 @@ export default {
     return {
       expandedKeys: ['0-0-0', '0-0-1'],
       autoExpandParent: true,
-      checkedKeys: ['0-0-0'],
+      checkedKeys: [''],
       selectedKeys: [],
       treeData
     }

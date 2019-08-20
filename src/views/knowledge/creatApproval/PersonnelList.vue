@@ -26,6 +26,11 @@
         </a-card>
       </a-col>
     </a-row>
+    <a-row type="flex" justify="center" >
+      <a-col >
+        <a-button style="margin-top: 10px" @click="nextSubmitModal">确定</a-button>
+      </a-col>
+    </a-row>
   </div>
 </template>
 <script>
@@ -103,6 +108,9 @@ export default {
   methods: {
     onSelect (selectedKeys, info) {
       console.log('selected', selectedKeys, info)
+    },
+    nextSubmitModal () {
+      this.$emit('nextSubmitModal', 'true')
     }
   }
 }

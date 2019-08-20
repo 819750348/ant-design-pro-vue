@@ -3,33 +3,32 @@
     <a-collapse-panel header="个人知识库导航" key="1">
       <a-tree
         :treeData="typeTree"
-        showIcon
         defaultExpandAll
         :defaultSelectedKeys="['01']"
         @select="onSelect"
       >
-        <a-icon slot="folder" type="folder" />
-        <a-icon slot="menu-unfold" type="menu-unfold" />
+        <template slot="custom" slot-scope="item">
+          <a-icon v-if="item.children != null" slot="folder" type="folder" />
+          <a-icon v-if="item.children == null" slot="smile" type="folder" />
+          <span>{{ item.title }}</span>
+        </template>
       </a-tree>
     </a-collapse-panel>
     <a-collapse-panel header="编辑个人知识分类" key="2">
       <tree-form @editNodeName="editNodeName" :param="param"></tree-form>
       <a-tree
         :treeData="typeTree"
-        showIcon
         defaultExpandAll
-        :defaultSelectedKeys="['01']"
         @select="onSelectByEdit"
       >
-        <a-icon slot="folder" type="folder" />
-        <a-icon slot="menu-unfold" type="menu-unfold" />
         <template slot="custom" slot-scope="item">
+          <a-icon v-if="item.children != null" slot="folder" type="folder" />
+          <a-icon v-if="item.children == null" slot="smile" type="folder" />
           <span>{{ item.title }}</span>
-          <img v-show="item.id==itemId" @click="addNode(item.id)" title="add" style="height: 15px;width: 15px;" src="@/assets/5.png"></img>
-          <img v-show="item.id==itemId" @click="editNode(item.id, item.title)" title="edit" style="height: 15px;width: 15px;" src="@/assets/5.png"></img>
-          <img v-show="item.id==itemId" @click="delNode(item.id)" title="del" style="height: 15px;width: 15px;" src="@/assets/5.png"></img>
+          <a-icon v-show="itemId==item.id" @click="addNode(item.id)" title="add" style="margin-left:10px;" type="plus" />
+          <a-icon v-show="itemId==item.id" @click="editNode(item.id, item.title)" title="edit" type="edit" />
+          <a-icon v-show="itemId==item.id" @click="delNode(item.id)" title="del" type="delete" />
         </template>
-
       </a-tree>
     </a-collapse-panel>
   </a-collapse>
@@ -37,7 +36,7 @@
 
 <script>
 import treeForm from './treeForm'
-const typeTest = [{ 'id': '01', slots: { icon: 'folder' }, scopedSlots: { title: 'custom' }, 'parentId': 'root', 'children': [{ 'id': '0101', slots: { icon: 'folder' }, scopedSlots: { title: 'custom' }, 'parentId': '01', 'children': [{ 'id': '010101', slots: { icon: 'menu-unfold' }, scopedSlots: { title: 'custom' }, 'parentId': '0101', 'children': [], 'label': '第一个子分类', 'order': 1 }, { 'id': '010102', slots: { icon: 'menu-unfold' }, scopedSlots: { title: 'custom' }, 'parentId': '0101', 'children': [], 'label': '第二个子分类', 'order': 2 }], 'label': '第一个分类', 'order': 1 }, { 'id': '0102', slots: { icon: 'menu-unfold' }, scopedSlots: { title: 'custom' }, 'parentId': '01', 'children': [], 'label': '第二个分类', 'order': 2 }], 'label': '根节点分类', 'order': 1 }]
+const typeTest = [{ '__viewicon': false, 'checked': 0, 'children': [{ '__viewicon': false, 'checked': 0, 'children': [{ '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 142, 'index': 'categoriesid', 'name': '设计知识概论', 'nodeDescription': null, 'orderId': 142, 'parentId': 0, 'style': null, 'treenodedtos': [] }], 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category', 'id': 120, 'index': 'categoriesid', 'name': '地空导弹设计', 'nodeDescription': null, 'orderId': 120, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': [{ '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 123, 'index': 'categoriesid', 'name': '绪论', 'nodeDescription': null, 'orderId': 123, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 124, 'index': 'categoriesid', 'name': '战略方法和工具', 'nodeDescription': null, 'orderId': 124, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 125, 'index': 'categoriesid', 'name': '评价和激励方法及工具', 'nodeDescription': null, 'orderId': 125, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 126, 'index': 'categoriesid', 'name': '群化方法和工具', 'nodeDescription': null, 'orderId': 126, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 127, 'index': 'categoriesid', 'name': '外化方法和工具', 'nodeDescription': null, 'orderId': 127, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 128, 'index': 'categoriesid', 'name': '整合方法与工具', 'nodeDescription': null, 'orderId': 128, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 129, 'index': 'categoriesid', 'name': '内化方法和工具', 'nodeDescription': null, 'orderId': 129, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 130, 'index': 'categoriesid', 'name': '应用和创新方法和工具', 'nodeDescription': null, 'orderId': 130, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 131, 'index': 'categoriesid', 'name': '工程的实施方法和案例', 'nodeDescription': null, 'orderId': 131, 'parentId': 0, 'style': null, 'treenodedtos': [] }], 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category', 'id': 121, 'index': 'categoriesid', 'name': '导弹设计知识管理', 'nodeDescription': null, 'orderId': 121, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 122, 'index': 'categoriesid', 'name': '共享资料', 'nodeDescription': null, 'orderId': 122, 'parentId': 0, 'style': null, 'treenodedtos': [] }], 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category', 'id': 80, 'index': 'categoriesid', 'name': '飞行器产品设计', 'nodeDescription': null, 'orderId': 80, 'parentId': 0, 'style': null, 'treenodedtos': [] }, { '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': true, 'icon': 'e-tree-category-child', 'id': 144, 'index': 'categoriesid', 'name': '代风个人知识分类', 'nodeDescription': null, 'orderId': 144, 'parentId': 0, 'style': null, 'treenodedtos': [] }]
 
 export default {
   name: 'PersonalTree',
@@ -73,18 +72,19 @@ export default {
   methods: {
     genernateTree (value) {
       value.forEach(item => {
-        // item.value = item.key
-        item.value = item.id + 'select'
-        item.title = item.label
+        item.title = item.name
         item.key = item.id
+        delete item['icon']
+        item.scopedSlots = { title: 'custom' }
         if (item.children && item.children.length) {
           this.genernateTree(item.children)
         }
       })
+      console.log(JSON.stringify(value))
       return value
     },
     getTypeTree () {
-      this.TypeTreeSelects = this.genernateTree(this.typeTree)
+      this.typeTree = this.genernateTree(this.typeTree)
     },
     onSelect (keys) {
       this.itemId = keys

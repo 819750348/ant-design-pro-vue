@@ -15,8 +15,8 @@
 export default {
   data () {
     return {
-      approvalName: '顺子',
-      approvalType: '弹道'
+      approvalName: '',
+      approvalType: ''
     }
   },
   watch: {
@@ -24,6 +24,10 @@ export default {
   },
   methods: {
 
+  },
+  mounted () {
+    this.approvalName = this.$store.state.approval.majorName
+    this.approvalType = this.$store.state.approval.personnel
   }
 }
 </script>

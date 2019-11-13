@@ -1,16 +1,25 @@
 <template>
   <div id="majorModal">
     <a-card>
-      <a-tree
-        checkable
-        @expand="onExpand"
-        :expandedKeys="expandedKeys"
-        :autoExpandParent="autoExpandParent"
-        v-model="checkedKeys"
-        @select="onSelect"
-        :selectedKeys="selectedKeys"
-        :treeData="treeData"
-      />
+      <a-row>
+        <a-col :span="12">
+          <div>专业名称</div>
+          <a-tree
+            checkable
+            @expand="onExpand"
+            :expandedKeys="expandedKeys"
+            :autoExpandParent="autoExpandParent"
+            v-model="checkedKeys"
+            @select="onSelect"
+            :selectedKeys="selectedKeys"
+            :treeData="majorModalName"
+          />
+        </a-col>
+        <a-col :span="12">
+          <div>描述</div>
+        </a-col>
+      </a-row>
+
     </a-card>
     <a-row type="flex" justify="center" >
       <a-col >
@@ -22,51 +31,17 @@
 </template>
 <script>
 import '../majorTree.less'
-const treeData = [{
-  title: '仿真',
-  key: '0-0',
-  children: [{
-    title: '信息化',
-    key: '0-0-0',
-    children: [
-      { title: '装备制造', key: '0-0-0-0' },
-      { title: '武器系统软件', key: '0-0-0-1' },
-      { title: '军用计算机', key: '0-0-0-2' }
-    ]
-  }, {
-    title: '弹上信息处理',
-    key: '0-0-1',
-    children: [
-      { title: '装备制造', key: '0-0-1-0' },
-      { title: '装备制造', key: '0-0-1-1' },
-      { title: '装备制造', key: '0-0-1-2' }
-    ]
-  }, {
-    title: '新概念武器',
-    key: '0-0-2'
-  }]
-}, {
-  title: '新概念武器',
-  key: '0-1',
-  children: [
-    { title: '弹上信息处理', key: '0-1-0-0' },
-    { title: '弹上信息处理', key: '0-1-0-1' },
-    { title: '弹上信息处理', key: '0-1-0-2' }
-  ]
-}, {
-  title: '新概念武器',
-  key: '0-2'
-}]
-
 export default {
   data () {
     return {
       expandedKeys: ['0-0-0', '0-0-1'],
       autoExpandParent: true,
       checkedKeys: [''],
-      selectedKeys: [],
-      treeData
+      selectedKeys: []
     }
+  },
+  props: {
+    majorModalName: Array
   },
   watch: {
     checkedKeys (val) {
@@ -88,11 +63,28 @@ export default {
     onSelect (selectedKeys, info) {
       console.log('onSelect', info)
       this.selectedKeys = selectedKeys
+      this.$store.commit('SET_MAJORNAME', selectedKeys[0], info.node.title)
     },
     personnelModal () {
       this.$emit('personnelModal', 'true')
+    },
+    // 转换树的格式名称
+    setMajorModalName (value) {
+      var vm = this
+      value.forEach(item => {
+        item.title = item.name
+        item.key = item.id
+        if (item.child != null) {
+          vm.setMajorModalName(value)
+        }
+        vm.majorModalName = value
+      })
     }
-  }
-}
 
+  },
+  created () {
+    this.setMajorModalName(this.majorModalName)
+  }
+
+}
 </script>

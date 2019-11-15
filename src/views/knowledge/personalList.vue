@@ -89,7 +89,7 @@ export default {
     creatApproval
   },
   props: {
-    privateKnowledgeList: Object
+    privateKnowledgeList: String
   },
   methods: {
     shareApply (val) {

@@ -4,7 +4,7 @@
       title="创建审批"
       v-model="apply"
       wrapClassName="modal-header"
-      closable="false"
+      :closable="false"
       :bodyStyle="{ padding: '4px'}"
       @ok="handleOk"
       :okButtonProps="{ props: {disabled: true} }"

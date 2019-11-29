@@ -2,10 +2,10 @@
   <div>
     <a-row :gutter="8">
       <a-col :span="6">
-        <personal-knowledge :privateTreeModal="privateTreeModal" @privateKnowledgeList="privateKnowledgeListF"></personal-knowledge>
+        <personal-knowledge></personal-knowledge>
       </a-col>
       <a-col :span="18">
-        <personal-list :privateKnowledgeList="privateKnowledgeList"></personal-list>
+        <personal-list></personal-list>
       </a-col>
     </a-row>
   </div>
@@ -18,20 +18,20 @@ export default {
   name: 'PrivateKnowledge',
   data () {
     return {
-      privateKnowledgeList: ''
+      // privateKnowledgeList: ''
     }
   },
   components: {
     personalKnowledge,
     personalList
   },
-  props: {
-    privateTreeModal: Array
-  },
+  // props: {
+  //   privateTreeModal: Array
+  // },
   methods: {
-    privateKnowledgeListF (data) {
-      this.privateKnowledgeList = data
-    }
+    // privateKnowledgeListF (data) {
+    //   this.privateKnowledgeList = data
+    // }
   }
 }
 </script>

@@ -64,6 +64,7 @@
 
 <script>
 import creatApproval from './creatApproval/CreatApproval'
+import { mapState } from 'vuex'
 export default {
   name: 'PersonalList',
   data () {
@@ -88,9 +89,9 @@ export default {
   components: {
     creatApproval
   },
-  props: {
-    privateKnowledgeList: String
-  },
+  // props: {
+  //   privateKnowledgeList: String
+  // },
   methods: {
     shareApply (val) {
       this.applymodel = val
@@ -138,6 +139,20 @@ export default {
     //   }).catch(function (err) {
     //     console.log(err)
     //   })
+  },
+  computed: {
+    ...mapState({
+      /**
+       * 根据树获取数据列表
+       *
+       * @Author 尘埃Friend
+       * @date 2019-11-27
+       */
+      privateKnowledgeList: state => state.knowledge.privateKnowledgeList
+    })
+    // privateKnowledgeList () {
+    //   return this.$store.state.knowledge.privateKnowledgeList
+    // }
   }
 }
 </script>

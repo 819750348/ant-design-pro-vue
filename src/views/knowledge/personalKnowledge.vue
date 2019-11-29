@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a-collapse style="padding:0px;margin:0px;" v-model="activeKey">
+    <a-collapse style="padding:0px;margin:0px;" @change="getPrivateTreeData">
       <a-collapse-panel header="我的知识" key="1">
         <a-tree
-          :treeData="privateTreeModal"
+          :treeData="privateTreeData"
           defaultExpandAll
           @select="onSelect"
         ></a-tree>
@@ -24,7 +24,7 @@
           checkable
           @check="check"
           checkStrictly="true"
-          :treeData="privateTreeModal"
+          :treeData="privateTreeData"
         >
         </a-tree>
       </a-collapse-panel>
@@ -56,7 +56,8 @@
 
 <script>
 import treeForm from './treeForm'
-const privateKnowledgeListModal = { 'class': 'class edu.zju.cims201.GOF.rs.dto.PageDTO', 'data': [{ 'KAuthors': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }], 'abstractText': null, 'attachments': null, 'borrowFlowId': null, 'borrowFlowNodeId': null, 'categories': null, 'citationKnowledges': [], 'class': 'class edu.zju.cims201.GOF.rs.dto.KnowledgeDTO', 'commentRecord': { 'class': 'class edu.zju.cims201.GOF.rs.dto.CommentRecordDTO', 'commentCount': 0, 'downloadCount': 0, 'id': 22, 'rate': 0.0, 'ratecount': null, 'viewCount': 0 }, 'content': null, 'domainNode': null, 'flashFilePath': '361b2ad1-a0a2-436e-a53f-0ce1962e2d56.swf', 'id': 22, 'identifier': null, 'isRead': null, 'isUserEqualUpload': null, 'isVisible': null, 'keywords': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 6, 'name': 'ä¹ åœ¨è‡ªç„¶è¯­è¨€å¤„', 'showname': 'ä¹ åœ¨è‡ªç„¶è¯­è¨€å¤„' }], 'knowledgeSourceFilePath': null, 'knowledgeType': null, 'knowledgetype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 1, 'name': 'è®ºæ–‡', 'showname': 'è®ºæ–‡' }, 'ktype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'åœ¨çº¿çŸ¥è¯†', 'showname': 'åœ¨çº¿çŸ¥è¯†' }, 'questioncontent': null, 'questionstatus': null, 'questionsupplement': null, 'securityLevel': 'éžå¯†', 'status': '0', 'titleName': 'ä¹ åœ¨è‡ªç„¶è¯­è¨€å¤„', 'titleShowName': 'ä¹ åœ¨è‡ªç„¶è¯­è¨€å¤„', 'uploadTime': '2019-09-12 13:26:51', 'uploaddate': '2019-09-12', 'uploader': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 65, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }, 'uploaderName': null, 'userKnowledgeTags': [], 'versions': null }, { 'KAuthors': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }], 'abstractText': null, 'attachments': null, 'borrowFlowId': null, 'borrowFlowNodeId': null, 'categories': null, 'citationKnowledges': [], 'class': 'class edu.zju.cims201.GOF.rs.dto.KnowledgeDTO', 'commentRecord': { 'class': 'class edu.zju.cims201.GOF.rs.dto.CommentRecordDTO', 'commentCount': 0, 'downloadCount': 0, 'id': 21, 'rate': 0.0, 'ratecount': null, 'viewCount': 0 }, 'content': null, 'domainNode': null, 'flashFilePath': 'd2a0e009-0da4-4587-b261-bb1d69f4af01.swf', 'id': 21, 'identifier': null, 'isRead': null, 'isUserEqualUpload': null, 'isVisible': null, 'keywords': [], 'knowledgeSourceFilePath': null, 'knowledgeType': null, 'knowledgetype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 1, 'name': 'è®ºæ–‡', 'showname': 'è®ºæ–‡' }, 'ktype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'åœ¨çº¿çŸ¥è¯†', 'showname': 'åœ¨çº¿çŸ¥è¯†' }, 'questioncontent': null, 'questionstatus': null, 'questionsupplement': null, 'securityLevel': 'éžå¯†', 'status': '0', 'titleName': 'æœç´¢å¼•æ“ŽæŠ€æœ¯åŸºç¡€', 'titleShowName': 'æœç´¢å¼•æ“ŽæŠ€æœ¯åŸºç¡€', 'uploadTime': '2019-09-12 11:24:57', 'uploaddate': '2019-09-12', 'uploader': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 65, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }, 'uploaderName': null, 'userKnowledgeTags': [], 'versions': null }, { 'KAuthors': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }], 'abstractText': null, 'attachments': null, 'borrowFlowId': null, 'borrowFlowNodeId': null, 'categories': null, 'citationKnowledges': [], 'class': 'class edu.zju.cims201.GOF.rs.dto.KnowledgeDTO', 'commentRecord': { 'class': 'class edu.zju.cims201.GOF.rs.dto.CommentRecordDTO', 'commentCount': 0, 'downloadCount': 0, 'id': 20, 'rate': 0.0, 'ratecount': null, 'viewCount': 0 }, 'content': null, 'domainNode': null, 'flashFilePath': 'e0bab29c-6d63-4de3-b054-842959d74e0f.swf', 'id': 20, 'identifier': null, 'isRead': null, 'isUserEqualUpload': null, 'isVisible': null, 'keywords': [], 'knowledgeSourceFilePath': null, 'knowledgeType': null, 'knowledgetype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 1, 'name': 'è®ºæ–‡', 'showname': 'è®ºæ–‡' }, 'ktype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'åœ¨çº¿çŸ¥è¯†', 'showname': 'åœ¨çº¿çŸ¥è¯†' }, 'questioncontent': null, 'questionstatus': null, 'questionsupplement': null, 'securityLevel': 'éžå¯†', 'status': '0', 'titleName': 'ä¿¡æ¯æ£€ç´¢æ¨¡åž‹ä¸Žæœç´¢å¼•æ“ŽæŽ’åºç®—æ³•', 'titleShowName': 'ä¿¡æ¯æ£€ç´¢æ¨¡åž‹ä¸Žæœç´¢å¼•æ“ŽæŽ’åºç®—æ³•', 'uploadTime': '2019-09-12 11:24:57', 'uploaddate': '2019-09-12', 'uploader': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 65, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }, 'uploaderName': null, 'userKnowledgeTags': [], 'versions': null }, { 'KAuthors': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }], 'abstractText': null, 'attachments': null, 'borrowFlowId': null, 'borrowFlowNodeId': null, 'categories': null, 'citationKnowledges': [], 'class': 'class edu.zju.cims201.GOF.rs.dto.KnowledgeDTO', 'commentRecord': { 'class': 'class edu.zju.cims201.GOF.rs.dto.CommentRecordDTO', 'commentCount': 0, 'downloadCount': 0, 'id': 19, 'rate': 0.0, 'ratecount': null, 'viewCount': 0 }, 'content': null, 'domainNode': null, 'flashFilePath': 'c29f30e1-c83b-493b-af83-e3ad9e3e6bbb.swf', 'id': 19, 'identifier': null, 'isRead': null, 'isUserEqualUpload': null, 'isVisible': null, 'keywords': [], 'knowledgeSourceFilePath': null, 'knowledgeType': null, 'knowledgetype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 1, 'name': 'è®ºæ–‡', 'showname': 'è®ºæ–‡' }, 'ktype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'åœ¨çº¿çŸ¥è¯†', 'showname': 'åœ¨çº¿çŸ¥è¯†' }, 'questioncontent': null, 'questionstatus': null, 'questionsupplement': null, 'securityLevel': 'éžå¯†', 'status': '100', 'titleName': 'æ–‡æœ¬åˆ†ç±»ç»¼è¿°', 'titleShowName': 'æ–‡æœ¬åˆ†ç±»ç»¼è¿°', 'uploadTime': '2019-09-12 11:24:57', 'uploaddate': '2019-09-12', 'uploader': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 65, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }, 'uploaderName': null, 'userKnowledgeTags': [], 'versions': null }, { 'KAuthors': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }], 'abstractText': null, 'attachments': null, 'borrowFlowId': null, 'borrowFlowNodeId': null, 'categories': null, 'citationKnowledges': [], 'class': 'class edu.zju.cims201.GOF.rs.dto.KnowledgeDTO', 'commentRecord': { 'class': 'class edu.zju.cims201.GOF.rs.dto.CommentRecordDTO', 'commentCount': 0, 'downloadCount': 0, 'id': 2, 'rate': 0.0, 'ratecount': null, 'viewCount': 10 }, 'content': null, 'domainNode': null, 'flashFilePath': 'adfa4ce4-ac57-4d04-bd7d-c51b529ae334.swf', 'id': 2, 'identifier': null, 'isRead': null, 'isUserEqualUpload': null, 'isVisible': null, 'keywords': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 3, 'name': 'ä¸­æœŸæ£€æŸ¥æŠ¥å‘Š', 'showname': 'ä¸­æœŸæ£€æŸ¥æŠ¥å‘Š' }], 'knowledgeSourceFilePath': null, 'knowledgeType': null, 'knowledgetype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 1, 'name': 'è®ºæ–‡', 'showname': 'è®ºæ–‡' }, 'ktype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'åœ¨çº¿çŸ¥è¯†', 'showname': 'åœ¨çº¿çŸ¥è¯†' }, 'questioncontent': null, 'questionstatus': null, 'questionsupplement': null, 'securityLevel': 'éžå¯†', 'status': '0', 'titleName': 'ä¸­æœŸæ£€æŸ¥æŠ¥å‘Š', 'titleShowName': 'ä¸­æœŸæ£€æŸ¥æŠ¥å‘Š', 'uploadTime': '2018-12-24 10:56:20', 'uploaddate': '2018-12-24', 'uploader': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 65, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }, 'uploaderName': null, 'userKnowledgeTags': [], 'versions': null }, { 'KAuthors': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }], 'abstractText': null, 'attachments': null, 'borrowFlowId': null, 'borrowFlowNodeId': null, 'categories': null, 'citationKnowledges': [], 'class': 'class edu.zju.cims201.GOF.rs.dto.KnowledgeDTO', 'commentRecord': { 'class': 'class edu.zju.cims201.GOF.rs.dto.CommentRecordDTO', 'commentCount': 0, 'downloadCount': 0, 'id': 1, 'rate': 0.0, 'ratecount': null, 'viewCount': 9 }, 'content': null, 'domainNode': null, 'flashFilePath': 'a2dc00e3-3bb0-406f-985c-b6eb768a6692.swf', 'id': 1, 'identifier': null, 'isRead': null, 'isUserEqualUpload': null, 'isVisible': null, 'keywords': [{ 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'abcd', 'showname': 'abcd' }], 'knowledgeSourceFilePath': null, 'knowledgeType': null, 'knowledgetype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 1, 'name': 'è®ºæ–‡', 'showname': 'è®ºæ–‡' }, 'ktype': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 2, 'name': 'åœ¨çº¿çŸ¥è¯†', 'showname': 'åœ¨çº¿çŸ¥è¯†' }, 'questioncontent': null, 'questionstatus': null, 'questionsupplement': null, 'securityLevel': 'éžå¯†', 'status': '1', 'titleName': 'abc', 'titleShowName': 'abc', 'uploadTime': '2018-11-05 17:11:46', 'uploaddate': '2018-11-05', 'uploader': { 'class': 'class edu.zju.cims201.GOF.rs.dto.ObjectDTO', 'email': null, 'id': 65, 'name': 'çŽ‹å‡†å¿ ', 'showname': 'çŽ‹å‡†å¿ ' }, 'uploaderName': null, 'userKnowledgeTags': [], 'versions': null }], 'firstindex': 0, 'kccounts': 0, 'orderBy': 'order by o.id desc', 'pagesize': 10, 'total': 6, 'totalPage': 1 }
+import { getPrivateList } from '@/api/personalKnowledge'
+
 export default {
   name: 'PersonalTree',
   data () {
@@ -78,30 +79,44 @@ export default {
         pageSize: 3
       },
       // 个人知识列表
-      privateKnowledgeList: privateKnowledgeListModal,
+      privateKnowledgeList: '',
       treeId: 0,
-      addNodeModal: false
+      addNodeModal: false,
+      privateTreeData: ''
     }
   },
-  props: {
-    privateTreeModal: Array
-  },
-  mounted () {
-    console.log(this.privateTreeModal)
-    // ui组件树属性和返回的树属性有区别，需要转化下
-    this.setPrivateTreeModal(this.privateTreeModal)
-    this.getMyKnowledge()
-    this.getEditKnowledge()
+  created () {
+    /**
+     * 获取个人知识数据
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-27
+     */
+    this.getPrivateTreeData()
+
+    // console.log(this.privateTreeData)
+    // // ui组件树属性和返回的树属性有区别，需要转化下
+    // this.setPrivateTreeModal(this.privateTreeData)
+    // this.getMyKnowledge()
+    // this.getEditKnowledge()
   },
   components: {
     treeForm
   },
-  watch: {
-    activeKey (key) {
-      // console.log(key)
-    }
-  },
   methods: {
+    /**
+     * 获取个人知识数据
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-27
+     */
+    getPrivateTreeData (key) {
+      if (key.length > 0) {
+        if (key[key.length - 1] === '1') {
+          this.setPrivateTreeModal(this.$store.state.knowledge.privateTreeData)
+        }
+      }
+    },
     // 个人知识 @尘埃
     getMyKnowledge () {
       var vm = this
@@ -142,22 +157,26 @@ export default {
       console.log(JSON.stringify(value))
       return value
     },
-    // 选择树节点展示个人节点列表
+    /**
+     * 选择树节点展示个人节点列表
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-27
+     */
     onSelect (keys) {
       console.log(keys)
       var id = keys[0]
-      var vm = this
-      this.axios.post('knowledge!ksearch.action', {
+      var that = this
+      getPrivateList({
         formvalue: { 'searchlist': [{ 'name': 'categoriesid', 'value': id, 'and_or': 'and' }], 'personalk': '1' },
         selectid: 10,
         index: 0,
         size: 10
       }).then(function (res) {
-        vm.privateKnowledgeList = res
+        that.$store.commit('savePrivateKnowledgeList', res)
       }).catch(function (err) {
         console.log(err)
       })
-      vm.$emit('privateKnowledgeList', vm.privateKnowledgeList)
     },
     onSelectByEdit (keys) {
       this.itemId = keys
@@ -217,7 +236,12 @@ export default {
         console.log(err)
       })
     },
-    // 转化树属性 @尘埃
+    /**
+     * 树属性转换
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-27
+     */
     setPrivateTreeModal (value) {
       value.forEach(item => {
         item.title = item.name
@@ -228,7 +252,7 @@ export default {
       })
       console.log(JSON.stringify(this.privateTreeModal))
       console.log(JSON.stringify(value))
-      this.privateTreeModal = value
+      this.privateTreeData = value
     },
     // 编辑树选择节点
     check (checkedKeys, event) {

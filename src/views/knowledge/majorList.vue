@@ -33,7 +33,7 @@
         </a-row>
         <a-row>
           <template>
-            <a-list itemLayout="vertical" :pagination="pagination" :dataSource="majorContentLists">
+            <a-list itemLayout="vertical" :pagination="pagination" :dataSource="navigationDetail.data">
               <a-list-item slot="renderItem" slot-scope="item" key="item.title">
                 <template>
                   <a-row>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ShareList',
   data () {
@@ -106,6 +107,17 @@ export default {
     typeChange (data) {
       this.typeChange = data
     }
+  },
+  computed: {
+    ...mapState({
+      /**
+ * 知识中心分类数据
+ *
+ * @Author 尘埃Friend
+ * @date 2019-11-29
+ */
+      navigationDetail: state => state.knowledge.navigationDetail
+    })
   }
 }
 </script>

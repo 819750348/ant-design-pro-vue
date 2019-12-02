@@ -1,9 +1,8 @@
 <template>
   <div>
-    <a-tabs type="card">
+    <a-tabs type="card" @change="showPrivateKnowledge">
       <a-tab-pane tab="个人知识" key="1" />
       <a-tab-pane tab="知识中心" key="2">
-        <knowledge-core></knowledge-core>
       </a-tab-pane>
       <a-tab-pane tab="最近浏览" key="3">
         <history></history>
@@ -24,35 +23,13 @@ import privateKnowledge from './privateKnowledge'
 import history from './history'
 import RouteView from '../../layouts/RouteView'
 import { getPrivateTree } from '@/api/personalKnowledge'
+import { getProfessionalNavigation } from '@/api/knowledgeCore'
 
-const privateTreeModal = [{
-
-  'id': 10,
-  'index': 'categoriesid',
-  'name': '66',
-  'nodeDescription': null,
-  'orderId': 10,
-  'parentId': 0,
-
-  'children': [{
-    '__viewicon': false,
-    'checked': 0,
-    'children': null,
-    'id': 10008,
-    'index': 'categoriesid',
-    'name': '12',
-    'nodeDescription': null,
-    'orderId': 10008,
-    'parentId': 0,
-    'style': null,
-    'treenodedtos': []
-  }]
-}]
 export default {
   data () {
     return {
       state: 0,
-      privateTreeModal: privateTreeModal
+      privateTreeModal: ''
     }
   },
   components: {
@@ -64,7 +41,7 @@ export default {
     history: history
   },
   created () {
-    this.showPrivateKnowledge()
+    this.showPrivateKnowledge('1')
   },
   methods: {
     callback (key) {
@@ -80,10 +57,13 @@ export default {
        * @date 2019-07-04
        */
     showPrivateKnowledge (activeKey) {
-      if (activeKey === 1) {
+      if (activeKey === '1') {
         this.$router.push({ name: 'privateKnowledge', params: {} })
+        this.getPrivateTree()
+      } else if (activeKey === '2') {
+        this.$router.push({ name: 'knowledgeCore', params: {} })
+        this.getProfessionalNavigation()
       }
-      this.getPrivateTree()
     },
     /**
      * 个人知识树
@@ -100,20 +80,23 @@ export default {
       }).catch(function (err) {
         console.log(err)
       })
+    },
+    /**
+     * 专业导航
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    getProfessionalNavigation () {
+      var that = this
+      getProfessionalNavigation({ treeType: 'domainTree', disableInte: true, operationName: '查看知识' }).then(function (res) {
+        console.log(res)
+        that.$store.commit('saveProfessionalNavigation', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
     }
-    //
-    // getPrivateTree () {
-    //   var vm = this
-    //   vm.axios.post('privilege-tree!listPrivilegeTreeNodes.action', {
-    //     treeType: 'categoryTree',
-    //     operationName: '查看知识'
-    //   }).then(function (res) {
-    //     console.log(res)
-    //     this.privateTreeModal = res
-    //   }).catch(function (err) {
-    //     console.log(err)
-    //   })
-    // }
+
   }
 }
 </script>

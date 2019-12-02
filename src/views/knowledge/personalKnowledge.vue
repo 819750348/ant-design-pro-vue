@@ -8,36 +8,32 @@
           @select="onSelect"
         ></a-tree>
       </a-collapse-panel>
-      <a-collapse-panel key="2">
+      <a-collapse-panel key="2" @change="getPrivateTreeData">
         <template>
           <span slot="header">
             编辑个人知识分类
             <span style="float: right;margin-right: 10px">
               <button @click.stop="add">增加</button>
-              <button style="margin-left: 10px">修改</button>
-              <button style="margin-left: 10px">删除</button>
+              <button style="margin-left: 10px" @click.stop="update">修改</button>
+              <button style="margin-left: 10px" @click.stop="remove">删除</button>
             </span>
           </span>
         </template>
         <a-tree
           defaultExpandAll
-          checkable
-          @check="check"
-          checkStrictly="true"
           :treeData="privateTreeData"
+          @select="onSelectByEdit"
         >
         </a-tree>
       </a-collapse-panel>
     </a-collapse>
-    <a-modal v-model="addNodeModal" title="增加节点">
+    <a-modal v-model="addNodeModal" title="增加节点" @ok="addTreeNode" @cancel="cancelOperating">
       <a-row type="flex" justify="center" align="middle">
         <a-col :span="4">
           名称:
         </a-col>
         <a-col :span="20">
-          <a-input>
-
-          </a-input>
+          <a-input v-model="name"/>
         </a-col>
       </a-row>
       <a-row type="flex" style="margin-top: 10px">
@@ -45,9 +41,26 @@
           描述:
         </a-col>
         <a-col :span="20">
-          <a-textarea :rows="4">
+          <a-textarea :rows="4" v-model="description"/>
+        </a-col>
+      </a-row>
+    </a-modal>
 
-          </a-textarea>
+    <a-modal v-model="editNodeModal" title="增加节点" @ok="updateTreeNode" @cancel="cancelEditOperating">
+      <a-row type="flex" justify="center" align="middle">
+        <a-col :span="4">
+          名称:
+        </a-col>
+        <a-col :span="20">
+          <a-input v-model="editName"/>
+        </a-col>
+      </a-row>
+      <a-row type="flex" style="margin-top: 10px">
+        <a-col :span="4">
+          描述:
+        </a-col>
+        <a-col :span="20">
+          <a-textarea :rows="4" v-model="editDescription"/>
         </a-col>
       </a-row>
     </a-modal>
@@ -56,7 +69,7 @@
 
 <script>
 import treeForm from './treeForm'
-import { getPrivateList } from '@/api/personalKnowledge'
+import { getPrivateList, addTreeNodeMethod, updateTreeNodeMethod, deleteTreeNodeMethod } from '@/api/personalKnowledge'
 
 export default {
   name: 'PersonalTree',
@@ -81,8 +94,24 @@ export default {
       // 个人知识列表
       privateKnowledgeList: '',
       treeId: 0,
+
+      privateTreeData: '',
+
+      /**
+       * 新
+       *
+       * @Author 尘埃Friend
+       * @date 2019-11-29
+       */
+      TreeEditId: 0,
       addNodeModal: false,
-      privateTreeData: ''
+      name: '',
+      description: '',
+
+      editNodeModal: false,
+      editName: '',
+      editDescription: ''
+
     }
   },
   created () {
@@ -112,7 +141,7 @@ export default {
      */
     getPrivateTreeData (key) {
       if (key.length > 0) {
-        if (key[key.length - 1] === '1') {
+        if (key[key.length - 1] === '1' || key[key.length - 1] === '2') {
           this.setPrivateTreeModal(this.$store.state.knowledge.privateTreeData)
         }
       }
@@ -164,7 +193,6 @@ export default {
      * @date 2019-11-27
      */
     onSelect (keys) {
-      console.log(keys)
       var id = keys[0]
       var that = this
       getPrivateList({
@@ -178,9 +206,16 @@ export default {
         console.log(err)
       })
     },
-    onSelectByEdit (keys) {
-      this.itemId = keys
-      // console.log('Trigger Select', keys)
+    /**
+     * 个人知识编辑树触发事件
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    onSelectByEdit (selectedKeys, e) {
+      console.log(selectedKeys)
+      console.log(e)
+      this.TreeEditId = selectedKeys[0]
     },
     // 修改添加知识 @尘埃
     addNode (keys) {
@@ -250,8 +285,6 @@ export default {
           this.setPrivateTreeModal(item.children)
         }
       })
-      console.log(JSON.stringify(this.privateTreeModal))
-      console.log(JSON.stringify(value))
       this.privateTreeData = value
     },
     // 编辑树选择节点
@@ -262,10 +295,114 @@ export default {
         vm.treeId = checkedKeys.checked[treeLength - 1]
       }
     },
+    /**
+     * 编辑触发获取节点id
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
     add () {
-      this.addNodeModal = true
-      if (this.TreeId !== 0) {
+      if (this.TreeEditId === 0) {
+        this.$message.info('请先选择节点')
+      } else {
+        this.addNodeModal = true
+      }
+    },
+    /**
+     * 添加节点
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    addTreeNode () {
+      addTreeNodeMethod({
+        name: this.name,
+        nodeDescription: this.description,
+        id: this.TreeEditId
+      }).then(function (res) {
+        console.log(res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    /**
+     * 取消添加框
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    cancelOperating () {
+      this.addNodeModal = false
+    },
 
+    /**
+     * 修改节点
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    update () {
+      if (this.TreeEditId === 0) {
+        this.$message.info('请先选择节点')
+      } else {
+        this.editNodeModal = true
+      }
+    },
+    /**
+     * 修改节点提交
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    updateTreeNode () {
+      updateTreeNodeMethod({
+        name: this.editName,
+        nodeDescription: this.editDescription,
+        id: this.TreeEditId
+      }).then(function (res) {
+        console.log(res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    /**
+     * 编辑节点框取消
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    cancelEditOperating () {
+      this.editNodeModal = false
+    },
+    /**
+     * 节点删除
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    remove () {
+      var that = this
+      if (this.TreeEditId === 0) {
+        this.$message.info('请先选择节点')
+      } else {
+        this.$confirm({
+          title: '确定删除该节点吗?',
+          okText: '确定',
+          okType: 'danger',
+          cancelText: '取消',
+          onOk () {
+            deleteTreeNodeMethod({
+              id: that.TreeEditId
+            }).then(function (res) {
+              console.log(res)
+            }).catch(function (err) {
+              console.log(err)
+            })
+          },
+          onCancel () {
+            console.log('Cancel')
+          }
+        })
       }
     }
   }

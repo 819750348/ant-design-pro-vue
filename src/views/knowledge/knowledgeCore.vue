@@ -2,10 +2,10 @@
   <div>
     <a-row :gutter="8">
       <a-col :span="6">
-        <professional-navigation @majorContent="majorContentModal"></professional-navigation>
+        <professional-navigation></professional-navigation>
       </a-col>
       <a-col :span="18">
-        <majorList :majorContentLists="majorContentList"></majorList>
+        <majorList></majorList>
       </a-col>
     </a-row>
   </div>
@@ -32,10 +32,10 @@ export default {
     majorList
   },
   methods: {
-    majorContentModal (data) {
-      this.majorContentList = data
-      console.log(this.majorContentList)
-    }
+    // majorContentModal (data) {
+    //   this.majorContentList = data
+    //   console.log(this.majorContentList)
+    // }
   }
 }
 </script>

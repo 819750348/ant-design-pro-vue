@@ -5,12 +5,12 @@ import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
-// 带上之定义cookie
-import { setCookie, getCookie, delCookie } from '@/assets/login/cookie.js'
-
-setCookie('JSESSIONID', '736651A749FC9A9DC041C9A7818BC6F1')
-// 请求头中添加Authorization
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+// // 带上之定义cookie
+// import { setCookie, getCookie, delCookie } from '@/assets/login/cookie.js'
+//
+// setCookie('JSESSIONID', '736651A749FC9A9DC041C9A7818BC6F1')
+// // 请求头中添加Authorization
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-from-urlencoded'
 // axios.defaults.headers.set['Cookie'] = getCookie('JSESSIONID')
 
 // 创建 axios 实例

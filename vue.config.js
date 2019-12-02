@@ -8,6 +8,8 @@ function resolve (dir) {
 
 // vue.config.js
 const vueConfig = {
+  // baseUrl: '/giksp/',
+
   configureWebpack: {
     plugins: [
       // Ignore all locale files of moment.js

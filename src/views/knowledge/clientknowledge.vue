@@ -23,7 +23,7 @@ import privateKnowledge from './privateKnowledge'
 import history from './history'
 import RouteView from '../../layouts/RouteView'
 import { getPrivateTree } from '@/api/personalKnowledge'
-import { getProfessionalNavigation } from '@/api/knowledgeCore'
+import { getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
 
 export default {
   data () {
@@ -63,6 +63,7 @@ export default {
       } else if (activeKey === '2') {
         this.$router.push({ name: 'knowledgeCore', params: {} })
         this.getProfessionalNavigation()
+        this.getKnowledgeBase()
       }
     },
     /**
@@ -95,8 +96,22 @@ export default {
       }).catch(function (err) {
         console.log(err)
       })
+    },
+    /**
+     * 企业知识库
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    getKnowledgeBase () {
+      var that = this
+      getKnowledgeBase({}).then(function (res) {
+        console.log(res)
+        that.$store.commit('saveKnowledgeBase', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
     }
-
   }
 }
 </script>

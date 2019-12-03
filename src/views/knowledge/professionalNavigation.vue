@@ -12,29 +12,14 @@
       </a-menu>
     </a-collapse-panel>
     <a-collapse-panel header="企业知识库" key="2">
-      <a-menu style="padding:0px;margin:0px;" mode="inline">
-        <a-menu-item key="2">
-          <a-icon type="pie-chart" />
-          <span>术语知识</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="desktop" />
-          <span>词条知识</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <a-icon type="desktop" />
-          <span>专业术语TEST知识</span>
-        </a-menu-item>
-        <a-menu-item key="5">
-          <a-icon type="desktop" />
-          <span>术语TESTTHREE知识</span>
-        </a-menu-item>
-      </a-menu>
+      <a-list size="large" bordered :dataSource="knowledgeBase" :rowKey="knowledgeBase.id" >
+        <a-list-item slot="renderItem" slot-scope="item" @click="listId(item.id)">{{ item.ktypeName }}</a-list-item>
+      </a-list>
     </a-collapse-panel>
   </a-collapse>
 </template>
 <script>
-import { getNavigationDetail } from '@/api/knowledgeCore'
+import { getNavigationDetail, getSearchList } from '@/api/knowledgeCore'
 export default {
   data () {
     return {
@@ -45,7 +30,8 @@ export default {
        * @Author 尘埃Friend
        * @date 2019-11-29
        */
-      professionalNavigation: ''
+      professionalNavigation: '',
+      knowledgeBase: []
     }
   },
   watch: {
@@ -103,6 +89,10 @@ export default {
       if (key.length > 0) {
         if (key[key.length - 1] === '1') {
           this.setTreeModal(this.$store.state.knowledge.professionalNavigation)
+          this.$emit('changeList', '1')
+        } else if (key[key.length - 1] === '2') {
+          this.knowledgeBase = this.$store.state.knowledge.knowledgeBase
+          this.$emit('changeList', '2')
         }
       }
     },
@@ -139,6 +129,21 @@ export default {
         size: 10
       }).then(function (res) {
         that.$store.commit('saveNavigationDetail', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    /**
+     * 获取列表知识库id
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-29
+     */
+    listId (key) {
+      console.log(key)
+      var that = this
+      getSearchList({ ktypeid: key }).then(function (res) {
+        that.$store.commit('saveSearchList', res)
       }).catch(function (err) {
         console.log(err)
       })

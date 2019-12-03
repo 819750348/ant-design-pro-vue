@@ -13,3 +13,17 @@ export function getNavigationDetail (parameter) {
     data: parameter
   })
 }
+export function getKnowledgeBase (parameter) {
+  return axios({
+    url: '/giksp/knowledge/ktype/ktype!listWikiKtypes.action',
+    method: 'post',
+    data: parameter
+  })
+}
+export function getSearchList (parameter) {
+  return axios({
+    url: '/giksp/knowledge/knowledge!listWikiSearchablePropertiesByKtype.action',
+    method: 'post',
+    data: parameter
+  })
+}

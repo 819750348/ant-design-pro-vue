@@ -1,24 +1,14 @@
 <template>
   <a-card :bordered="true">
     <div>
+      <span>标题&nbsp;<a-input v-model="titlename" style="width:150px;"/></span>
+      <span v-for="s in searchList" ref="inputValue">
+        {{ s.description }}&nbsp;<a-input :name="s.name" style="width:150px;"/>
+      </span>
+      <span>
+        <a-button type="primary" @click="query">过滤</a-button>
+      </span>
       <a-form layout="inline">
-        <a-form-item label="标题">
-          <a-input :value="titleQuery" style="width:150px;"/>
-        </a-form-item>
-        <a-form-item label="类型">
-          <a-select @change="typeChange" placeholder="请选择" default-value="0" style="width:150px;">
-            <a-select-option value="4">全部</a-select-option>
-            <a-select-option value="1">术语TESTTHREE知识</a-select-option>
-            <a-select-option value="2">词条</a-select-option>
-            <a-select-option value="2">专业术语TEST知识</a-select-option>
-            <a-select-option value="2">论文</a-select-option>
-            <a-select-option value="2">术语</a-select-option>
-          </a-select>
-        </a-form-item>
-        <span>
-          <a-button type="primary" @click="query">过滤</a-button>
-        </span>
-
         <a-row>
           <template>
             <a-list itemLayout="vertical" :pagination="pagination" :dataSource="navigationDetail.data">
@@ -56,61 +46,45 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'ShareList',
   data () {
     return {
-      // listData,
-      pagination: {
-        onChange: (page) => {
-          // 分页事件
-        },
-        pageSize: 5
-      },
-      titleQuery: '',
-      authorQuery: '',
-      typeQuery: ''
+      searchlist: [],
+      titlename: ''
     }
   },
   props: {
-    majorContentLists: Array
   },
   methods: {
-    aa () {
-      console.log(this.majorContentLists)
-      console.log(this.majorContentLists)
-    },
+    /**
+     * 动态生成输入框查询
+     *
+     * @Author 尘埃Friend
+     * @date 2019-12-03
+     */
     query () {
-      var vm = this
-      vm.axios.post('knowledge!ksearch.action', {
-        formvalue: { 'searchlist': [{ 'name': 'domainnodeid', 'value': vm.typeQuery, 'and_or': 'and' }, { 'name': 'kauthors_or_uploader', 'value': vm.titleQuery, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.authorQuery, 'and_or': 'and' }] },
-        selectid: 4,
-        index: 0,
-        size: 10
-      }).then(function (res) {
-        vm.majorContentLists = res
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
-    typeChange (data) {
-      this.typeChange = data
+      this.searchlist = []
+      console.log(this.$refs)
+      this.searchlist.push({ 'name': 'titlename', 'value': this.titlename, 'and_or': 'and' })
+      for (var i = 0; i < this.$refs.inputValue.length; i++) {
+        this.searchlist.push({ 'name': this.$refs.inputValue[i].children[0].name, 'value': this.$refs.inputValue[i].children[0].value, 'and_or': 'and' })
+      }
     }
   },
   computed: {
     ...mapState({
       /**
- * 知识中心分类数据
- *
- * @Author 尘埃Friend
- * @date 2019-11-29
- */
+         * 知识中心分类数据
+         *
+         * @Author 尘埃Friend
+         * @date 2019-11-29
+         */
       navigationDetail: state => state.knowledge.navigationDetail,
       /**
-       * 获取知识库搜索框
-       *
-       * @Author 尘埃Friend
-       * @date 2019-12-03
-       */
+         * 获取知识库搜索框
+         *
+         * @Author 尘埃Friend
+         * @date 2019-12-03
+         */
       searchList: state => state.knowledge.searchList
     })
   }

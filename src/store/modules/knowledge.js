@@ -3,7 +3,9 @@ const knowledge = {
     privateTreeData: '',
     privateKnowledgeList: '',
     professionalNavigation: '',
-    navigationDetail: ''
+    navigationDetail: '',
+    knowledgeBase: '',
+    searchList: ''
   },
 
   mutations: {
@@ -18,6 +20,12 @@ const knowledge = {
     },
     saveNavigationDetail: (state, data) => {
       state.navigationDetail = data
+    },
+    saveKnowledgeBase: (state, data) => {
+      state.knowledgeBase = data
+    },
+    saveSearchList: (state, data) => {
+      state.searchList = data
     }
   },
 

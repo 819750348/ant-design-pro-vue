@@ -72,7 +72,10 @@ export default {
     }
   },
   props: {
-    majorContentLists: Array
+    majorContentLists: {
+      Type: Array,
+      default: []
+    }
   },
   methods: {
     aa () {

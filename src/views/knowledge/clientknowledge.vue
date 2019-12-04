@@ -2,11 +2,8 @@
   <div>
     <a-tabs type="card" @change="showPrivateKnowledge">
       <a-tab-pane tab="个人知识" key="1" />
-      <a-tab-pane tab="知识中心" key="2">
-      </a-tab-pane>
-      <a-tab-pane tab="最近浏览" key="3">
-        <history></history>
-      </a-tab-pane>
+      <a-tab-pane tab="知识中心" key="2"/>
+      <a-tab-pane tab="最近浏览" key="3"/>
       <a-tab-pane tab="上传知识" key="4">
         <upload v-if="state==0" @uploadedSuccessfully="uploadInit"></upload>
         <edit v-if="state==1"></edit>
@@ -20,7 +17,7 @@ import upload from './upload'
 import edit from './edit'
 import knowledgeCore from './knowledgeCore'
 import privateKnowledge from './privateKnowledge'
-import history from './history'
+import history from './recentlyView'
 import RouteView from '../../layouts/RouteView'
 import { getPrivateTree } from '@/api/personalKnowledge'
 import { getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
@@ -64,6 +61,8 @@ export default {
         this.$router.push({ name: 'knowledgeCore', params: {} })
         this.getProfessionalNavigation()
         this.getKnowledgeBase()
+      } else if (activeKey === '3') {
+        this.$router.push({ name: 'recentlyView', params: {} })
       }
     },
     /**

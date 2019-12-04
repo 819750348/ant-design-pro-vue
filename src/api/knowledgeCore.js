@@ -27,3 +27,11 @@ export function getSearchList (parameter) {
     data: parameter
   })
 }
+
+export function getKnowledgeBaseList (parameter) {
+  return axios({
+    url: '/giksp/knowledge/knowledge!wikiSearch.action',
+    method: 'post',
+    data: parameter
+  })
+}

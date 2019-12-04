@@ -20,6 +20,11 @@ export const constantRouterMap = [
         path: 'knowledgeCore',
         name: 'knowledgeCore',
         component: () => import('@/views/knowledge/knowledgeCore')
+      },
+      {
+        path: 'recentlyView',
+        name: 'recentlyView',
+        component: () => import('@/views/knowledge/recentlyView')
       }
     ]
   },

@@ -19,7 +19,7 @@
   </a-collapse>
 </template>
 <script>
-import { getNavigationDetail, getSearchList } from '@/api/knowledgeCore'
+import { getNavigationDetail, getSearchList, getKnowledgeBaseList } from '@/api/knowledgeCore'
 export default {
   data () {
     return {
@@ -144,6 +144,24 @@ export default {
       var that = this
       getSearchList({ ktypeid: key }).then(function (res) {
         that.$store.commit('saveSearchList', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+      getKnowledgeBaseList({ formvalue: { 'searchlist': [{ 'name': 'ktypeid', 'value': key, 'and_or': 'and' }] }, index: 0, size: 10 }).then(function (res) {
+        /**
+         * 转换知识库列表属性
+         *
+         * @Author 尘埃Friend
+         * @date 2019-12-03
+         */
+
+        // for (var i = 0; i < res.data.length; i++) {
+        //   for (var j = 0; j < res.data[i].length; j++) {
+        //     that.knowledgeBaseArray.push(res.data[i][j])
+        //   }
+        // }
+
+        that.$store.commit('saveKnowledgeBaseList', res)
       }).catch(function (err) {
         console.log(err)
       })

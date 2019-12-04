@@ -5,7 +5,8 @@ const knowledge = {
     professionalNavigation: '',
     navigationDetail: '',
     knowledgeBase: '',
-    searchList: ''
+    searchList: '',
+    knowledgeBaseList: ''
   },
 
   mutations: {
@@ -26,6 +27,9 @@ const knowledge = {
     },
     saveSearchList: (state, data) => {
       state.searchList = data
+    },
+    saveKnowledgeBaseList: (state, data) => {
+      state.knowledgeBaseList = data
     }
   },
 

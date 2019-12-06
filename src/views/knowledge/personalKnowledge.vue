@@ -195,9 +195,11 @@ export default {
     onSelect (keys) {
       var id = keys[0]
       var that = this
+      var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': id, 'and_or': 'and' }], 'personalk': '1' }
+      var formvalue = JSON.stringify(f)
       getPrivateList({
-        formvalue: { 'searchlist': [{ 'name': 'categoriesid', 'value': id, 'and_or': 'and' }], 'personalk': '1' },
-        selectid: 10,
+        formvalue: formvalue,
+        selectid: id,
         index: 0,
         size: 10
       }).then(function (res) {

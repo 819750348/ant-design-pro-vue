@@ -25,6 +25,11 @@ export const constantRouterMap = [
         path: 'recentlyView',
         name: 'recentlyView',
         component: () => import('@/views/knowledge/recentlyView')
+      },
+      {
+        path: 'upload',
+        name: 'upload',
+        component: () => import('@/views/knowledge/upload')
       }
     ]
   },

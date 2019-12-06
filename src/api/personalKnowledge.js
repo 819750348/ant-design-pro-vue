@@ -13,9 +13,12 @@ export function getPrivateTree (parameter) {
 
 export function getPrivateList (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/knowledge!ksearch.action',
+    url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
     method: 'post',
-    data: parameter
+    data: Qs.stringify(parameter),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   })
 }
 

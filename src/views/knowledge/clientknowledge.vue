@@ -4,10 +4,7 @@
       <a-tab-pane tab="个人知识" key="1" />
       <a-tab-pane tab="知识中心" key="2"/>
       <a-tab-pane tab="最近浏览" key="3"/>
-      <a-tab-pane tab="上传知识" key="4">
-        <upload v-if="state==0" @uploadedSuccessfully="uploadInit"></upload>
-        <edit v-if="state==1"></edit>
-      </a-tab-pane>
+      <a-tab-pane tab="上传知识" key="4"/>
     </a-tabs>
     <route-view></route-view>
   </div>
@@ -21,6 +18,7 @@ import history from './recentlyView'
 import RouteView from '../../layouts/RouteView'
 import { getPrivateTree } from '@/api/personalKnowledge'
 import { getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
+import { getRecentlyView } from '@/api/recentlyView'
 
 export default {
   data () {
@@ -63,6 +61,9 @@ export default {
         this.getKnowledgeBase()
       } else if (activeKey === '3') {
         this.$router.push({ name: 'recentlyView', params: {} })
+        this.getRecentlyView()
+      } else if (activeKey === '4') {
+        this.$router.push({ name: 'upload', params: {} })
       }
     },
     /**
@@ -107,6 +108,20 @@ export default {
       getKnowledgeBase({}).then(function (res) {
         console.log(res)
         that.$store.commit('saveKnowledgeBase', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    /**
+     * 最近浏览
+     *
+     * @Author 尘埃Friend
+     * @date 2019-12-03
+     */
+    getRecentlyView () {
+      var that = this
+      getRecentlyView({ kstatus: '', index: 0, size: 10 }).then(function (res) {
+        that.$store.commit('saveRecentlyViewList', res)
       }).catch(function (err) {
         console.log(err)
       })

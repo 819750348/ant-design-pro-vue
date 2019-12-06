@@ -84,8 +84,10 @@ export default {
     },
     query () {
       var vm = this
+      var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': vm.typeQuery, 'and_or': 'and' }, { 'name': 'kauthors_or_uploader', 'value': vm.titleQuery, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.authorQuery, 'and_or': 'and' }] }
+      var formvalue = JSON.stringify(f)
       vm.axios.post('knowledge!ksearch.action', {
-        formvalue: { 'searchlist': [{ 'name': 'domainnodeid', 'value': vm.typeQuery, 'and_or': 'and' }, { 'name': 'kauthors_or_uploader', 'value': vm.titleQuery, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.authorQuery, 'and_or': 'and' }] },
+        formvalue: formvalue,
         selectid: 4,
         index: 0,
         size: 10

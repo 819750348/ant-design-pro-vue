@@ -1,4 +1,5 @@
-<template>
+<template><div>
+  <a-button @click="listId"></a-button>
   <a-collapse style="padding:0px;margin:0px;" v-model="activeKey" accordion="true" @change="getData">
     <a-collapse-panel header="专业导航" key="1">
       <a-menu style="padding:0px;margin:0px;" mode="inline" >
@@ -11,15 +12,18 @@
         </a-menu-item>
       </a-menu>
     </a-collapse-panel>
+
     <a-collapse-panel header="企业知识库" key="2">
       <a-list size="large" bordered :dataSource="knowledgeBase" :rowKey="knowledgeBase.id" >
         <a-list-item slot="renderItem" slot-scope="item" @click="listId(item.id)">{{ item.ktypeName }}</a-list-item>
       </a-list>
     </a-collapse-panel>
   </a-collapse>
+</div>
 </template>
 <script>
 import { getNavigationDetail, getSearchList, getKnowledgeBaseList } from '@/api/knowledgeCore'
+import Qs from 'qs'
 export default {
   data () {
     return {
@@ -122,8 +126,10 @@ export default {
     onSelect (keys) {
       var id = keys[0]
       var that = this
+      var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': id, 'and_or': 'and' }] }
+      var formvalue = JSON.stringify(f)
       getNavigationDetail({
-        formvalue: { 'searchlist': [{ 'name': 'domainnodeid', 'value': id, 'and_or': 'and' }] },
+        formvalue: formvalue,
         selectid: id,
         index: 0,
         size: 10
@@ -147,7 +153,11 @@ export default {
       }).catch(function (err) {
         console.log(err)
       })
-      getKnowledgeBaseList({ formvalue: { 'searchlist': [{ 'name': 'ktypeid', 'value': key, 'and_or': 'and' }] }, index: 0, size: 10 }).then(function (res) {
+
+      var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': 1, 'and_or': 'and' }] }
+      var formvalue = JSON.stringify(f)
+      // getKnowledgeBaseList({ formvalue: { 'searchlist': [{ 'name': 'domainnodeid', 'value': 1, 'and_or': 'and' }] }, index: 0, size: 10 }).then(function (res) {
+      getKnowledgeBaseList({ formvalue: formvalue, index: 0, size: 10 }).then(function (res) {
         /**
          * 转换知识库列表属性
          *

@@ -8,7 +8,7 @@ function resolve (dir) {
 
 // vue.config.js
 const vueConfig = {
-  // baseUrl: '/giksp/',
+  baseUrl: '/giksp/',
 
   configureWebpack: {
     plugins: [
@@ -59,9 +59,12 @@ const vueConfig = {
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     proxy: {
       '/apis': {
-        target: ' http://127.0.0.1:7300/mock/5dde22f04beb341ed0fbbbcf/knowledge',
+        target: ' http://localhost:8006',
         ws: false,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/apis': ''
+        }
       }
     }
   },

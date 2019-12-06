@@ -6,7 +6,8 @@ const knowledge = {
     navigationDetail: '',
     knowledgeBase: '',
     searchList: '',
-    knowledgeBaseList: ''
+    knowledgeBaseList: '',
+    recentlyViewList: ''
   },
 
   mutations: {
@@ -30,6 +31,9 @@ const knowledge = {
     },
     saveKnowledgeBaseList: (state, data) => {
       state.knowledgeBaseList = data
+    },
+    saveRecentlyViewList: (state, data) => {
+      state.recentlyViewList = data
     }
   },
 

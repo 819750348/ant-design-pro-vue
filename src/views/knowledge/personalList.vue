@@ -105,8 +105,10 @@ export default {
       console.log(this.privateKnowledgeList)
 
       var vm = this
+      var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': 10, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.searchTitle, 'and_or': 'and' }, { 'name': 'knowledgetype', 'value': vm.searchType, 'and_or': 'and' }], 'personalk': '1' }
+      var formvalue = JSON.stringify(f)
       vm.axios.post('/knowledge!ksearch.action', {
-        formvalue: { 'searchlist': [{ 'name': 'categoriesid', 'value': 10, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.searchTitle, 'and_or': 'and' }, { 'name': 'knowledgetype', 'value': vm.searchType, 'and_or': 'and' }], 'personalk': '1' },
+        formvalue: formvalue,
         selectid: 10,
         index: 0,
         size: 10

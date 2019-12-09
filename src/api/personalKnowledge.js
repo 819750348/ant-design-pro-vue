@@ -3,7 +3,9 @@ import Qs from 'qs'
 export function getPrivateTree (parameter) {
   return axios({
     url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
+    // url: 'privilege-tree!listPrivilegeTreeNodes.action',
     method: 'post',
+    // data: parameter
     data: Qs.stringify(parameter),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -14,7 +16,9 @@ export function getPrivateTree (parameter) {
 export function getPrivateList (parameter) {
   return axios({
     url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
+    // url: 'knowledge!ksearch.action',
     method: 'post',
+    // data: parameter
     data: Qs.stringify(parameter),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -46,6 +50,17 @@ export function updateTreeNodeMethod (parameter) {
 export function deleteTreeNodeMethod (parameter) {
   return axios({
     url: 'http://localhost:8006/giksp/tree/tree!delete.action',
+    method: 'post',
+    data: Qs.stringify(parameter),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}
+
+export function delectDetails (parameter) {
+  return axios({
+    url: 'http://localhost:8006/giksp/knowledge/knowledge!hideKnowledge.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {

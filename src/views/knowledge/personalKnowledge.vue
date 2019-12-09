@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-collapse style="padding:0px;margin:0px;" @change="getPrivateTreeData">
+    <a-collapse style="padding:0px;margin:0px;" accordion="true" @change="getPrivateTreeData">
       <a-collapse-panel header="我的知识" key="1">
         <a-tree
           :treeData="privateTreeData"
@@ -194,6 +194,8 @@ export default {
      */
     onSelect (keys) {
       var id = keys[0]
+      this.$store.commit('savePrivateTreeId', id)
+
       var that = this
       var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': id, 'and_or': 'and' }], 'personalk': '1' }
       var formvalue = JSON.stringify(f)

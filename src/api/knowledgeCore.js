@@ -2,7 +2,7 @@ import { axios } from '@/utils/request'
 import Qs from 'qs'
 export function getProfessionalNavigation (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/knowledge/ktype/ktype!listKnowledgetype.action',
+    url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {

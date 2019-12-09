@@ -1,16 +1,11 @@
-<template><div>
-  <a-button @click="listId"></a-button>
+<template>
   <a-collapse style="padding:0px;margin:0px;" v-model="activeKey" accordion="true" @change="getData">
     <a-collapse-panel header="专业导航" key="1">
-      <a-menu style="padding:0px;margin:0px;" mode="inline" >
-        <a-menu-item key="1">
-          <a-tree
-            :treeData="professionalNavigation"
-            defaultExpandAll
-            @select="onSelect"
-          ></a-tree>
-        </a-menu-item>
-      </a-menu>
+      <a-tree
+        :treeData="professionalNavigation"
+        defaultExpandAll
+        @select="onSelect"
+      ></a-tree>
     </a-collapse-panel>
 
     <a-collapse-panel header="企业知识库" key="2">
@@ -19,11 +14,9 @@
       </a-list>
     </a-collapse-panel>
   </a-collapse>
-</div>
 </template>
 <script>
 import { getNavigationDetail, getSearchList, getKnowledgeBaseList } from '@/api/knowledgeCore'
-import Qs from 'qs'
 export default {
   data () {
     return {

@@ -1,5 +1,6 @@
 const knowledge = {
   state: {
+    privateTreeId: '',
     privateTreeData: '',
     privateKnowledgeList: '',
     professionalNavigation: '',
@@ -11,6 +12,9 @@ const knowledge = {
   },
 
   mutations: {
+    savePrivateTreeId: (state, data) => {
+      state.privateTreeId = data
+    },
     savePrivateTree: (state, data) => {
       state.privateTreeData = data
     },

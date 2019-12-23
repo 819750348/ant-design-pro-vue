@@ -1,5 +1,4 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '@/layouts'
 
 /**
  * 基础路由
@@ -30,6 +29,11 @@ export const constantRouterMap = [
         path: 'upload',
         name: 'upload',
         component: () => import('@/views/knowledge/upload')
+      },
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/knowledge/edit')
       }
     ]
   },

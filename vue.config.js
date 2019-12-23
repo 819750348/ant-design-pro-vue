@@ -9,7 +9,6 @@ function resolve (dir) {
 // vue.config.js
 const vueConfig = {
   baseUrl: '/giksp/',
-
   configureWebpack: {
     plugins: [
       // Ignore all locale files of moment.js
@@ -57,23 +56,23 @@ const vueConfig = {
     // development server port 8000
     // port: 8006,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
-    // proxy: {
-    //   '/apis': {
-    //     target: ' http://127.0.0.1:7300/mock/5dde22f04beb341ed0fbbbcf/knowledge',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
     proxy: {
       '/apis': {
-        target: ' http://localhost:8006',
+        target: ' http://127.0.0.1:7300/mock/5dde22f04beb341ed0fbbbcf/knowledge',
         ws: false,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/apis': ''
-        }
+        changeOrigin: true
       }
     }
+    // proxy: {
+    //   '/apis': {
+    //     target: ' http://localhost:8006',
+    //     ws: false,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       '^/apis': ''
+    //     }
+    //   }
+    // }
   },
 
   // disable source map in production

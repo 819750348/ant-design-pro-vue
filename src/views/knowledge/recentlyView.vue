@@ -21,8 +21,13 @@
           </a-col>
           <a-col :span="8">
             <span>{{ "知识标题:" }}</span>
-            <a-input style="width:180px;" v-model="ktitle"></a-input>
-            <a-button type="primary" @click="getTitleName">过滤</a-button>
+            <a-input-search
+              v-model="ktitle"
+              placeholder=""
+              @search="getTitleName"
+              enterButton="过滤"
+              style="width:220px;"
+            />
           </a-col>
         </a-row>
         <a-row>

@@ -13,9 +13,9 @@
           <span slot="header">
             编辑个人知识分类
             <span style="float: right;margin-right: 10px">
-              <button @click.stop="add">增加</button>
-              <button style="margin-left: 10px" @click.stop="update">修改</button>
-              <button style="margin-left: 10px" @click.stop="remove">删除</button>
+              <a-button @click.stop="add" size="small" >增加</a-button>
+              <a-button style="margin-left: 10px" @click.stop="update" size="small">修改</a-button>
+              <a-button style="margin-left: 10px" @click.stop="remove" size="small">删除</a-button>
             </span>
           </span>
         </template>

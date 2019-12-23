@@ -6,10 +6,16 @@
         <a-row>
           <a-col :span="7">
             <span>{{ "知识标题:" }}</span>
-            <a-input-search placeholder="输入知识标题" v-model="searchTitle" style="width:190px;" @search="searchKey" enterButton />
+            <a-input-search
+              v-model="searchTitle"
+              placeholder=""
+              @search="searchKey"
+              enterButton="过滤"
+              style="width:220px;"
+            />
           </a-col>
           <a-col :span="7">
-            <span>{{ "知识类型" }}</span>
+            <span>{{ "知识类型:" }}</span>
             <a-select placeholder="请选择" default-value="全部" style="width:190px;" @change="handleChange">
               <a-select-option value="">全部</a-select-option>
               <a-select-option value="术语TESTTHREE">术语TESTTHREE</a-select-option>
@@ -23,7 +29,7 @@
         <a-row>
           <template>
             <a-list itemLayout="vertical" :pagination="pagination" :dataSource="privateKnowledgeList.data">
-              <a-list-item slot="renderItem" slot-scope="item" key="item.title">
+              <a-list-item slot="renderItem" slot-scope="item" :key="item.title">
                 <template>
                   <a-row>
                     <a-col :span="14">
@@ -35,8 +41,10 @@
                     </a-col>
                     <a-col :span="10">
                       <a-button @click="visibleApply">发起共享申请</a-button>
-                      <a-button>修改分类</a-button>
-                      <a-button @click="deleteDetails(item.id)">删除</a-button>
+                      <a-button style="margin-left: 10px">修改分类</a-button>
+                      <a-popconfirm title="确定删除吗?" @confirm="() => deleteDetails(item.id)">
+                        <a-button style="margin-left: 10px">删除</a-button>
+                      </a-popconfirm>
                     </a-col>
                   </a-row>
                   <a-row>
@@ -80,7 +88,14 @@ export default {
         pageSize: 5
         // total: this.privateKnowledgeList.total
       },
-      applymodel: false
+      applymodel: false,
+      /**
+       * 列表删除
+       *
+       * @Author 尘埃Friend
+       * @date 2019-12-03
+       */
+      deleteVisible: false
     }
   },
   components: {

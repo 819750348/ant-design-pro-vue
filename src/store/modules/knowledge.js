@@ -8,7 +8,10 @@ const knowledge = {
     knowledgeBase: '',
     searchList: '',
     knowledgeBaseList: '',
-    recentlyViewList: ''
+    recentlyViewList: '',
+    flashconvert: '',
+    kType: '',
+    saveState: ''
   },
 
   mutations: {
@@ -38,9 +41,17 @@ const knowledge = {
     },
     saveRecentlyViewList: (state, data) => {
       state.recentlyViewList = data
+    },
+    saveFlashconvert: (state, data) => {
+      state.flashconvert = data
+    },
+    saveKType: (state, data) => {
+      state.kType = data
+    },
+    saveState: (state, data) => {
+      state.saveState = data
     }
   },
-
   actions: {}
 }
 

@@ -22,7 +22,7 @@
         <span style="color: #333333">第一阶段</span>
       </a-col>
       <a-col :span="5">
-        <span style="color: #cf1322">刚刚创建</span>
+        <span style="color: #cf1322">{{ createApprovalFlowState.status }}</span>
       </a-col>
       <a-col :span="5">
         <span style="color: #333333">待选择</span>
@@ -38,6 +38,7 @@
 </template>
 <script>
 import './model.less'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -50,6 +51,11 @@ export default {
     showMajorModal () {
       this.$emit('majorModal', 'true')
     }
+  },
+  computed: {
+    ...mapState({
+      createApprovalFlowState: state => state.knowledge.createApprovalFlowState
+    })
   }
 }
 

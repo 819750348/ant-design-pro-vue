@@ -1,12 +1,17 @@
 <template>
   <a-card :bordered="true">
     <div>
-      <span>标题&nbsp;<a-input v-model="titlename" style="width:150px;"/></span>
-      <span v-for="s in searchList" ref="inputValue">
-        {{ s.description }}&nbsp;<a-input :name="s.name" style="width:150px;"/>
+      <span>标题:&nbsp;
+        <a-input-search
+          v-model="titlename"
+          placeholder=""
+          @search="convertKnowledgeBaseList"
+          enterButton="过滤"
+          style="width:220px;"
+        />
       </span>
-      <span>
-        <a-button type="primary" @click="convertKnowledgeBaseList">过滤</a-button>
+      <span v-for="s in searchList" ref="inputValue" :key="s">
+        {{ s.description }}&nbsp;<a-input :name="s.name" style="width:150px;"/>
       </span>
       <a-form layout="inline">
         <a-row>
@@ -31,23 +36,18 @@
                       <span>
                         <img style="height: 15px;width: 15px;" src="@/assets/2.png"/>{{ item[0].uploaderName }}
                       </span>
-                      <template v-for="m in item[1]">
-                        <span>
-                          <img style="height: 15px;width: 15px;" src="@/assets/5.png"/>{{ m }}
-                        </span>
-                      </template>
+                      <span v-for="m in item[1]" :key="m">
+                        <img style="height: 15px;width: 15px;" src="@/assets/5.png"/>{{ m }}
+                      </span>
                     </a-col>
                   </a-row>
                   <a-row>
                     <a-col>
-                      <template v-for="d in item[3]">
-                        <span>
-                          <img style="height: 15px;width: 15px;" src="@/assets/4.png"/>{{ d }}
-                        </span>
-                      </template>
+                      <span v-for="d in item[3]" :key="d">
+                        <img style="height: 15px;width: 15px;" src="@/assets/4.png"/>{{ d }}
+                      </span>
                     </a-col>
                   </a-row>
-
                 </template>
               </a-list-item>
             </a-list>

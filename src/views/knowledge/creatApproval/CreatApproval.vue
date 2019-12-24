@@ -36,6 +36,7 @@ import personalModal from './PersonalModal'
 import majorTree from './MajorTree'
 import personnelList from './PersonnelList'
 import submitModal from './SubmitModal'
+import { mapState } from 'vuex'
 // 创建审批数据
 const majorModalName = [{ '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': false, 'icon': 'e-tree-folder', 'id': 4, 'index': 'domainnodeid', 'name': 'ä¸“ä¸šåˆ†ç±»', 'nodeDescription': null, 'orderId': 4, 'parentId': 0, 'style': null, 'treenodedtos': [] }]
 const personnelModalTree = [{ '__viewicon': true, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': false, 'icon': 'e-tree-folder', 'id': 5, 'index': null, 'name': 'äººå‘˜ç»„ç»‡', 'nodeDescription': null, 'orderId': 5, 'parentId': 0, 'style': null, 'treenodedtos': [] }]

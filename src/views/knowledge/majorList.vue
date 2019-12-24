@@ -3,10 +3,16 @@
     <div>
       <a-form layout="inline">
         <a-form-item label="标题">
-          <a-input :value="titleQuery" style="width:150px;"/>
+          <a-input-search
+            v-model="titleQuery"
+            placeholder=""
+            @search="query"
+            enterButton="过滤"
+            style="width:220px;"
+          />
         </a-form-item>
         <a-form-item label="类型">
-          <a-select @change="typeChange" placeholder="请选择" default-value="0" style="width:150px;">
+          <a-select @change="typeChange" placeholder="请选择" default-value="4" style="width:150px;">
             <a-select-option value="4">全部</a-select-option>
             <a-select-option value="1">术语TESTTHREE知识</a-select-option>
             <a-select-option value="2">词条</a-select-option>
@@ -15,10 +21,6 @@
             <a-select-option value="2">术语</a-select-option>
           </a-select>
         </a-form-item>
-        <span>
-          <a-button type="primary" @click="query">过滤</a-button>
-        </span>
-
         <a-row>
           <template>
             <a-list itemLayout="vertical" :pagination="pagination" :dataSource="navigationDetail.data">

@@ -1,73 +1,97 @@
 <template>
-  <a-card :bordered="true" title="知识列表">
-    <div>
-      <creat-approval :apply="applymodel" @shareApply="shareApply"></creat-approval>
-      <a-form layout="inline">
-        <a-row>
-          <a-col :span="7">
-            <span>{{ "知识标题:" }}</span>
-            <a-input-search
-              v-model="searchTitle"
-              placeholder=""
-              @search="searchKey"
-              enterButton="过滤"
-              style="width:220px;"
-            />
-          </a-col>
-          <a-col :span="7">
-            <span>{{ "知识类型:" }}</span>
-            <a-select placeholder="请选择" default-value="全部" style="width:190px;" @change="handleChange">
-              <a-select-option value="">全部</a-select-option>
-              <a-select-option value="术语TESTTHREE">术语TESTTHREE</a-select-option>
-              <a-select-option value="词条">词条</a-select-option>
-              <a-select-option value="专业术语TEST">专业术语TEST</a-select-option>
-              <a-select-option value="论文">论文</a-select-option>
-              <a-select-option value="术语">术语</a-select-option>
-            </a-select>
-          </a-col>
-        </a-row>
-        <a-row>
-          <template>
-            <a-list itemLayout="vertical" :pagination="pagination" :dataSource="privateKnowledgeList.data">
-              <a-list-item slot="renderItem" slot-scope="item" :key="item.title">
-                <template>
-                  <a-row>
-                    <a-col :span="14">
-                      <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
-                        <a-list-item-meta>
-                          <a slot="title" :href="item.href">{{ item.titleName }}</a>
-                        </a-list-item-meta>
-                      </div>
-                    </a-col>
-                    <a-col :span="10">
-                      <a-button @click="visibleApply">发起共享申请</a-button>
-                      <a-button style="margin-left: 10px">修改分类</a-button>
-                      <a-popconfirm title="确定删除吗?" @confirm="() => deleteDetails(item.id)">
-                        <a-button style="margin-left: 10px">删除</a-button>
-                      </a-popconfirm>
-                    </a-col>
-                  </a-row>
-                  <a-row>
-                    <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>{{ item.uploader.name }}</a-col>
-                    <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img><span v-if="item.KAuthors.length > 0">{{ item.KAuthors[0].name }}</span></a-col>
-                    <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img><span v-if="item.keywords.length > 0">{{ item.keywords[0].name }}</span></a-col>
-                    <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.knowledgetype.name }}</a-col>
-                    <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.securityLevel }}</a-col>
-                    <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{ item.uploaddate }}</a-col>
-                  </a-row>
-                </template>
-              </a-list-item>
-            </a-list>
-          </template>
-        </a-row>
-      </a-form>
-    </div>
-  </a-card>
+  <div>
+    <a-card :bordered="true" title="知识列表">
+      <div>
+        <creat-approval :apply="applymodel" @shareApply="shareApply"></creat-approval>
+        <a-form layout="inline">
+          <a-row>
+            <a-col :span="7">
+              <span>{{ "知识标题:" }}&nbsp;</span>
+              <a-input-search
+                v-model="searchTitle"
+                placeholder=""
+                @search="searchKey"
+                enterButton="过滤"
+                style="width:220px;"
+              />
+            </a-col>
+            <a-col :span="7">
+              <span>{{ "知识类型:" }}&nbsp;</span>
+              <a-select placeholder="请选择" default-value="全部" style="width:190px;" @change="handleChange">
+                <a-select-option value="">全部</a-select-option>
+                <a-select-option value="术语TESTTHREE">术语TESTTHREE</a-select-option>
+                <a-select-option value="词条">词条</a-select-option>
+                <a-select-option value="专业术语TEST">专业术语TEST</a-select-option>
+                <a-select-option value="论文">论文</a-select-option>
+                <a-select-option value="术语">术语</a-select-option>
+              </a-select>
+            </a-col>
+          </a-row>
+          <a-row>
+            <template>
+              <a-list itemLayout="vertical" :pagination="pagination" :dataSource="privateKnowledgeList.data">
+                <a-list-item slot="renderItem" slot-scope="item" :key="item.title">
+                  <template>
+                    <a-row>
+                      <a-col :span="14">
+                        <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
+                          <a-list-item-meta>
+                            <a slot="title" :href="item.href">{{ item.titleName }}</a>
+                          </a-list-item-meta>
+                        </div>
+                      </a-col>
+                      <a-col :span="10">
+                        <a-button @click="visibleApply(item.id)">发起共享申请</a-button>
+                        <a-button style="margin-left: 10px" >修改分类</a-button>
+                        <a-popconfirm title="确定删除吗?" @confirm="() => deleteDetails(item.id)">
+                          <a-button style="margin-left: 10px">删除</a-button>
+                        </a-popconfirm>
+                      </a-col>
+                    </a-row>
+                    <a-row>
+                      <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>{{ item.uploader.name }}</a-col>
+                      <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img><span v-if="item.KAuthors.length > 0">{{ item.KAuthors[0].name }}</span></a-col>
+                      <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img><span v-if="item.keywords.length > 0">{{ item.keywords[0].name }}</span></a-col>
+                      <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.knowledgetype.name }}</a-col>
+                      <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.securityLevel }}</a-col>
+                      <a-col :span="3"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{ item.uploaddate }}</a-col>
+                    </a-row>
+                  </template>
+                </a-list-item>
+              </a-list>
+            </template>
+          </a-row>
+        </a-form>
+      </div>
+    </a-card>
+    <!--<a-modal-->
+    <!--:visible="catagorytreeVisible"-->
+    <!--@ok="catagorytreeOk"-->
+    <!--:confirmLoading="confirmLoading"-->
+    <!--@cancel="catagorytreeCancel"-->
+    <!--id="catagorytreeModal"-->
+    <!--width="800px"-->
+    <!--&gt;-->
+    <!--<template slot="title">{{ "选择个人分类" }}</template>-->
+    <!--<a-radio-group name="radioGroup" @change="selectRadio">-->
+    <!--<a-radio v-for=" ctr in catagorytreeRadio " :key="ctr.id" :value="ctr.nodeId">{{ ctr.name }}</a-radio>-->
+    <!--</a-radio-group>-->
+    <!--<a-card size="small" style="width: 750px">-->
+    <!--<template solt="title">{{ "分类" }}</template>-->
+    <!--<a-tree-->
+    <!--checkable-->
+    <!--:treeData="catagorytreeData"-->
+    <!--checkStrictly="true"-->
+    <!--defaultExpandAll="true"-->
+    <!--@check="catagorytreeCheck"-->
+    <!--&gt;</a-tree>-->
+    <!--</a-card>-->
+    <!--</a-modal>-->
+  </div>
 </template>
-
 <script>
 import creatApproval from './creatApproval/CreatApproval'
-import { getPrivateList, delectDetails } from '@/api/personalKnowledge'
+import { getPrivateList, delectDetails, createApprovalFlow } from '@/api/personalKnowledge'
 import { mapState } from 'vuex'
 export default {
   name: 'PersonalList',
@@ -108,7 +132,22 @@ export default {
     shareApply (val) {
       this.applymodel = val
     },
-    visibleApply () {
+    /**
+     * 创建审批，获取审批状态
+     *
+     * @Author 尘埃Friend
+     * @date 2019-12-03
+     */
+    visibleApply (id) {
+      const vm = this
+      createApprovalFlow({
+        knowledgeId:	id
+      }).then(function (res) {
+        vm.$store.state.knowledge.createApprovalFlowState = res
+      }).catch(function (err) {
+        console.log(err)
+      })
+
       this.applymodel = true
     },
     // 关键字搜索

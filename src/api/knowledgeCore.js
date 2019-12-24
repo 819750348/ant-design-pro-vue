@@ -2,7 +2,8 @@ import { axios } from '@/utils/request'
 import Qs from 'qs'
 export function getProfessionalNavigation (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
+    // url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
+    url: 'privilege-tree!listPrivilegeTreeNodes.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {
@@ -12,7 +13,8 @@ export function getProfessionalNavigation (parameter) {
 }
 export function getNavigationDetail (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
+    // url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
+    url: 'knowledge!ksearch.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {
@@ -22,7 +24,8 @@ export function getNavigationDetail (parameter) {
 }
 export function getKnowledgeBase (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/knowledge/ktype/ktype!listWikiKtypes.action',
+    // url: 'http://localhost:8006/giksp/knowledge/ktype/ktype!listWikiKtypes.action',
+    url: 'ktype!listWikiKtypes.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {
@@ -32,7 +35,8 @@ export function getKnowledgeBase (parameter) {
 }
 export function getSearchList (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/knowledge/knowledge!listWikiSearchablePropertiesByKtype.action',
+    // url: 'http://localhost:8006/giksp/knowledge/knowledge!listWikiSearchablePropertiesByKtype.action',
+    url: 'knowledge!listWikiSearchablePropertiesByKtype.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {
@@ -43,7 +47,8 @@ export function getSearchList (parameter) {
 
 export function getKnowledgeBaseList (parameter) {
   return axios({
-    url: 'http://localhost:8006/giksp/knowledge/knowledge!wikiSearch.action',
+    // url: 'http://localhost:8006/giksp/knowledge/knowledge!wikiSearch.action',
+    url: 'knowledge!wikiSearch.action',
     method: 'post',
     data: Qs.stringify(parameter, { arrayFormat: 'indices', allowDots: true }),
     headers: {

@@ -108,7 +108,8 @@
               v-if="item.vcomponent ==='catagorytree' && item.isVisible ===true ">
               <a-input
                 @click="catagorytreeModal"
-                v-model="catagorytreeTitle">
+                v-model="catagorytreeTitle"
+              >
                 <a-tooltip slot="suffix" title="Extra information">
                   <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
                 </a-tooltip>
@@ -135,9 +136,6 @@
         </a-form>
       </div>
     </a-card>
-    <a-button :style="{ marginLeft: '8px' }" @click="handleReset">
-      Clear
-    </a-button>
     <a-modal
       :visible="catagorytreeVisible"
       @ok="catagorytreeOk"
@@ -192,6 +190,8 @@ export default {
       knowledgeType: '',
       formLayout: 'horizontal',
       biaoqain: '',
+      treeIds: '',
+      treeNames: [],
       form: this.$form.createForm(this, { name: 'uploadForm' }),
       /**
        * 文件转换状态
@@ -472,6 +472,40 @@ export default {
         }).catch(function (err) {
           console.log(err)
         })
+      // // 模拟数据
+      //
+      // const ss = [{
+      //   '__viewicon': false,
+      //   'checked': 0,
+      //   'children': [{
+      //     '__viewicon': false,
+      //     'checked': 0,
+      //     'children': null,
+      //     'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO',
+      //     'expanded': true,
+      //     'icon': 'e-tree-category-child',
+      //     'id': 1008,
+      //     'index': 'categoriesid',
+      //     'name': '12444',
+      //     'nodeDescription': null,
+      //     'orderId': 1008,
+      //     'parentId': 0,
+      //     'style': null,
+      //     'treenodedtos': []
+      //   }],
+      //   'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO',
+      //   'expanded': true,
+      //   'icon': 'e-tree-category',
+      //   'id': 15,
+      //   'index': 'categoriesid',
+      //   'name': '125553',
+      //   'nodeDescription': null,
+      //   'orderId': 10,
+      //   'parentId': 0,
+      //   'style': null,
+      //   'treenodedtos': []
+      // }]
+      // this.setTreeModal(ss)
     },
     /**
      *catagorytree树选择事件
@@ -481,16 +515,42 @@ export default {
      */
     catagorytreeCheck (selectedKeys, e) {
       var vm = this
+      vm.treeNames = []
       console.log(selectedKeys, e)
-      var arrayTitles = []
-      if (e.checkedNodes.length > 0) {
-        for (var i = 0; i < e.checkedNodes.length; i++) {
-          arrayTitles.push(e.checkedNodes[i].componentOptions.propsData.title)
+      vm.treeIds = selectedKeys.checked
+      // this.getTreeName(vm.treeNames)
+
+      vm.treeIds.forEach(item => {
+        vm.getTreeName(vm.catagorytreeData, item)
+      })
+      // this.getTreeName(selectedKeys)
+      // catagorytreeData
+
+      // if (e.checkedNodes.length > 0) {
+      //   for (let i = 0; i < e.checkedNodes.length; i++) {
+      //     vm.arrayTitles.push(e.checkedNodes[i].componentOptions.propsData.title)
+      //   }
+      // }
+      // vm.catagorytreeTitle = vm.arrayTitles.join(',')
+      // vm.catagorytreeKey = selectedKeys.checked.join(',')
+      // console.log(vm.catagorytreeTitle, vm.catagorytreeKey)
+    },
+    /**
+     * 根据复选框获取树名称
+     *
+     * @Author 尘埃Friend
+     * @date 2019-12-03
+     */
+    getTreeName (names, id) {
+      var vm = this
+      names.forEach(item => {
+        if (item.id === id) {
+          vm.treeNames.push(item.name)
         }
-      }
-      this.catagorytreeTitle = arrayTitles.join(',')
-      this.catagorytreeKey = selectedKeys.checked.join(',')
-      console.log(this.catagorytreeTitle, this.catagorytreeKey)
+        if (item.children !== null) {
+          vm.getTreeName(item.children, id)
+        }
+      })
     },
     /**
      * catagorytree提交
@@ -499,6 +559,10 @@ export default {
      * @date 2019-12-03
      */
     catagorytreeOk () {
+      this.catagorytreeKey = ''
+      this.catagorytreeTitle = ''
+      this.catagorytreeKey = this.treeIds.join(',')
+      this.catagorytreeTitle = this.treeNames.join(',')
       this.catagorytreeVisible = false
     },
 

@@ -10,14 +10,20 @@
       </a-collapse-panel>
       <a-collapse-panel key="2" @change="getPrivateTreeData">
         <template>
-          <span slot="header">
-            编辑个人知识分类
-            <span style="float: right;margin-right: 10px">
+          <a-row type="flex" slot="header">
+            <a-col :span="11">
+              编辑个人知识分类
+            </a-col>
+            <a-col :span="4">
               <a-button @click.stop="add" size="small" >增加</a-button>
+            </a-col>
+            <a-col :span="4">
               <a-button style="margin-left: 10px" @click.stop="update" size="small">修改</a-button>
+            </a-col>
+            <a-col :span="4">
               <a-button style="margin-left: 10px" @click.stop="remove" size="small">删除</a-button>
-            </span>
-          </span>
+            </a-col>
+          </a-row>
         </template>
         <a-tree
           defaultExpandAll
@@ -70,6 +76,7 @@
 <script>
 import treeForm from './treeForm'
 import { getPrivateList, addTreeNodeMethod, updateTreeNodeMethod, deleteTreeNodeMethod } from '@/api/personalKnowledge'
+import ARow from 'ant-design-vue/es/grid/Row'
 
 export default {
   name: 'PersonalTree',
@@ -130,6 +137,7 @@ export default {
     // this.getEditKnowledge()
   },
   components: {
+    ARow,
     treeForm
   },
   methods: {

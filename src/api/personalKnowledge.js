@@ -68,3 +68,21 @@ export function delectDetails (parameter) {
     }
   })
 }
+/**
+ * 审批
+ *
+ * @Author 尘埃Friend
+ * @date 2019-12-03
+ */
+
+export function createApprovalFlow (parameter) {
+  return axios({
+    // url: 'http://localhost:8006/giksp/knowledge/approval/approval!createApprovalFlowWithFirstNode.action',
+    url: 'approval!createApprovalFlowWithFirstNode.action',
+    method: 'post',
+    data: Qs.stringify(parameter),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}

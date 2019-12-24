@@ -4,7 +4,7 @@
       <div>
         <a-row type="flex">
           <a-col :span="5">
-            <span>{{ "知识状态:" }}</span>
+            <span>{{ "知识状态:" }}&nbsp;</span>
             <a-select style="width:180px;" placeholder="全部" default-value="" @change="getknowledgeStatus">
               <a-select-option value="">全部</a-select-option>
               <a-select-option value="0">已审批入库</a-select-option>
@@ -12,7 +12,7 @@
             </a-select>
           </a-col>
           <a-col :span="5">
-            <span>{{ "知识作者:" }}</span>
+            <span>{{ "知识作者:" }}&nbsp;</span>
             <a-select style="width:180px;" placeholder="全部" default-value="" @chang="getknowledgeAuthors">
               <a-select-option value="">全部</a-select-option>
               <a-select-option value="0">我的知识</a-select-option>
@@ -20,7 +20,7 @@
             </a-select>
           </a-col>
           <a-col :span="8">
-            <span>{{ "知识标题:" }}</span>
+            <span>{{ "知识标题:" }}&nbsp;</span>
             <a-input-search
               v-model="ktitle"
               placeholder=""
@@ -43,7 +43,9 @@
                         </a-list-item-meta>
                       </div>
                     </a-col>
-                    <a-col :span="4"><a-button>详情</a-button></a-col>
+                    <a-col :span="4">
+                      <a-button @click="details(item.id)">详情</a-button>
+                    </a-col>
                   </a-row>
                   <a-row>
                     <a-col :span="2" title="上传者" v-if="item.uploader!==null"><img style="height: 15px;width: 15px;" src="@/assets/2.png" ></img>{{ item.uploader.name }}</a-col>
@@ -146,6 +148,15 @@ export default {
         }).catch(function (err) {
           console.log(err)
         })
+    },
+    /**
+     * 详情信息
+     *
+     * @Author 尘埃Friend
+     * @date 2019-12-03
+     */
+    details (id) {
+
     }
   },
   computed: {

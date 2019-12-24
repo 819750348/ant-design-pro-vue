@@ -11,7 +11,8 @@ const knowledge = {
     recentlyViewList: '',
     flashconvert: '',
     kType: '',
-    saveState: ''
+    saveState: '',
+    createApprovalFlowState: ''
   },
 
   mutations: {
@@ -50,6 +51,9 @@ const knowledge = {
     },
     saveState: (state, data) => {
       state.saveState = data
+    },
+    createApprovalFlowState: (state, data) => {
+      state.createApprovalFlowState = data
     }
   },
   actions: {}

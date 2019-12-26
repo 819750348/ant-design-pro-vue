@@ -28,7 +28,7 @@
                       </div>
                     </a-col>
                     <a-col :span="10">
-                      <a-button @click="aa">详情</a-button>
+                      <a-button @click="toKnowledgeDetails(item[0].id)">详情</a-button>
                     </a-col>
                   </a-row>
                   <a-row>
@@ -97,6 +97,13 @@ export default {
           this.knowledgeBaseArray.push(this.knowledgeBaseList.data[i][j])
         }
       }
+    },
+    toKnowledgeDetails (id) {
+      const routerHref = this.$router.resolve({
+        name: 'knowledgeDetails',
+        query: { id: id }
+      })
+      window.open(routerHref.href, '_blank')
     }
   },
   computed: {

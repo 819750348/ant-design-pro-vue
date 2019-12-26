@@ -10,7 +10,7 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['login', 'register', 'registerResult', 'privateKnowledge', 'knowledgeCore', 'recentlyView', 'upload', 'edit'] // no redirect whitelist
+const whiteList = ['login', 'register', 'registerResult', 'privateKnowledge', 'knowledgeCore', 'recentlyView', 'upload', 'edit', 'knowledgeDetails'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   console.log(store)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-collapse style="padding:0px;margin:0px;" accordion="true" @change="getPrivateTreeData">
+    <a-collapse accordion="true" @change="getPrivateTreeData">
       <a-collapse-panel header="我的知识" key="1">
         <a-tree
           :treeData="privateTreeData"
@@ -9,19 +9,19 @@
         ></a-tree>
       </a-collapse-panel>
       <a-collapse-panel key="2" @change="getPrivateTreeData">
-        <template>
+        <template id="btnSm">
           <a-row type="flex" slot="header">
-            <a-col :span="11">
+            <a-col :span="12">
               编辑个人知识分类
             </a-col>
             <a-col :span="4">
               <a-button @click.stop="add" size="small" >增加</a-button>
             </a-col>
             <a-col :span="4">
-              <a-button style="margin-left: 10px" @click.stop="update" size="small">修改</a-button>
+              <a-button style="margin-left: 5px" @click.stop="update" size="small">修改</a-button>
             </a-col>
             <a-col :span="4">
-              <a-button style="margin-left: 10px" @click.stop="remove" size="small">删除</a-button>
+              <a-button style="margin-left: 5px" @click.stop="remove" size="small">删除</a-button>
             </a-col>
           </a-row>
         </template>
@@ -75,8 +75,10 @@
 
 <script>
 import treeForm from './treeForm'
-import { getPrivateList, addTreeNodeMethod, updateTreeNodeMethod, deleteTreeNodeMethod } from '@/api/personalKnowledge'
+import { getPrivateList, addTreeNodeMethod, updateTreeNodeMethod, deleteTreeNodeMethod, getPrivateTree } from '@/api/personalKnowledge'
 import ARow from 'ant-design-vue/es/grid/Row'
+import './knowledge.less'
+// import { mapState } from 'vuex'
 
 export default {
   name: 'PersonalTree',
@@ -154,32 +156,32 @@ export default {
         }
       }
     },
-    // 个人知识 @尘埃
-    getMyKnowledge () {
-      var vm = this
-      this.post('giksp/tree/privilege-tree!listPrivilegeTreeNodes.action', {
-        treeType: 'categoryTree',
-        operationName: '查看知识'
-      }).then(function (res) {
-        console.log(res)
-        vm.myKnowledgeTree = res
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
+    // // 个人知识 @尘埃
+    // getMyKnowledge () {
+    //   var vm = this
+    //   this.post('giksp/tree/privilege-tree!listPrivilegeTreeNodes.action', {
+    //     treeType: 'categoryTree',
+    //     operationName: '查看知识'
+    //   }).then(function (res) {
+    //     console.log(res)
+    //     vm.myKnowledgeTree = res
+    //   }).catch(function (err) {
+    //     console.log(err)
+    //   })
+    // },
     // 编辑个人知识 @尘埃
-    getEditKnowledge () {
-      var vm = this
-      this.post('giksp/tree/privilege-tree!listPrivilegeTreeNodes.action', {
-        treeType: 'categoryTree',
-        operationName: '节点管理'
-      }).then(function (res) {
-        console.log(res)
-        vm.editMyKnowledgeTree = res
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
+    // getEditKnowledge () {
+    //   var vm = this
+    //   this.post('giksp/tree/privilege-tree!listPrivilegeTreeNodes.action', {
+    //     treeType: 'categoryTree',
+    //     operationName: '节点管理'
+    //   }).then(function (res) {
+    //     console.log(res)
+    //     vm.editMyKnowledgeTree = res
+    //   }).catch(function (err) {
+    //     console.log(err)
+    //   })
+    // },
 
     genernateTree (value) {
       value.forEach(item => {
@@ -228,61 +230,62 @@ export default {
       console.log(selectedKeys)
       console.log(e)
       this.TreeEditId = selectedKeys[0]
+      this.editName = e.selectedNodes[0].data.props.name
     },
-    // 修改添加知识 @尘埃
-    addNode (keys) {
-      var vm = this
-      this.visible = true
-      this.param.visible = true
-      // console.log('add: ' + keys)
-      // 编辑知识树添加知识 @尘埃
-      this.axios.post('giksp/tree/tree!save.action', {
-        id: keys,
-        name: '',
-        nodeDescription: ''
-      }).then(function (res) {
-        console.log(res)
-        vm.getMyKnowledge()
-        vm.getEditKnowledge()
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
-    // 修改编辑知识 @尘埃
-    editNode (keys, nName) {
-      var vm = this
-      this.itemId = keys
-      this.param.treeNodeName = nName
-      this.param.visible = true
-      // console.log('edit: ' + keys)
-      // 编辑知识树编辑知识 @尘埃
-      this.axios.post('giksp/tree/tree!update.action', {
-        id: keys,
-        name: '',
-        nodeDescription: ''
-      }).then(function (res) {
-        console.log(res)
-        vm.getMyKnowledge()
-        vm.getEditKnowledge()
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
-    // 修改删除知识 @尘埃
-    delNode (keys) {
-      var vm = this
-      this.itemId = keys
-      // console.log('del: ' + keys)
-      this.axios.post('giksp/tree/tree!delete.action', {
-        id: keys
-      }).then(function (res) {
-        console.log(res)
-        vm.getMyKnowledge()
-        vm.getEditKnowledge()
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
+    // // 修改添加知识 @尘埃
+    // addNode (keys) {
+    //   var vm = this
+    //   this.visible = true
+    //   this.param.visible = true
+    //   // console.log('add: ' + keys)
+    //   // 编辑知识树添加知识 @尘埃
+    //   this.axios.post('giksp/tree/tree!save.action', {
+    //     id: keys,
+    //     name: '',
+    //     nodeDescription: ''
+    //   }).then(function (res) {
+    //     console.log(res)
+    //     vm.getMyKnowledge()
+    //     vm.getEditKnowledge()
+    //   }).catch(function (err) {
+    //     console.log(err)
+    //   })
+    // },
+    // // 修改编辑知识 @尘埃
+    // editNode (keys, nName) {
+    //   var vm = this
+    //   this.itemId = keys
+    //   this.param.treeNodeName = nName
+    //   this.param.visible = true
+    //   // console.log('edit: ' + keys)
+    //   // 编辑知识树编辑知识 @尘埃
+    //   this.axios.post('giksp/tree/tree!update.action', {
+    //     id: keys,
+    //     name: '',
+    //     nodeDescription: ''
+    //   }).then(function (res) {
+    //     console.log(res)
+    //     vm.getMyKnowledge()
+    //     vm.getEditKnowledge()
+    //   }).catch(function (err) {
+    //     console.log(err)
+    //   })
+    // },
+    // // 修改删除知识 @尘埃
+    // delNode (keys) {
+    //   var vm = this
+    //   this.itemId = keys
+    //   // console.log('del: ' + keys)
+    //   this.axios.post('giksp/tree/tree!delete.action', {
+    //     id: keys
+    //   }).then(function (res) {
+    //     console.log(res)
+    //     vm.getMyKnowledge()
+    //     vm.getEditKnowledge()
+    //   }).catch(function (err) {
+    //     console.log(err)
+    //   })
+    // },
     /**
      * 树属性转换
      *
@@ -327,14 +330,19 @@ export default {
      * @date 2019-11-29
      */
     addTreeNode () {
+      const that = this
       addTreeNodeMethod({
         name: this.name,
         nodeDescription: this.description,
         id: this.TreeEditId
       }).then(function (res) {
         console.log(res)
+        that.addNodeModal = false
+        that.getPrivateTree()
+        that.$message.success('添加成功')
       }).catch(function (err) {
         console.log(err)
+        that.$message.error('添加失败')
       })
     },
     /**
@@ -367,14 +375,19 @@ export default {
      * @date 2019-11-29
      */
     updateTreeNode () {
+      const that = this
       updateTreeNodeMethod({
         name: this.editName,
         nodeDescription: this.editDescription,
         id: this.TreeEditId
       }).then(function (res) {
         console.log(res)
+        that.editNodeModal = false
+        that.getPrivateTree()
+        that.$message.success('修改成功')
       }).catch(function (err) {
         console.log(err)
+        that.$message.error('修改失败')
       })
     },
     /**
@@ -407,8 +420,11 @@ export default {
               id: that.TreeEditId
             }).then(function (res) {
               console.log(res)
+              that.getPrivateTree()
+              that.$message.success(res)
             }).catch(function (err) {
               console.log(err)
+              that.$message.error('删除失败')
             })
           },
           onCancel () {
@@ -416,7 +432,30 @@ export default {
           }
         })
       }
+    },
+    /**
+     * 个人知识树刷新
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-27
+     */
+    getPrivateTree () {
+      var that = this
+      getPrivateTree({ treeType: 'categoryTree', operationName: '查看知识' }).then(function (res) {
+        console.log(res)
+        that.$store.commit('savePrivateTree', res)
+        that.setPrivateTreeModal(res)
+        console.log(that.$store.state.knowledge.privateTreeData)
+      }).catch(function (err) {
+        console.log(err)
+      })
     }
+  },
+  computed: {
+    // this.$store.state.knowledge.privateTreeData
+    // ...mapState({
+    //   privateTreeData: state => state.knowledge.privateTreeData
+    // })
   }
 }
 </script>

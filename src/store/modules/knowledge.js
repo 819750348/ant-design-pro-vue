@@ -4,6 +4,7 @@ const knowledge = {
     privateTreeData: '',
     privateKnowledgeList: '',
     professionalNavigation: '',
+    navigationId: '',
     navigationDetail: '',
     knowledgeBase: '',
     searchList: '',
@@ -27,6 +28,9 @@ const knowledge = {
     },
     saveProfessionalNavigation: (state, data) => {
       state.professionalNavigation = data
+    },
+    saveNavigationId: (state, data) => {
+      state.navigationId = data
     },
     saveNavigationDetail: (state, data) => {
       state.navigationDetail = data

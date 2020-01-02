@@ -46,8 +46,11 @@
               <div >
 
               </div>
-              <div v-for="item in 5" :key="item">
-                <img src="../../../public/pp.jpg" style="height: 320px;width: 320px;">
+              <div v-for="item in capture" :key="item" style="height: 320px;width: 320px;" v-if="capture.length>0">
+                <span v-html="item"></span>
+              </div>
+              <div style="height: 320px;width: 320px;" v-else>
+                <span>{{"无图片"}}</span>
               </div>
             </a-carousel>
           </a-col>
@@ -82,7 +85,7 @@
   </div>
 </template>
 <script>
-import { getWiki } from '@/api/wiki'
+import { getWiki, getRecommentKnowledge } from '@/api/wiki'
 import ARow from 'ant-design-vue/es/grid/Row'
 
 export default {
@@ -93,13 +96,14 @@ export default {
       wikiContent: {},
       imgFilePath: '',
       anchor: '',
-      rate: ''
+      rate: '',
+      capture: []
     }
   },
   methods: {
     showwiki () {
       const vm = this
-      const id = this.$route.query.id
+      const id = this.$route.params.id
       getWiki({
         id: id
       }).then(function (res) {
@@ -121,7 +125,21 @@ export default {
         Object.keys(vm.wikiContent).forEach(item => {
           vm.anchor.push('#' + item)
         })
+
+        const imgReg = /<img.*?(?:>|\/>)/gi
+        vm.capture = Object.values(vm.wikiContent).join('-').match(imgReg)
+        console.log(vm.capture)
         console.log(vm.wikiContent)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    recommentKnowledge () {
+      const id = this.$route.params.id
+      getRecommentKnowledge({
+        id: id
+      }).then(function (res) {
+        console.log(res)
       }).catch(function (err) {
         console.log(err)
       })
@@ -129,6 +147,7 @@ export default {
   },
   created () {
     this.showwiki()
+    this.recommentKnowledge()
   }
 }
 </script>

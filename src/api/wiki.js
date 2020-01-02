@@ -1,12 +1,18 @@
 import { axios } from '@/utils/request'
-import Qs from 'qs'
 
 export function getWiki (parameter) {
   return axios({
-    // url: 'http://localhost:8006/giksp/knowledge/fileupload!flashconvert_j.action',
-    url: 'knowledge!showwiki.action',
+    url: 'http://localhost:8006/giksp/knowledge/knowledge!showwiki.action',
+    // url: 'knowledge!showwiki.action',
     method: 'get',
-    data: Qs.stringify(parameter),
-    header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    params: parameter
+  })
+}
+export function getRecommentKnowledge (parameter) {
+  return axios({
+    url: 'http://localhost:8006/giksp/knowledge/knowledge!listRcommentKnowledge.action',
+    // url: 'knowledge!listRcommentKnowledge.action',
+    method: 'get',
+    params: parameter
   })
 }

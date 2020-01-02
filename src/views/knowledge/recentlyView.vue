@@ -7,16 +7,16 @@
             <span>{{ "知识状态:" }}&nbsp;</span>
             <a-select style="width:180px;" placeholder="全部" default-value="" @change="getknowledgeStatus">
               <a-select-option value="">全部</a-select-option>
-              <a-select-option value="0">已审批入库</a-select-option>
-              <a-select-option value="1">未审批入库</a-select-option>
+              <a-select-option value="1">已审批入库</a-select-option>
+              <a-select-option value="2">未审批入库</a-select-option>
             </a-select>
           </a-col>
           <a-col :span="5">
             <span>{{ "知识作者:" }}&nbsp;</span>
-            <a-select style="width:180px;" placeholder="全部" default-value="" @chang="getknowledgeAuthors">
-              <a-select-option value="">全部</a-select-option>
-              <a-select-option value="0">我的知识</a-select-option>
-              <a-select-option value="1">他人知识</a-select-option>
+            <a-select style="width:180px;" placeholder="全部" default-value="all" @change="getknowledgeAuthors">
+              <a-select-option value="all">全部</a-select-option>
+              <a-select-option value="1">我的知识</a-select-option>
+              <a-select-option value="2">他人知识</a-select-option>
             </a-select>
           </a-col>
           <a-col :span="8">
@@ -87,8 +87,7 @@ export default {
         onChange: (page, pageSize) => {
           // 分页事件
         },
-        pageSize: 5,
-        total: 15
+        pageSize: 5
       },
       /**
        * 新
@@ -140,9 +139,9 @@ export default {
      */
     getknowledgeSearch () {
       var that = this
-      getRecentlyView({ kstatus: this.knowledgeAuthors, index:	0, size: 999999, selfk: this.knowledgeStatus, ktitle: this.ktitle })
+      getRecentlyView({ kstatus: that.knowledgeStatus, index:	0, size: 10, selfk: that.knowledgeAuthors, ktitle: that.ktitle })
         .then(function (res) {
-          that.recentlyViewList = res
+          that.$store.commit('saveRecentlyViewList', res)
           console.log(res)
           console.log(that.recentlyViewList)
         }).catch(function (err) {

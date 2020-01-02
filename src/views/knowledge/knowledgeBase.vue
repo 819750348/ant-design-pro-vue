@@ -100,10 +100,14 @@ export default {
     },
     toKnowledgeDetails (id) {
       const routerHref = this.$router.resolve({
-        name: 'knowledgeDetails',
-        query: { id: id }
+        // name: 'knowledgeDetails',
+        // query: { id: id }
+        path: `/knowledgeDetails/${id}`
       })
-      window.open(routerHref.href, '_blank')
+
+      const href = routerHref.href.slice(0, routerHref.href.indexOf('#')) + 'clientk.action' + routerHref.href.slice(routerHref.href.indexOf('#'))
+      window.top.open(href, '_blank')
+      console.log('2' + routerHref.href)
     }
   },
   computed: {

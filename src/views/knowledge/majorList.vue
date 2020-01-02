@@ -12,13 +12,13 @@
           />
         </a-form-item>
         <a-form-item label="类型">
-          <a-select @change="typeChange" placeholder="请选择" default-value="4" style="width:150px;">
-            <a-select-option value="4">全部</a-select-option>
-            <a-select-option value="1">术语TESTTHREE知识</a-select-option>
-            <a-select-option value="2">词条</a-select-option>
-            <a-select-option value="2">专业术语TEST知识</a-select-option>
-            <a-select-option value="2">论文</a-select-option>
-            <a-select-option value="2">术语</a-select-option>
+          <a-select @change="typeChange" placeholder="请选择" default-value="" style="width:180px;">
+            <a-select-option value="">全部</a-select-option>
+            <a-select-option value="术语TESTTHREE知识">术语TESTTHREE知识</a-select-option>
+            <a-select-option value="词条">词条</a-select-option>
+            <a-select-option value="专业术语TEST知识">专业术语TEST知识</a-select-option>
+            <a-select-option value="论文">论文</a-select-option>
+            <a-select-option value="术语">术语</a-select-option>
           </a-select>
         </a-form-item>
         <a-row>
@@ -57,6 +57,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getNavigationDetail } from '@/api/knowledgeCore'
 export default {
   name: 'ShareList',
   data () {
@@ -70,37 +71,50 @@ export default {
       },
       titleQuery: '',
       authorQuery: '',
-      typeQuery: ''
+      navigationId: '',
+      knowledgeType: ''
+      /**
+       * 列表
+       *
+       * @Author 尘埃Friend
+       * @date 2019-12-03
+       */
+      // majorContentLists: ''
     }
   },
-  props: {
-    majorContentLists: {
-      Type: Array,
-      default: []
-    }
-  },
+  // props: {
+  //   majorContentLists: {
+  //     Type: Array,
+  //     default: []
+  //   }
+  // },
   methods: {
     aa () {
-      console.log(this.majorContentLists)
-      console.log(this.majorContentLists)
+      // console.log(this.majorContentLists)
+      // console.log(this.majorContentLists)
     },
     query () {
       var vm = this
-      var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': vm.typeQuery, 'and_or': 'and' }, { 'name': 'kauthors_or_uploader', 'value': vm.titleQuery, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.authorQuery, 'and_or': 'and' }] }
+      vm.navigationId = vm.$store.state.knowledge.navigationId
+      var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': vm.navigationId, 'and_or': 'and' },
+        { 'name': 'kauthors_or_uploader', 'value': vm.authorQuery, 'and_or': 'and' },
+        { 'name': 'titlename', 'value': vm.titleQuery, 'and_or': 'and' },
+        { 'name': 'knowledgetype', 'value': vm.knowledgeType, 'and_or': 'and' }] }
       var formvalue = JSON.stringify(f)
-      vm.axios.post('knowledge!ksearch.action', {
+      getNavigationDetail({
         formvalue: formvalue,
-        selectid: 4,
         index: 0,
-        size: 10
-      }).then(function (res) {
-        vm.majorContentLists = res
-      }).catch(function (err) {
-        console.log(err)
-      })
+        size: 10 })
+        .then(function (res) {
+          vm.$store.commit('saveNavigationDetail', res)
+          vm.pageSize = res.pagesize
+        }).catch(function (err) {
+          console.log(err)
+        })
     },
     typeChange (data) {
-      this.typeChange = data
+      this.knowledgeType = data
+      this.query()
     }
   },
   computed: {

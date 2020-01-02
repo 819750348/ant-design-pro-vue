@@ -5,7 +5,7 @@
         <creat-approval :apply="applymodel" @shareApply="shareApply"></creat-approval>
         <a-form layout="inline">
           <a-row>
-            <a-col :span="7">
+            <a-col :span="8">
               <span>{{ "知识标题:" }}&nbsp;</span>
               <a-input-search
                 v-model="searchTitle"
@@ -15,7 +15,7 @@
                 style="width:220px;"
               />
             </a-col>
-            <a-col :span="7">
+            <a-col :span="8">
               <span>{{ "知识类型:" }}&nbsp;</span>
               <a-select placeholder="请选择" default-value="全部" style="width:190px;" @change="handleChange">
                 <a-select-option value="">全部</a-select-option>
@@ -148,24 +148,25 @@ export default {
         console.log(err)
       })
 
-      this.applymodel = true
+      vm.applymodel = true
     },
     // 关键字搜索
     searchKey () {
       console.log(this.privateKnowledgeList)
       var vm = this
-      var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': this.privateTreeId, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.searchTitle, 'and_or': 'and' }, { 'name': 'knowledgetype', 'value': vm.searchType, 'and_or': 'and' }], 'personalk': '1' }
+      var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': vm.privateTreeId, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.searchTitle, 'and_or': 'and' }, { 'name': 'knowledgetype', 'value': vm.searchType, 'and_or': 'and' }], 'personalk': '1' }
       var formvalue = JSON.stringify(f)
       getPrivateList({
         formvalue: formvalue,
-        selectid: this.privateTreeId,
+        selectid: vm.privateTreeId,
         index: 0,
         size: 10
       }).then(function (res) {
-        console.log(res)
-        this.pageSize = res.pagesize
-        this.total = res.total
         vm.$store.commit('savePrivateKnowledgeList', res)
+        console.log('savePrivateKnowledgeList' + vm.$store.state.knowledge.privateKnowledgeList)
+        console.log(res)
+        vm.pageSize = res.pagesize
+        // vm.total = res.total
       }).catch(function (err) {
         console.log(err)
       })

@@ -119,6 +119,7 @@ export default {
     onSelect (keys) {
       var id = keys[0]
       var that = this
+      that.$store.commit('saveNavigationId', id)
       var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': id, 'and_or': 'and' }] }
       var formvalue = JSON.stringify(f)
       getNavigationDetail({
@@ -147,9 +148,8 @@ export default {
         console.log(err)
       })
 
-      var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': 1, 'and_or': 'and' }] }
+      var f = { 'searchlist': [{ 'name': 'ktypeid', 'value': key, 'and_or': 'and' }] }
       var formvalue = JSON.stringify(f)
-      // getKnowledgeBaseList({ formvalue: { 'searchlist': [{ 'name': 'domainnodeid', 'value': 1, 'and_or': 'and' }] }, index: 0, size: 10 }).then(function (res) {
       getKnowledgeBaseList({ formvalue: formvalue, index: 0, size: 10 }).then(function (res) {
         /**
          * 转换知识库列表属性

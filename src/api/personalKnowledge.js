@@ -2,8 +2,8 @@ import { axios } from '@/utils/request'
 import Qs from 'qs'
 export function getPrivateTree (parameter) {
   return axios({
-    // url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
-    url: 'privilege-tree!listPrivilegeTreeNodes.action',
+    url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
+    // url: 'privilege-tree!listPrivilegeTreeNodes.action',
     method: 'post',
     // data: parameter
     data: Qs.stringify(parameter),
@@ -15,8 +15,8 @@ export function getPrivateTree (parameter) {
 
 export function getPrivateList (parameter) {
   return axios({
-    // url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
-    url: 'knowledge!ksearch.action',
+    url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
+    // url: 'knowledge!ksearch.action',
     method: 'post',
     // data: parameter
     data: Qs.stringify(parameter),
@@ -77,8 +77,8 @@ export function delectDetails (parameter) {
 
 export function createApprovalFlow (parameter) {
   return axios({
-    // url: 'http://localhost:8006/giksp/knowledge/approval/approval!createApprovalFlowWithFirstNode.action',
-    url: 'approval!createApprovalFlowWithFirstNode.action',
+    url: 'http://localhost:8006/giksp/knowledge/approval/approval!createApprovalFlowWithFirstNode.action',
+    // url: 'approval!createApprovalFlowWithFirstNode.action',
     method: 'post',
     data: Qs.stringify(parameter),
     headers: {

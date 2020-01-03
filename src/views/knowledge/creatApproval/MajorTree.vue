@@ -6,9 +6,7 @@
           <div>专业名称</div>
           <a-tree
             checkable
-            @expand="onExpand"
-            :expandedKeys="expandedKeys"
-            :autoExpandParent="autoExpandParent"
+            checkStrictly="false"
             v-model="checkedKeys"
             @select="onSelect"
             :selectedKeys="selectedKeys"
@@ -34,8 +32,6 @@ import '../majorTree.less'
 export default {
   data () {
     return {
-      expandedKeys: ['0-0-0', '0-0-1'],
-      autoExpandParent: true,
       checkedKeys: [''],
       selectedKeys: []
     }
@@ -49,13 +45,6 @@ export default {
     }
   },
   methods: {
-    onExpand (expandedKeys) {
-      console.log('onExpand', expandedKeys)
-      // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-      // or, you can remove all expanded children keys.
-      this.expandedKeys = expandedKeys
-      this.autoExpandParent = false
-    },
     onCheck (checkedKeys) {
       console.log('onCheck', checkedKeys)
       this.checkedKeys = checkedKeys

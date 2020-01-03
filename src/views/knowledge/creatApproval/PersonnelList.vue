@@ -4,14 +4,9 @@
       <a-col :span="10">
         <a-card style="overflow-y:scroll;height: 430px">
           <a-tree
-            showLine
-            @select="onSelect"
-            :treeData="personnelModalTree"
-          >
-          </a-tree>
-          <a-tree
             @select="personnelSelect"
             style="margin-left: 15px"
+            :loadData="onLoadData"
             :treeData="personnelModalTree"
           >
           </a-tree>
@@ -63,10 +58,11 @@ export default {
       },
       radioValue: 1,
       personnelList: personnelList
+
     }
   },
   props: {
-    personnelModalTree: Array
+    // personnelModalTree: Array
   },
   methods: {
     onSelect (selectedKeys, info) {
@@ -117,6 +113,28 @@ export default {
       console.log(data.target.value)
       this.$store.commit('SET_PERSONNEL', data.target.value)
       console.log(this.$store.state.approval.personnel)
+    },
+    /**
+     * 树的异步数据
+     *
+     * @Author 尘埃Friend
+     * @date 2019-12-03
+     */
+    onLoadData (treeNode) {
+      return new Promise(resolve => {
+        if (treeNode.dataRef.children) {
+          resolve()
+          return
+        }
+        setTimeout(() => {
+          treeNode.dataRef.children = [
+            { title: 'ch', key: '12' },
+            { title: 'ch', key: '12' }
+          ]
+          this.treeData = [...this.treeData]
+          resolve()
+        }, 1000)
+      })
     }
   },
   created () {

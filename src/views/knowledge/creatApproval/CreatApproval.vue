@@ -18,7 +18,7 @@
           <major-tree @personnelModal="showPersonnelModal" :majorModalName="majorModalName"></major-tree>
         </div>
         <div v-if="personnelModal">
-          <personnel-list @nextSubmitModal="showSubmitModal" :personnelModalTree="personnelModalTree"></personnel-list>
+          <personnel-list @nextSubmitModal="showSubmitModal"></personnel-list>
         </div>
         <div v-if="submitModal">
           <submit-modal></submit-modal>
@@ -36,10 +36,9 @@ import personalModal from './PersonalModal'
 import majorTree from './MajorTree'
 import personnelList from './PersonnelList'
 import submitModal from './SubmitModal'
-import { mapState } from 'vuex'
-// 创建审批数据
-const majorModalName = [{ '__viewicon': false, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': false, 'icon': 'e-tree-folder', 'id': 4, 'index': 'domainnodeid', 'name': 'ä¸“ä¸šåˆ†ç±»', 'nodeDescription': null, 'orderId': 4, 'parentId': 0, 'style': null, 'treenodedtos': [] }]
-const personnelModalTree = [{ '__viewicon': true, 'checked': 0, 'children': null, 'class': 'class edu.zju.cims201.GOF.rs.dto.TreeNodeDTO', 'expanded': false, 'icon': 'e-tree-folder', 'id': 5, 'index': null, 'name': 'äººå‘˜ç»„ç»‡', 'nodeDescription': null, 'orderId': 5, 'parentId': 0, 'style': null, 'treenodedtos': [] }]
+import { getPrivateTree } from '@/api/personalKnowledge'
+
+// import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -48,8 +47,7 @@ export default {
       majorModal: false,
       personnelModal: false,
       submitModal: false,
-      majorModalName: majorModalName,
-      personnelModalTree: personnelModalTree
+      majorModalName: ''
     }
   },
   props: {
@@ -94,25 +92,41 @@ export default {
     },
     // 创建审批获取专业名称
     getMajorModalName () {
-      var vm = this
-      vm.axios.post('privilege-tree!listPrivilegeTreeNodes.action', {
+      var that = this
+      getPrivateTree({
         treeType: 'domainTree',
         disableInte: true,
-        operationName: '上传知识'
-      }).then(function (res) {
-        vm.majorModalName = res
-      }).catch(function (err) {
-        console.log(err)
-      })
+        operationName: '上传知识' })
+        .then(function (res) {
+          that.setPrivateTreeModal(res)
+        }).catch(function (err) {
+          console.log(err)
+        })
     },
     // 获取人员模块树结构数据
-    getPersonnelModalTree () {
-      var vm = this
-      this.axios.post('approval!getQualifiedRoleNodes.action').then(function (res) {
-        vm.personnelModalTree = res
-      }).catch(function (err) {
-        console.log(err)
+    // getPersonnelModalTree () {
+    //   var vm = this
+    //   this.axios.post('approval!getQualifiedRoleNodes.action').then(function (res) {
+    //     vm.personnelModalTree = res
+    //   }).catch(function (err) {
+    //     console.log(err)
+    //   })
+    // },
+    /**
+     * 树属性转换
+     *
+     * @Author 尘埃Friend
+     * @date 2019-11-27
+     */
+    setPrivateTreeModal (value) {
+      value.forEach(item => {
+        item.title = item.name
+        item.key = item.id
+        if (item.children != null) {
+          this.setPrivateTreeModal(item.children)
+        }
       })
+      this.majorModalName = value
     }
   },
   watch: {

@@ -139,16 +139,15 @@ export default {
      * @date 2019-12-03
      */
     visibleApply (id) {
-      const vm = this
+      const that = this
       createApprovalFlow({
         knowledgeId:	id
       }).then(function (res) {
-        vm.$store.state.knowledge.createApprovalFlowState = res
+        that.$store.state.knowledge.createApprovalFlowState = res
       }).catch(function (err) {
         console.log(err)
       })
-
-      vm.applymodel = true
+      that.applymodel = true
     },
     // 关键字搜索
     searchKey () {

@@ -15,7 +15,7 @@
           <personal-modal @majorModal="showMajorModal"></personal-modal>
         </div>
         <div v-if="majorModal">
-          <major-tree @personnelModal="showPersonnelModal" :majorModalName="majorModalName"></major-tree>
+          <major-tree @personnelModal="showPersonnelModal" ></major-tree>
         </div>
         <div v-if="personnelModal">
           <personnel-list @nextSubmitModal="showSubmitModal"></personnel-list>
@@ -82,7 +82,7 @@ export default {
       this.majorModal = false
       this.personnelModal = true
       this.submitModal = false
-      this.getPersonnelModalTree()
+      // this.getPersonnelModalTree()
     },
     showSubmitModal () {
       this.personalModal = false

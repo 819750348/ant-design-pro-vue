@@ -144,10 +144,10 @@ export default {
         knowledgeId:	id
       }).then(function (res) {
         that.$store.state.knowledge.createApprovalFlowState = res
+        that.applymodel = true
       }).catch(function (err) {
         console.log(err)
       })
-      that.applymodel = true
     },
     // 关键字搜索
     searchKey () {

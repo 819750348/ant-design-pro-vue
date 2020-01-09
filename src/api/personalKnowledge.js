@@ -2,6 +2,7 @@ import { axios } from '@/utils/request'
 import Qs from 'qs'
 export function getPrivateTree (parameter) {
   return axios({
+    // url: 'http://10.12.97.30:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
     // url: 'http://localhost:8006/giksp/tree/privilege-tree!listPrivilegeTreeNodes.action',
     url: 'privilege-tree!listPrivilegeTreeNodes.action',
     method: 'post',
@@ -15,6 +16,7 @@ export function getPrivateTree (parameter) {
 
 export function getPrivateList (parameter) {
   return axios({
+    // url: 'http://10.12.97.30:8006/giksp/knowledge/knowledge!ksearch.action',
     // url: 'http://localhost:8006/giksp/knowledge/knowledge!ksearch.action',
     url: 'knowledge!ksearch.action',
     method: 'post',
@@ -103,3 +105,21 @@ export function createApprovalFlow (parameter) {
 //     }
 //   })
 // }
+export function setQualifiedRoleNodes (parameter) {
+  return axios({
+    url: 'approval!getQualifiedRoleNodes.action',
+    method: 'get',
+    data: parameter
+  })
+}
+
+export function getPersonnel (parameter) {
+  return axios({
+    url: 'assignprivilege!QualifiedApproveUsers.action',
+    method: 'post',
+    data: Qs.stringify(parameter),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}

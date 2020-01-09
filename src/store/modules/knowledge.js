@@ -13,7 +13,10 @@ const knowledge = {
     flashconvert: '',
     kType: '',
     saveState: '',
-    createApprovalFlowState: ''
+    createApprovalFlowState: '',
+    approvalPrivateTree: '',
+    approvalCatagorytree: '',
+    majorSort: ''
   },
 
   mutations: {
@@ -58,6 +61,15 @@ const knowledge = {
     },
     createApprovalFlowState: (state, data) => {
       state.createApprovalFlowState = data
+    },
+    approvalPrivateTree: (state, data) => {
+      state.approvalPrivateTree = data
+    },
+    approvalCatagorytree: (state, data) => {
+      state.approvalCatagorytree = data
+    },
+    setMajorSort: (state, data) => {
+      state.majorSort = data
     }
   },
   actions: {}

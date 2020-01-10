@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-tabs type="card" @change="showPrivateKnowledge">
+    <a-tabs type="card" @change="showPrivateKnowledge" defaultActiveKey="2">
       <a-tab-pane tab="个人知识" key="1" />
       <a-tab-pane tab="共享知识" key="2"/>
       <a-tab-pane tab="最近浏览" key="3"/>
@@ -126,6 +126,9 @@ export default {
         console.log(err)
       })
     }
+  },
+  mounted () {
+    this.showPrivateKnowledge('2')
   }
 }
 </script>

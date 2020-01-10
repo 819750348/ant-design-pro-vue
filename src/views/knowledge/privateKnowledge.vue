@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-row :gutter="8">
-      <a-col :span="6">
+      <a-col :span="5">
         <personal-knowledge></personal-knowledge>
       </a-col>
       <a-col :span="18">

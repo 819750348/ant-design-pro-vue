@@ -4,7 +4,6 @@
       <a-collapse-panel header="我的知识" key="1">
         <a-tree
           :treeData="privateTreeData"
-          defaultExpandAll
           @select="onSelect"
         ></a-tree>
       </a-collapse-panel>

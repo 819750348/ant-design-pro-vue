@@ -1,9 +1,8 @@
 <template>
   <a-collapse style="padding:0px;margin:0px;" v-model="activeKey" accordion="true" @change="getData">
-    <a-collapse-panel header="专业导航" key="1">
+    <a-collapse-panel header="研究室知识库" key="1">
       <a-tree
         :treeData="professionalNavigation"
-        defaultExpandAll
         @select="onSelect"
       ></a-tree>
     </a-collapse-panel>
@@ -174,5 +173,6 @@ export default {
 </script>
 
 <style scoped>
-
+  .ant-list-item:hover{background-color: #85BDFF;}
+  .ant-list-item:active{background-color: #040FFF;}
 </style>

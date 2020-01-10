@@ -42,7 +42,7 @@
                       </a-col>
                       <a-col :span="10">
                         <a-button @click="visibleApply(item.id)">发起共享申请</a-button>
-                        <a-button style="margin-left: 10px" >修改分类</a-button>
+                        <!--<a-button style="margin-left: 10px" >修改分类</a-button>-->
                         <a-popconfirm title="确定删除吗?" @confirm="() => deleteDetails(item.id)">
                           <a-button style="margin-left: 10px">删除</a-button>
                         </a-popconfirm>

@@ -2,16 +2,24 @@
   <a-card :bordered="true">
     <div>
       <span>标题:&nbsp;
-        <a-input-search
+        <a-input
           v-model="titlename"
           placeholder=""
-          @search="convertKnowledgeBaseList"
-          enterButton="过滤"
           style="width:220px;"
         />
       </span>
-      <span v-for="s in searchList" ref="inputValue" :key="s">
-        {{ s.description }}&nbsp;<a-input :name="s.name" style="width:150px;"/>
+      <span v-for="(s,index) in searchData" ref="inputValue" :key="s">
+        <span>
+          {{ s.description }}
+          {{ ":" }}
+        </span>
+        <span>
+          <a-input :name="s.name" style="width:150px;"/>
+          <span v-if="index=== 1 || index % 3 ===1 "><br></br></span>
+        </span>
+      </span>
+      <span style="margin-left: 10px">
+        <a-button @click="query" type="primary">{{"过滤"}}</a-button>
       </span>
       <a-form layout="inline">
         <a-row>
@@ -60,6 +68,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getKnowledgeBaseList } from '@/api/knowledgeCore'
+import './knowledgeBase.less'
 export default {
   data () {
     return {
@@ -77,12 +87,26 @@ export default {
      * @date 2019-12-03
      */
     query () {
-      this.searchlist = []
+      const that = this
+      that.searchlist = []
       console.log(this.$refs)
-      this.searchlist.push({ 'name': 'titlename', 'value': this.titlename, 'and_or': 'and' })
-      for (var i = 0; i < this.$refs.inputValue.length; i++) {
-        this.searchlist.push({ 'name': this.$refs.inputValue[i].children[0].name, 'value': this.$refs.inputValue[i].children[0].value, 'and_or': 'and' })
+      that.searchlist.push({ 'name': 'titlename', 'value': that.titlename, 'and_or': 'and' })
+      for (var i = 0; i < that.$refs.inputValue.length; i++) {
+        that.searchlist.push({ 'name': that.$refs.inputValue[i].children[0].name, 'value': that.$refs.inputValue[i].children[0].value, 'and_or': 'and' })
       }
+      var searchArray = JSON.stringify(that.searchlist)
+      getKnowledgeBaseList({
+        formvalue: {
+          'searchlist': searchArray
+        },
+        index: 0,
+        size: 10
+      }).then(function (res) {
+        that.$store.commit('saveKnowledgeBaseList', res)
+        console.log(res)
+      }).catch(function (err) {
+        console.log(err)
+      })
     },
     /**
      * 转换知识库列表属性
@@ -125,7 +149,7 @@ export default {
          * @Author 尘埃Friend
          * @date 2019-12-03
          */
-      searchList: state => state.knowledge.searchList
+      searchData: state => state.knowledge.searchList
     })
   }
 }

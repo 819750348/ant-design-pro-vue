@@ -2,34 +2,38 @@
   <div>
     <a-collapse accordion="true" @change="getPrivateTreeData">
       <a-collapse-panel header="我的知识" key="1">
-        <a-tree
-          :treeData="privateTreeData"
-          @select="onSelect"
-        ></a-tree>
+        <div style="height: 500px;overflow-y: auto">
+          <a-tree
+            :treeData="privateTreeData"
+            @select="onSelect"
+          ></a-tree>
+        </div>
       </a-collapse-panel>
       <a-collapse-panel key="2" @change="getPrivateTreeData">
-        <template id="btnSm">
-          <a-row type="flex" slot="header">
+        <template>
+          <a-row type="flex" slot="header" id="btnSm">
             <a-col :span="12">
               编辑个人知识分类
             </a-col>
             <a-col :span="4">
-              <a-button @click.stop="add" size="small" >增加</a-button>
+              <a-button @click.stop="add">增加</a-button>
             </a-col>
             <a-col :span="4">
-              <a-button style="margin-left: 5px" @click.stop="update" size="small">修改</a-button>
+              <a-button style="margin-left: 3px" @click.stop="update">修改</a-button>
             </a-col>
             <a-col :span="4">
-              <a-button style="margin-left: 5px" @click.stop="remove" size="small">删除</a-button>
+              <a-button style="margin-left: 3px" @click.stop="remove">删除</a-button>
             </a-col>
           </a-row>
         </template>
-        <a-tree
-          defaultExpandAll
-          :treeData="privateTreeData"
-          @select="onSelectByEdit"
-        >
-        </a-tree>
+        <div style="height: 500px;overflow-y: auto">
+          <a-tree
+            defaultExpandAll
+            :treeData="privateTreeData"
+            @select="onSelectByEdit"
+          >
+          </a-tree>
+        </div>
       </a-collapse-panel>
     </a-collapse>
     <a-modal v-model="addNodeModal" title="增加节点" @ok="addTreeNode" @cancel="cancelOperating">

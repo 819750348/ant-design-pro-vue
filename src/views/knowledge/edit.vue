@@ -145,18 +145,24 @@
       width="800px"
     >
       <template slot="title">{{ "选择个人分类" }}</template>
-      <a-radio-group name="radioGroup" @change="selectRadio">
-        <a-radio v-for=" ctr in catagorytreeRadio " :key="ctr.id" :value="ctr.nodeId">{{ ctr.name }}</a-radio>
-      </a-radio-group>
       <a-card size="small" style="width: 750px">
-        <template solt="title">{{ "分类" }}</template>
-        <a-tree
-          checkable
-          :treeData="catagorytreeData"
-          checkStrictly="true"
-          defaultExpandAll="true"
-          @check="catagorytreeCheck"
-        ></a-tree>
+        <template solt="title">
+          <a-radio-group name="radioGroup" @change="selectRadio" style="width: 100%;text-overflow: ellipsis;white-space: normal;">
+            <a-radio v-for=" ctr in catagorytreeRadio " :key="ctr.id" :value="ctr.nodeId">{{ ctr.name }}</a-radio>
+          </a-radio-group>
+        </template>
+        <div>
+          {{ "分类" }}
+        </div>
+        <div style="height: 260px;overflow-y: auto">
+          <a-tree
+            checkable
+            :treeData="catagorytreeData"
+            checkStrictly="true"
+            defaultExpandAll="true"
+            @check="catagorytreeCheck"
+          ></a-tree>
+        </div>
       </a-card>
     </a-modal>
     <a-modal
@@ -348,51 +354,55 @@ export default {
     catagorytreeSubmit (e) {
       e.preventDefault()
       var vm = this
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          vm.$router.push({ name: 'upload', params: { } })
-          console.log('values' + values)
-          const obj = {}
-          for (const key in values) {
-            const arrayKeys = key.split('-')
-            const objKey = arrayKeys[0]
-            if (arrayKeys.length > 0) {
-              obj[objKey] = values[key]
+      if (vm.catagorytreeTitle === '') {
+        vm.$message.info('个人知识分类不能为空')
+      } else {
+        this.form.validateFields((err, values) => {
+          if (!err) {
+            vm.$router.push({ name: 'upload', params: {} })
+            console.log('values' + values)
+            const obj = {}
+            for (const key in values) {
+              const arrayKeys = key.split('-')
+              const objKey = arrayKeys[0]
+              if (arrayKeys.length > 0) {
+                obj[objKey] = values[key]
+              }
             }
+            console.log('obj' + obj)
+            console.log(vm.catagorytreeKey)
+            var categories = { categories: vm.catagorytreeKey }
+            Object.assign(obj, categories)
+            console.log('values' + values)
+            var formvalue = JSON.stringify(obj)
+            console.log(vm.selectKTypeId)
+            catagorytreeOK({
+              sourcefilepath: vm.uploadFile,
+              formvalue: formvalue,
+              domain: '',
+              ktypeid: vm.selectKTypeId
+            }).then(function (res) {
+              if (res === '知识保存成功!') {
+                // vm.$store.commit('saveState', true)
+                setTimeout(() => {
+                  vm.$notification.success({
+                    message: '保存成功'
+                  })
+                }, 1000)
+              } else {
+                setTimeout(() => {
+                  vm.$notification.success({
+                    message: '保存失败'
+                  })
+                }, 1000)
+                // vm.$store.commit('saveState', false)
+              }
+            }).catch(function (err) {
+              console.log(err)
+            })
           }
-          console.log('obj' + obj)
-          console.log(vm.catagorytreeKey)
-          var categories = { categories: vm.catagorytreeKey }
-          Object.assign(obj, categories)
-          console.log('values' + values)
-          var formvalue = JSON.stringify(obj)
-          console.log(vm.selectKTypeId)
-          catagorytreeOK({
-            sourcefilepath:	vm.uploadFile,
-            formvalue:	formvalue,
-            domain: '',
-            ktypeid: vm.selectKTypeId
-          }).then(function (res) {
-            if (res === '知识保存成功!') {
-              // vm.$store.commit('saveState', true)
-              setTimeout(() => {
-                vm.$notification.success({
-                  message: '保存成功'
-                })
-              }, 1000)
-            } else {
-              setTimeout(() => {
-                vm.$notification.success({
-                  message: '保存失败'
-                })
-              }, 1000)
-              // vm.$store.commit('saveState', false)
-            }
-          }).catch(function (err) {
-            console.log(err)
-          })
-        }
-      })
+        })
+      }
     },
     // handleSelectChange (values) {
     //   var vm = this

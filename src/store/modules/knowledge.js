@@ -16,7 +16,8 @@ const knowledge = {
     createApprovalFlowState: '',
     approvalPrivateTree: '',
     approvalCatagorytree: '',
-    majorSort: ''
+    majorSort: '',
+    knowledgeTypeSelect: ''
   },
 
   mutations: {
@@ -70,6 +71,9 @@ const knowledge = {
     },
     setMajorSort: (state, data) => {
       state.majorSort = data
+    },
+    saveKnowledgeType: (state, data) => {
+      state.knowledgeTypeSelect = data
     }
   },
   actions: {}

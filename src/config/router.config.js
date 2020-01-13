@@ -8,17 +8,18 @@ export const constantRouterMap = [
   {
     path: '/user',
     component: () => import(/* webpackChunkName: "user" */ '@/views/knowledge/clientknowledge'),
+    redirect: '/user/knowledgeCore',
     hidden: true,
     children: [
-      {
-        path: 'privateKnowledge',
-        name: 'privateKnowledge',
-        component: () => import('@/views/knowledge/privateKnowledge')
-      },
       {
         path: 'knowledgeCore',
         name: 'knowledgeCore',
         component: () => import('@/views/knowledge/knowledgeCore')
+      },
+      {
+        path: 'privateKnowledge',
+        name: 'privateKnowledge',
+        component: () => import('@/views/knowledge/privateKnowledge')
       },
       {
         path: 'recentlyView',

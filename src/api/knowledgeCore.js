@@ -62,3 +62,15 @@ export function getKnowledgeBaseList (parameter) {
     }
   })
 }
+
+export function getKnowledgeType (parameter) {
+  return axios({
+    // url: 'http://localhost:8006/giksp/knowledge/ktype/ktype!listKnowledgetype.action',
+    url: 'ktype!listKnowledgetype.action',
+    method: 'post',
+    data: Qs.stringify(parameter),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}

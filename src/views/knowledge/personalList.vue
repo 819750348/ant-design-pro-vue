@@ -7,11 +7,9 @@
           <a-row>
             <a-col :span="8">
               <span>{{ "知识标题:" }}&nbsp;</span>
-              <a-input-search
+              <a-input
                 v-model="searchTitle"
                 placeholder=""
-                @search="searchKey"
-                enterButton="过滤"
                 style="width:220px;"
               />
             </a-col>
@@ -25,6 +23,9 @@
                 <a-select-option value="论文">论文</a-select-option>
                 <a-select-option value="术语">术语</a-select-option>
               </a-select>
+              <span style="margin-left: 10px">
+                <a-button type="primary" @click="searchKey">过滤</a-button>
+              </span>
             </a-col>
           </a-row>
           <a-row>

@@ -35,9 +35,6 @@ export default {
     knowledgeCore: knowledgeCore,
     history: history
   },
-  created () {
-    this.showPrivateKnowledge('1')
-  },
   methods: {
     callback (key) {
       // console.log(key)
@@ -127,8 +124,13 @@ export default {
       })
     }
   },
-  mounted () {
+  created () {
     this.showPrivateKnowledge('2')
+  },
+  watch: {
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+    }
   }
 }
 </script>

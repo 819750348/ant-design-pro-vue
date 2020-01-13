@@ -1,5 +1,11 @@
 <template>
-  <a-collapse style="padding:0px;margin:0px;" v-model="activeKey" accordion="true" @change="getData">
+  <a-collapse
+    style="padding:0px;margin:0px;"
+    accordion="true"
+    v-model="activeKey"
+    @change="getData"
+    defaultActiveKey="1"
+    id="professionalNavigation">
     <a-collapse-panel header="研究室知识库" key="1">
       <a-tree
         :treeData="professionalNavigation"
@@ -15,7 +21,8 @@
   </a-collapse>
 </template>
 <script>
-import { getNavigationDetail, getSearchList, getKnowledgeBaseList } from '@/api/knowledgeCore'
+import { getNavigationDetail, getSearchList, getKnowledgeBaseList, getKnowledgeType } from '@/api/knowledgeCore'
+import './professionalNavigation.less'
 export default {
   data () {
     return {
@@ -85,6 +92,7 @@ export default {
       if (key.length > 0) {
         if (key[key.length - 1] === '1') {
           this.setTreeModal(this.$store.state.knowledge.professionalNavigation)
+          this.getKnowledgeTypeData()
           this.$emit('changeList', '1')
         } else if (key[key.length - 1] === '2') {
           this.knowledgeBase = this.$store.state.knowledge.knowledgeBase
@@ -164,6 +172,15 @@ export default {
         // }
 
         that.$store.commit('saveKnowledgeBaseList', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    getKnowledgeTypeData () {
+      const that = this
+      getKnowledgeType({}).then(function (res) {
+        that.$store.commit('saveKnowledgeType', res)
+        console.log(res)
       }).catch(function (err) {
         console.log(err)
       })

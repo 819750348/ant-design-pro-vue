@@ -32,7 +32,7 @@
       </a-col>
       <a-col :span="3">
         <a-button type="primary" size="small" @click="showMajorModal" v-if="item.nodeStatus==='等待审批'">选择专业</a-button>
-        <a-button type="primary" size="small" @click="showMajorModal"v-else>无</a-button>
+        <span v-else>无</span>
       </a-col>
     </a-row>
   </a-card>

@@ -1,30 +1,36 @@
 <template>
   <div id="majorModal">
     <a-card>
-      <span slot="title">
-        <a-radio-group @change="radioTree">
-          <a-radio :value="item.nodeId" v-for=" item in approvalCatagorytree" :key="item.nodeId">{{ item.name }}</a-radio>
+      <div slot="title" >
+        <a-radio-group @change="radioTree" style="width: 100%;text-overflow: ellipsis;white-space: normal;">
+          <a-radio :value="item.nodeId" v-for=" (item) in approvalCatagorytree" :key="item.nodeId">{{ item.name }}</a-radio>
         </a-radio-group>
-      </span>
+      </div>
       <a-row>
         <a-col :span="12">
-          <div>专业名称</div>
-          <!--<a-tree-->
-          <!--checkable-->
-          <!--checkStrictly="false"-->
-          <!--v-model="checkedKeys"-->
-          <!--@select="onSelect"-->
-          <!--:selectedKeys="selectedKeys"-->
-          <!--:treeData="approvalPrivateTree"-->
-          <!--/>-->
+          <span>专业名称</span>
+        </a-col>
+        <a-col>
+          <span>描述</span>
+        </a-col>
+        <div style="height: 260px;overflow-y: auto">
           <a-tree
             @select="choiceProfession"
             :treeData="approvalPrivateTree"
           />
-        </a-col>
-        <a-col :span="12">
-          <div>描述</div>
-        </a-col>
+        </div>
+        <!--<a-tree-->
+        <!--checkable-->
+        <!--checkStrictly="false"-->
+        <!--v-model="checkedKeys"-->
+        <!--@select="onSelect"-->
+        <!--:selectedKeys="selectedKeys"-->
+        <!--:treeData="approvalPrivateTree"-->
+        <!--/>-->
+
+        <!--<a-col :span="12">-->
+        <!--<div>描述</div>-->
+        <!--</a-col>-->
       </a-row>
     </a-card>
     <a-row type="flex" justify="center" >

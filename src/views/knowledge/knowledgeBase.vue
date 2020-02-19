@@ -31,7 +31,7 @@
                     <a-col :span="14">
                       <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                         <a-list-item-meta>
-                          <a slot="title" :href="item.href">{{ item[0].titleName }}</a>
+                          <a slot="title" :href="item.href" style="font-weight: bold">{{ item[0].titleName }}</a>
                         </a-list-item-meta>
                       </div>
                     </a-col>

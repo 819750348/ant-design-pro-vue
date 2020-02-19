@@ -34,7 +34,7 @@
                     <a-col :span="14">
                       <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                         <a-list-item-meta>
-                          <a slot="title" :href="item.href">{{ item.titleName }}</a>
+                          <a slot="title" :href="item.href" style="font-weight: bold">{{ item.titleName }}</a>
                         </a-list-item-meta>
                       </div>
                     </a-col>
@@ -44,10 +44,10 @@
                   </a-row>
                   <a-row>
                     <span><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>{{ item.uploader.name }}</span>
-                    <span ><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img><span v-if="item.keywords.length > 0">{{ item.KAuthors[0].name }}</span></span>
-                    <span ><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img><span v-if="item.keywords.length > 0">{{ item.keywords[0].name }}</span></span>
-                    <sapn ><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.knowledgetype.name }}</sapn>
-                    <sapn ><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{ item.uploaddate }}</sapn>
+                    <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img><span v-if="item.keywords.length > 0">{{ item.KAuthors[0].name }}</span></span>
+                    <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img><span v-if="item.keywords.length > 0">{{ item.keywords[0].name }}</span></span>
+                    <sapn style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.knowledgetype.name }}</sapn>
+                    <sapn style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{ item.uploaddate }}</sapn>
                   </a-row>
                 </template>
               </a-list-item>

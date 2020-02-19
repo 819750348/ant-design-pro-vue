@@ -21,13 +21,14 @@
           </a-col>
           <a-col :span="8">
             <span>{{ "知识标题:" }}&nbsp;</span>
-            <a-input-search
+            <a-input
               v-model="ktitle"
               placeholder=""
-              @search="getTitleName"
-              enterButton="过滤"
-              style="width:220px;"
+              style="width:200px;"
             />
+            <span style="margin-left: 10px">
+              <a-button @click="getTitleName" type="primary">{{ "过滤" }}</a-button>
+            </span>
           </a-col>
         </a-row>
         <a-row>
@@ -39,7 +40,7 @@
                     <a-col :span="20">
                       <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                         <a-list-item-meta>
-                          <a slot="title" :href="item.href">{{ item.titleName }}</a>
+                          <a slot="title" :href="item.href" style="font-weight: bold">{{ item.titleName }}</a>
                         </a-list-item-meta>
                       </div>
                     </a-col>
@@ -48,13 +49,13 @@
                     </a-col>
                   </a-row>
                   <a-row>
-                    <a-col :span="2" title="上传者" v-if="item.uploader!==null"><img style="height: 15px;width: 15px;" src="@/assets/2.png" ></img>{{ item.uploader.name }}</a-col>
-                    <a-col :span="2" title="原文作者" v-if="item.KAuthors.length > 0"><img style="height: 15px;width: 15px;" src="@/assets/1.png" ></img>{{ item.KAuthors[0].name }}</a-col>
-                    <a-col :span="5" title="关键词" v-if="item.keywords.length >0"><img style="height: 15px;width: 15px;" src="@/assets/5.png" ></img>{{ item.keywords[0].name }}</a-col>
-                    <a-col :span="3" title="所属类别" v-if="item.knowledgetype !== null"><img style="height: 15px;width: 15px;" src="@/assets/3.png" ></img>{{ item.knowledgetype.name }}</a-col>
-                    <a-col :span="3" title="共享状态" v-if="item.status !== null"><img style="height: 15px;width: 15px;" src="@/assets/4.png" ></img>{{ item.status }}</a-col>
-                    <a-col :span="4" title="长传时间" v-if="item.uploadTime !==null "><img style="height: 15px;width: 15px;" src="@/assets/4.png" ></img>{{ item.uploadTime }}</a-col>
-                    <a-col :span="4" title="上传浏览时间" v-if="item.uploaddate !==null "><img style="height: 15px;width: 15px;" src="@/assets/4.png" ></img>{{ item.uploaddate }}</a-col>
+                    <span title="上传者" v-if="item.uploader!==null"><img style="height: 15px;width: 15px;" src="@/assets/2.png" ></img>{{ item.uploader.name }}</span>
+                    <span title="原文作者" v-if="item.KAuthors.length > 0"><img style="height: 15px;width: 15px;" src="@/assets/1.png" ></img>{{ item.KAuthors[0].name }}</span>
+                    <span title="关键词" v-if="item.keywords.length >0"><img style="height: 15px;width: 15px;" src="@/assets/5.png" ></img>{{ item.keywords[0].name }}</span>
+                    <span :span="3" title="所属类别" v-if="item.knowledgetype !== null"><img style="height: 15px;width: 15px;" src="@/assets/3.png" ></img>{{ item.knowledgetype.name }}</span>
+                    <span :span="3" title="共享状态" v-if="item.status !== null"><img style="height: 15px;width: 15px;" src="@/assets/4.png" ></img>{{ item.status }}</span>
+                    <span :span="4" title="长传时间" v-if="item.uploadTime !==null "><img style="height: 15px;width: 15px;" src="@/assets/4.png" ></img>{{ item.uploadTime }}</span>
+                    <span :span="4" title="上传浏览时间" v-if="item.uploaddate !==null "><img style="height: 15px;width: 15px;" src="@/assets/4.png" ></img>{{ item.uploaddate }}</span>
                   </a-row>
                 </template>
               </a-list-item>

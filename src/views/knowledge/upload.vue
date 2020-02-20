@@ -3,7 +3,7 @@
     <a-upload-dragger
       name="files"
       :multiple="false"
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action="http://localhost:8006/giksp/knowledge/fileupload!sourcefileupload_j.action"
       @change="handleChange">
       <p class="ant-upload-drag-icon">
         <a-icon type="inbox"/>
@@ -72,5 +72,6 @@ export default {
   }
 }
 // action="http://localhost:8006/giksp/knowledge/fileupload!sourcefileupload_j.action"
-// action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+// action="http://10.12.97.30:8006/giksp/knowledge/fileupload!sourcefileupload_j.action"
+// action="//jsonplaceholder.typicode.com/posts/"
 </script>

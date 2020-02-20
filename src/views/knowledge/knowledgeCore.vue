@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-row :gutter="8">
-      <a-col :span="6">
+    <a-row :gutter="0">
+      <a-col :span="4">
         <professional-navigation @changeList="changeList"/>
       </a-col>
       <a-col :span="18" v-if="changeListKey==='1'">

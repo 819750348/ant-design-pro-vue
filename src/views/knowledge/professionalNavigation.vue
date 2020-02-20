@@ -1,28 +1,29 @@
 <template>
-  <a-collapse
-    style="padding:0px;margin:0px;"
-    accordion="true"
-    v-model="activeKey"
-    @change="getData"
-    defaultActiveKey="1"
-    id="professionalNavigation">
-    <a-collapse-panel header="研究室知识库" key="1">
-      <a-tree
-        :treeData="professionalNavigation"
-        @select="onSelect"
-      ></a-tree>
-    </a-collapse-panel>
-
-    <a-collapse-panel header="企业知识库" key="2">
-      <a-list size="large" bordered :dataSource="knowledgeBase" :rowKey="knowledgeBase.id" >
-        <a-list-item slot="renderItem" slot-scope="item" @click="listId(item.id)">{{ item.ktypeName }}</a-list-item>
-      </a-list>
-    </a-collapse-panel>
-  </a-collapse>
+  <div id="professionalNavigation" style="height: 1000px;overflow-y: auto;">
+    <a-collapse
+      style="padding:0px;margin:0px;"
+      @change="getData"
+      v-model="activeKey"
+    >
+      <a-collapse-panel header="研究室知识库" key="1">
+        <a-tree
+          :treeData="professionalNavigation"
+          @select="onSelect"
+        ></a-tree>
+      </a-collapse-panel>
+      <a-collapse-panel header="企业知识库" key="2">
+        <a-list size="large" bordered :dataSource="knowledgeBase" :rowKey="knowledgeBase.id" >
+          <a-list-item slot="renderItem" slot-scope="item" @click="listId(item.id)">{{ item.ktypeName }}</a-list-item>
+        </a-list>
+      </a-collapse-panel>
+    </a-collapse>
+  </div>
 </template>
 <script>
-import { getNavigationDetail, getSearchList, getKnowledgeBaseList, getKnowledgeType } from '@/api/knowledgeCore'
+import { getNavigationDetail, getSearchList, getKnowledgeBaseList, getKnowledgeType, getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
 import './professionalNavigation.less'
+
+// import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -34,14 +35,23 @@ export default {
        * @date 2019-11-29
        */
       professionalNavigation: '',
-      knowledgeBase: []
+      knowledgeBase: [],
+      activeKey: ['1', '2']
     }
   },
   watch: {
 
   },
   mounted () {
-
+    this.setDefaultData()
+    this.onSelect([])
+    // this.setTreeModal(this.$store.state.knowledge.professionalNavigation)
+    // this.knowledgeBase = this.$store.state.knowledge.knowledgeBase
+  },
+  computed: {
+    // ...mapState({
+    //   recentlyViewList: state => state.knowledge.recentlyViewList
+    // })
   },
   methods: {
     // 专业分类
@@ -88,18 +98,18 @@ export default {
      * @Author 尘埃Friend
      * @date 2019-11-29
      */
-    getData (key) {
-      if (key.length > 0) {
-        if (key[key.length - 1] === '1') {
-          this.setTreeModal(this.$store.state.knowledge.professionalNavigation)
-          this.getKnowledgeTypeData()
-          this.$emit('changeList', '1')
-        } else if (key[key.length - 1] === '2') {
-          this.knowledgeBase = this.$store.state.knowledge.knowledgeBase
-          this.$emit('changeList', '2')
-        }
-      }
-    },
+    // getData (key) {
+    //   if (key.length > 0) {
+    //     if (key[key.length - 1] === '1') {
+    //       this.setTreeModal(this.$store.state.knowledge.professionalNavigation)
+    //       this.getKnowledgeTypeData()
+    //       this.$emit('changeList', '1')
+    //     } else if (key[key.length - 1] === '2') {
+    //       this.knowledgeBase = this.$store.state.knowledge.knowledgeBase
+    //       this.$emit('changeList', '2')
+    //     }
+    //   }
+    // },
     /**
      * 树属性转换
      *
@@ -126,6 +136,7 @@ export default {
     onSelect (keys) {
       var id = keys[0]
       var that = this
+      this.$emit('changeList', '1')
       that.$store.commit('saveNavigationId', id)
       var f = { 'searchlist': [{ 'name': 'domainnodeid', 'value': id, 'and_or': 'and' }] }
       var formvalue = JSON.stringify(f)
@@ -149,6 +160,7 @@ export default {
     listId (key) {
       console.log(key)
       var that = this
+      this.$emit('changeList', '2')
       getSearchList({ ktypeid: key }).then(function (res) {
         that.$store.commit('saveSearchList', res)
       }).catch(function (err) {
@@ -181,6 +193,36 @@ export default {
       getKnowledgeType({}).then(function (res) {
         that.$store.commit('saveKnowledgeType', res)
         console.log(res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    setDefaultData () {
+      /**
+       * 研究生知识库
+       *
+       * @Author 尘埃Friend
+       * @date 2019-11-29
+       */
+      var that = this
+      getProfessionalNavigation({ treeType: 'domainTree', disableInte: true, operationName: '查看知识' }).then(function (res) {
+        console.log(res)
+        this.professionalNavigation = that.setTreeModal(res)
+        // that.$store.commit('saveProfessionalNavigation', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      /**
+       * 企业知识库
+       *
+       * @Author 尘埃Friend
+       * @date 2019-11-29
+       */
+      getKnowledgeBase({}).then(function (res) {
+        console.log(res)
+        that.knowledgeBase = res
+        // that.$store.commit('saveKnowledgeBase', res)
       }).catch(function (err) {
         console.log(err)
       })

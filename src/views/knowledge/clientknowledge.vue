@@ -25,6 +25,8 @@ export default {
     return {
       state: 0,
       privateTreeModal: ''
+      // defaultProfessionalNavigation: '',
+      // defaultKnowledgeBase: ''
     }
   },
   components: {
@@ -80,7 +82,7 @@ export default {
       })
     },
     /**
-     * 专业导航
+     * 研究生知识库
      *
      * @Author 尘埃Friend
      * @date 2019-11-29

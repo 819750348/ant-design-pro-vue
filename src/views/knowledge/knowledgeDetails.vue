@@ -15,7 +15,8 @@
               <span style="color: #aaaaaa">
                 {{ key }}
               </span>
-                  &nbsp;
+              {{ ":" }}
+                  &nbsp
               <span>
                 {{ val }}
               </span>
@@ -23,7 +24,7 @@
           </a-row>
           <a-divider />
           <span v-for="(val,key,index) in wikiContent" :key="index" :id="key">
-            <h2>{{ key }}</h2>
+            <h2><span style="border-left: 12px solid #4F9CEE;"></span>{{ key }}</h2>
             <!--<h3>{{ val }}</h3>-->
             <p>
                   &nbsp; &nbsp;
@@ -44,13 +45,12 @@
                 <a-icon type="right-circle" />
               </div>
               <div >
-
               </div>
               <div v-for="item in capture" :key="item" style="height: 320px;width: 320px;" v-if="capture.length>0">
                 <span v-html="item"></span>
               </div>
               <div style="height: 320px;width: 320px;" v-else>
-                <span>{{"无图片"}}</span>
+                <span>{{ "无图片" }}</span>
               </div>
             </a-carousel>
           </a-col>

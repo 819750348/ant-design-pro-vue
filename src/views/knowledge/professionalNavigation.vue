@@ -1,5 +1,5 @@
 <template>
-  <div id="professionalNavigation" style="height: 1000px;overflow-y: auto;">
+  <div id="professionalNavigation" class="professionalNavigation" style="height: 800px;overflow-y: auto;">
     <a-collapse
       style="padding:0px;margin:0px;"
       @change="getData"
@@ -22,6 +22,7 @@
 <script>
 import { getNavigationDetail, getSearchList, getKnowledgeBaseList, getKnowledgeType, getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
 import './professionalNavigation.less'
+import './scrollbar.less'
 
 // import { mapState } from 'vuex'
 export default {
@@ -234,4 +235,30 @@ export default {
 <style scoped>
   .ant-list-item:hover{background-color: #85BDFF;}
   .ant-list-item:active{background-color: #040FFF;}
+  .professionalNavigation::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+  }
+  .professionalNavigation::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius   : 10px;
+    background-color: skyblue;
+    background-image: -webkit-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.2) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.2) 75%,
+      transparent 75%,
+      transparent
+    );
+  }
+  .professionalNavigation::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background   : #ededed;
+    border-radius: 10px;
+  }
 </style>

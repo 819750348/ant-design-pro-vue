@@ -3,7 +3,7 @@
     <a-upload-dragger
       name="files"
       :multiple="false"
-      action="http://localhost:8006/giksp/knowledge/fileupload!sourcefileupload_j.action"
+      action="http://10.12.97.30:8006/giksp/knowledge/fileupload!sourcefileupload_j.action"
       @change="handleChange">
       <p class="ant-upload-drag-icon">
         <a-icon type="inbox"/>

@@ -1,5 +1,5 @@
 <template>
-  <div id="majorList" style="height: 1000px;overflow-y: hidden;">
+  <div id="majorList" style="height: 800px;overflow-y: hidden;">
     <a-card :bordered="true">
       <div>
         <a-form layout="inline">

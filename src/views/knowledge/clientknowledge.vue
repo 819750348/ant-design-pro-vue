@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scrollbar">
     <a-tabs type="card" @change="showPrivateKnowledge" defaultActiveKey="2">
       <a-tab-pane tab="个人知识" key="1" />
       <a-tab-pane tab="共享知识" key="2"/>
@@ -19,6 +19,7 @@ import RouteView from '../../layouts/RouteView'
 import { getPrivateTree } from '@/api/personalKnowledge'
 import { getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
 import { getRecentlyView } from '@/api/recentlyView'
+import './scrollbar.less'
 
 export default {
   data () {

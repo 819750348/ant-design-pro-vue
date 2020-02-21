@@ -101,7 +101,7 @@ export default {
         onChange: (page) => {
           // 分页事件
         },
-        pageSize: 3
+        pageSize: 5
       },
       // 个人知识列表
       privateKnowledgeList: '',

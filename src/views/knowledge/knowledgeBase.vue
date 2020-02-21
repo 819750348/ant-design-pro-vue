@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 1000px;overflow-y: hidden;">
+  <div style="height: 800px;overflow-y: hidden;">
     <a-card :bordered="true">
       <div>
         <span>标题:&nbsp;
@@ -79,7 +79,13 @@ export default {
   data () {
     return {
       searchlist: [],
-      titlename: ''
+      titlename: '',
+      pagination: {
+        onChange: (page) => {
+          // 分页事件
+        },
+        pageSize: 5
+      }
     }
   },
   props: {

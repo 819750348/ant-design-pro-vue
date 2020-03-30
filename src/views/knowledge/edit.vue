@@ -101,11 +101,15 @@
                 ]"/>
             </a-form-item>
             <a-form-item
+              style="white-space:nowrap;"
+              class="startposition"
               selfUpdate="true"
               :label="item.description"
               :label-col="{ span: 5 }"
               :wrapper-col="{ span: 12 }"
               v-if="item.vcomponent ==='catagorytree' && item.isVisible ===true ">
+              <!--<span style="white-space:nowrap;">-->
+              <!--<span style="position:relative ;right: 105px;top:3px;color: red">{{ "*" }}</span>-->
               <a-input
                 @click="catagorytreeModal"
                 v-model="catagorytreeTitle"
@@ -114,6 +118,7 @@
                   <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
                 </a-tooltip>
               </a-input>
+              <!--</span>-->
             </a-form-item>
             <!--<a-form-item-->
             <!--:label="item.description+ 'domaintree'"-->
@@ -707,5 +712,17 @@ export default {
 }
 </script>
 <style scoped>
+.startposition:before {
+  position:absolute;
+  left: 220px;
+  top: 13px;
+  content: "*";
+  color: red;
+}
+
+/*.startposition:after*/
+/*{*/
+  /*content: " *";*/
+/*}*/
 
 </style>

@@ -46,7 +46,7 @@
                           <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/2.png"/>{{ item[0].uploaderName }}
                         </span>
                         <span v-for="(v,k,i) in item[1]" :key="i">
-                          <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/5.png"/>{{ k }}{{ "-" }}{{ v }}
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/5.png"/>{{ k }} &nbsp{{ ":" }}&nbsp{{ v }}
                         </span>
                         <span style="float: right;margin-right: 20px">
                           <a-button @click="toKnowledgeDetails(item[0].id)">详情</a-button>
@@ -84,7 +84,11 @@ export default {
         onChange: (page) => {
           // 分页事件
         },
-        pageSize: 5
+        pageSize: '',
+        total: '',
+        current: '',
+        showQuickJumper: true,
+        defaultPageSize: 10
       }
     }
   },

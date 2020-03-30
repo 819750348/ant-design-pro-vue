@@ -46,6 +46,7 @@ export default {
   mounted () {
     this.setDefaultData()
     this.onSelect([])
+    this.getKnowledgeTypeData()
     // this.setTreeModal(this.$store.state.knowledge.professionalNavigation)
     // this.knowledgeBase = this.$store.state.knowledge.knowledgeBase
   },
@@ -191,7 +192,9 @@ export default {
     },
     getKnowledgeTypeData () {
       const that = this
-      getKnowledgeType({}).then(function (res) {
+      getKnowledgeType({
+
+      }).then(function (res) {
         that.$store.commit('saveKnowledgeType', res)
         console.log(res)
       }).catch(function (err) {

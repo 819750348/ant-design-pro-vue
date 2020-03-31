@@ -43,23 +43,67 @@
                         </a-col>
                       </a-row>
                       <a-row>
-                        <span><img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/2.png"></img>{{ item.uploader.name }}</span>
-                        <span style="margin-left: 20px"><img
-                          style="height: 15px;width: 15px;margin-bottom: 6px"
-                          src="@/assets/1.png"></img><span
-                            v-if="item.keywords.length > 0">{{ item.KAuthors[0].name }}</span></span>
-                        <span style="margin-left: 20px"><img
-                          style="height: 15px;width: 15px;margin-bottom: 6px"
-                          src="@/assets/5.png"></img><span
-                            v-if="item.keywords.length > 0">{{ item.keywords[0].name }}</span></span>
-                        <sapn style="margin-left: 20px"><img
-                          style="height: 15px;width: 15px;margin-bottom: 6px"
-                          src="@/assets/3.png"></img>{{ item.knowledgetype.name }}
-                        </sapn>
-                        <sapn style="margin-left: 20px"><img
-                          style="height: 15px;width: 15px;margin-bottom: 6px"
-                          src="@/assets/4.png"></img>{{ item.uploaddate }}
-                        </sapn>
+                        <span>
+                          <span v-if="item.uploader.name.length > 5" :title="item.uploader.name">
+                            <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/2.png" />
+                            {{ item.uploader.name.substring(0,4)+'...' }}
+                          </span>
+                          <span v-else>
+                            <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/2.png"/>
+                            {{ item.uploader.name }}
+                          </span>
+                        </span>
+                        <span>
+                          <span style="margin-left: 20px" v-if="item.KAuthors[0].name.length > 5" :title="item.KAuthors[0].name">
+                            <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/1.png"/>
+                            <span v-if="item.KAuthors[0].name.length > 0">
+                              {{ item.KAuthors[0].name.substring(0,4) + '...' }}
+                            </span>
+                          </span>
+                          <span style="margin-left: 20px" v-else>
+                            <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/1.png"/>
+                            <span v-if="item.KAuthors[0].name.length > 0">
+                              {{ item.KAuthors[0].name }}
+                            </span>
+                          </span>
+                        </span>
+                        <span>
+                          <sapn style="margin-left: 20px" v-if="item.knowledgetype.name.length > 4" :title="item.knowledgetype.name">
+                            <img
+                              style="height: 15px;width: 15px;margin-bottom: 6px"
+                              src="@/assets/3.png"/>
+                            {{ item.knowledgetype.name.substring(0,3) + '...' }}
+                          </sapn>
+                          <sapn style="margin-left: 20px" v-else>
+                            <img
+                              style="height: 15px;width: 15px;margin-bottom: 6px"
+                              src="@/assets/3.png"/>
+                            {{ item.knowledgetype.name }}
+                          </sapn>
+                        </span>
+                        <span>
+                          <sapn style="margin-left: 20px">
+                            <img
+                              style="height: 15px;width: 15px;margin-bottom: 6px"
+                              src="@/assets/4.png"/>
+                            {{ item.uploaddate }}
+                          </sapn>
+                        </span>
+                        <span>
+                          <span style="margin-left: 20px" v-if="item.keywords[0].name.length > 10" :title="item.keywords[0].name">
+                            <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/5.png"/>
+                            <span v-if="item.keywords[0].name.length > 0">
+                              {{ item.keywords[0].name.substring(0,9) + '...' }}
+                            </span>
+                          </span>
+                          <span style="margin-left: 20px" v-else>
+                            <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/5.png"/>
+                            <span v-if="item.keywords[0].name > 0">
+                              {{ item.keywords[0].name }}
+                            </span>
+                          </span>
+                        </span>
+
                         <span style="float: right;margin-right: 20px">
                           <a-button @click="details">详情</a-button>
                         </span>
@@ -100,7 +144,6 @@ export default {
         },
         total: '',
         pageSize: 10,
-        current: 1,
         showQuickJumper: true,
         showSizeChanger: true,
         pageSizeOptions: [5, 10, 20, 30, 40, 50],
@@ -179,6 +222,29 @@ export default {
         console.log(err)
       })
     },
+    // 初始化数据
+    initData () {
+      var that = this
+      var f = {
+        'searchlist': [{ 'name': 'domainnodeid', 'value': '', 'and_or': 'and' },
+          { 'name': 'kauthors_or_uploader', 'value': '', 'and_or': 'and' },
+          { 'name': 'titlename', 'value': '', 'and_or': 'and' },
+          { 'name': 'knowledgetype', 'value': '', 'and_or': 'and' }]
+      }
+      var formvalue = JSON.stringify(f)
+
+      getNavigationDetail({
+        formvalue: formvalue,
+        index: 0,
+        size: 10
+      }).then(function (res) {
+        that.$store.commit('saveNavigationDetail', res)
+        that.pagination.total = res.total
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+
     typeChange (data) {
       this.knowledgeType = data
       this.query()
@@ -189,7 +255,10 @@ export default {
     }
   },
   mounted () {
+    console.log('123')
     this.pagination.total = this.navigationDetail.total
+    this.initData()
+    console.log('456')
   },
   computed: {
     ...mapState({

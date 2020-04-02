@@ -32,8 +32,8 @@
                       <a-col :span="14">
                         <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                           <a-list-item-meta>
-                            <a slot="title" :href="item.href" style="font-weight: bold;font-size: 14px">{{
-                              item.titleName }}</a>
+                            <a slot="title" :href="item.href" @click="toKnowledgeDetails(item.id)" style="font-weight: bold;font-size: 14px">
+                              {{item.titleName }}</a>
                           </a-list-item-meta>
                         </div>
                       </a-col>
@@ -113,7 +113,7 @@ export default {
         showSizeChanger: true,
         pageSizeOptions: [5, 10, 20, 30, 40, 50],
         showTotal: (total, range) => {
-          return '总共' + total + '页'
+          return '总共' + total + '条数据'
         }
       },
       covknowledgeBaseList: []
@@ -169,15 +169,17 @@ export default {
     //   }
     // },
     toKnowledgeDetails (id) {
-      const routerHref = this.$router.resolve({
-        // name: 'knowledgeDetails',
-        // query: { id: id }
-        path: `/knowledgeDetails/${id}`
-      })
-
-      const href = routerHref.href.slice(0, routerHref.href.indexOf('#')) + 'clientk.action' + routerHref.href.slice(routerHref.href.indexOf('#'))
-      window.top.open(href, '_blank')
-      console.log('2' + routerHref.href)
+      // const routerHref = this.$router.resolve({
+      //   // name: 'knowledgeDetails',
+      //   // query: { id: id }
+      //   path: `/knowledgeDetails/${id}`
+      // })
+      //
+      // const href = routerHref.href.slice(0, routerHref.href.indexOf('#')) + 'clientk.action' + routerHref.href.slice(routerHref.href.indexOf('#'))
+      // window.top.open(href, '_blank')
+      // console.log('2' + routerHref.href)
+      console.log('超链接')
+      window.open('http://10.12.97.30:8006/giksp/user!contentpage.action?kid=' + id + '&kname')
     },
     convertKnowledgeBaseList (datas) {
       var i

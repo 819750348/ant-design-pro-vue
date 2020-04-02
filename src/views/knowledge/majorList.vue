@@ -37,7 +37,7 @@
                         <a-col :span="14">
                           <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                             <a-list-item-meta>
-                              <a slot="title" :href="item.href" style="font-weight: bold">{{ item.titleName }}</a>
+                              <a slot="title" :href="item.href" @click="details(item.id)" style="font-weight: bold">{{ item.titleName }}</a>
                             </a-list-item-meta>
                           </div>
                         </a-col>
@@ -105,7 +105,7 @@
                         </span>
 
                         <span style="float: right;margin-right: 20px">
-                          <a-button style="position: relative;top: -5px" @click="details">详情</a-button>
+                          <a-button style="position: relative;top: -5px" @click="details(item.id)">详情</a-button>
                         </span>
                       </a-row>
                     </template>
@@ -148,7 +148,7 @@ export default {
         showSizeChanger: true,
         pageSizeOptions: [5, 10, 20, 30, 40, 50],
         showTotal: (total, range) => {
-          return '总共' + total + '页'
+          return '总共' + total + '条数据'
         }
       },
       titleQuery: '',
@@ -249,9 +249,9 @@ export default {
       this.knowledgeType = data
       this.query()
     },
-    details () {
+    details (id) {
       console.log('超链接')
-      window.open('http://10.12.97.30:8006/giksp/user!contentpage.action?kid=' + '2927' + '&kname')
+      window.open('http://10.12.97.30:8006/giksp/user!contentpage.action?kid=' + id + '&kname')
     }
   },
   mounted () {

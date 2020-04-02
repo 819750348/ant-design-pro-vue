@@ -50,12 +50,34 @@
                       </a-col>
                     </a-row>
                     <a-row>
-                      <span ><img style="height: 15px;width: 15px;" src="@/assets/2.png"></img>{{ item.uploader.name }}</span>
-                      <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/1.png"></img><span v-if="item.KAuthors.length > 0">{{ item.KAuthors[0].name }}</span></span>
-                      <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/5.png"></img><span v-if="item.keywords.length > 0">{{ item.keywords[0].name }}</span></span>
-                      <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.knowledgetype.name }}</span>
-                      <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/3.png"></img>{{ item.securityLevel }}</span>
-                      <span style="margin-left: 20px"><img style="height: 15px;width: 15px;" src="@/assets/4.png"></img>{{ item.uploaddate }}</span>
+                      <span >
+                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/2.png"/>
+                        {{ item.uploader.name }}
+                      </span>
+                      <span style="margin-left: 20px">
+                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/1.png"/>
+                        <span v-if="item.KAuthors.length > 0">
+                          {{ item.KAuthors[0].name }}
+                        </span>
+                      </span>
+                      <span style="margin-left: 20px">
+                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/5.png"/>
+                        <span v-if="item.keywords.length > 0">
+                          {{ item.keywords[0].name }}
+                        </span>
+                      </span>
+                      <span style="margin-left: 20px">
+                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
+                        {{ item.knowledgetype.name }}
+                      </span>
+                      <span style="margin-left: 20px">
+                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
+                        {{ item.securityLevel }}
+                      </span>
+                      <span style="margin-left: 20px">
+                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/4.png"/>
+                        {{ item.uploaddate }}
+                      </span>
                     </a-row>
                   </template>
                 </a-list-item>
@@ -105,13 +127,25 @@ export default {
       // 搜索标题关键字
       searchTitle: '',
       searchType: '',
-
       pagination: {
-        onChange: (page) => {
+        onChange: (page, pageSize) => {
           // 分页事件
+          this.changePages(page, pageSize)
         },
-        pageSize: 5
-        // total: this.privateKnowledgeList.total
+        onShowSizeChange: (current, pageSize) => {
+          console.log(this)
+          console.log(current, pageSize)
+          this.pagination.pageSize = pageSize
+          this.changePages(current, pageSize)
+        },
+        total: '',
+        pageSize: 10,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        pageSizeOptions: [5, 10, 20, 30, 40, 50],
+        showTotal: (total, range) => {
+          return '总共' + total + '条数据'
+        }
       },
       applymodel: false,
       /**
@@ -182,6 +216,23 @@ export default {
       }).catch(function (err) {
         console.log(err)
       })
+    },
+    changePages () {
+      console.log('123')
+      var id = this.$store.state.knowledge.privateTreeId
+      var that = this
+      var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': id, 'and_or': 'and' }], 'personalk': '1' }
+      var formvalue = JSON.stringify(f)
+      getPrivateList({
+        formvalue: formvalue,
+        selectid: id,
+        index: this.page - 1,
+        size: this.pageSize
+      }).then(function (res) {
+        that.$store.commit('savePrivateKnowledgeList', res)
+      }).catch(function (err) {
+        console.log(err)
+      })
     }
   },
   mounted () {
@@ -210,18 +261,18 @@ export default {
        * @Author 尘埃Friend
        * @date 2019-12-03
        */
-      privateTreeId: state => state.knowledge.privateTreeId,
+      privateTreeId: state => state.knowledge.privateTreeId
       /**
        * 根据树获取数据列表
        *
        * @Author 尘埃Friend
        * @date 2019-11-27
        */
-      privateKnowledgeList: state => state.knowledge.privateKnowledgeList
-    })
-    // privateKnowledgeList () {
-    //   return this.$store.state.knowledge.privateKnowledgeList
-    // }
+    }),
+    privateKnowledgeList () {
+      this.pagination.total = this.$store.state.knowledge.privateKnowledgeList.total
+      return this.$store.state.knowledge.privateKnowledgeList
+    }
   }
 }
 </script>

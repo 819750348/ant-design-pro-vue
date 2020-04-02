@@ -37,7 +37,8 @@ export default {
        */
       professionalNavigation: '',
       knowledgeBase: [],
-      activeKey: ['1', '2']
+      activeKey: ['1', '2'],
+      knowledgeBaseList: {}
     }
   },
   watch: {
@@ -163,29 +164,35 @@ export default {
       console.log(key)
       var that = this
       this.$emit('changeList', '2')
+      this.$emit('listKey', key)
       getSearchList({ ktypeid: key }).then(function (res) {
         that.$store.commit('saveSearchList', res)
       }).catch(function (err) {
         console.log(err)
       })
 
-      var f = { 'searchlist': [{ 'name': 'ktypeid', 'value': key, 'and_or': 'and' }] }
+      var f = {
+        'searchlist': [{
+          'name': 'ktypeid',
+          'value': key,
+          'and_or': 'and'
+        }] }
       var formvalue = JSON.stringify(f)
-      getKnowledgeBaseList({ formvalue: formvalue, index: 0, size: 10 }).then(function (res) {
+      getKnowledgeBaseList({
+        formvalue: formvalue,
+        index: 0,
+        size: 10
+      }).then(function (res) {
         /**
          * 转换知识库列表属性
          *
          * @Author 尘埃Friend
          * @date 2019-12-03
          */
-
-        // for (var i = 0; i < res.data.length; i++) {
-        //   for (var j = 0; j < res.data[i].length; j++) {
-        //     that.knowledgeBaseArray.push(res.data[i][j])
-        //   }
-        // }
-
+        that.convertKnowledgeBaseList(res)
         that.$store.commit('saveKnowledgeBaseList', res)
+        console.log(that.knowledgeBaseList)
+        console.log(res)
       }).catch(function (err) {
         console.log(err)
       })
@@ -230,6 +237,23 @@ export default {
       }).catch(function (err) {
         console.log(err)
       })
+    },
+    convertKnowledgeBaseList (datas) {
+      var i
+      var j
+      var arrayBase = []
+      this.knowledgeBaseList = {}
+      for (i = 0; i < datas.data.length; i++) {
+        const newObj = {}
+        for (j = 0; j < datas.data[i].length; j++) {
+          console.log(datas.data[i])
+          console.log(datas.data[i][j])
+          Object.assign(newObj, datas.data[i][j])
+        }
+        arrayBase.push(newObj)
+      }
+      datas.data = arrayBase
+      console.log(datas)
     }
   }
 }

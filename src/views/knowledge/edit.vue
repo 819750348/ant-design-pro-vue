@@ -714,7 +714,7 @@ export default {
 <style scoped>
 .startposition:before {
   position:absolute;
-  left: 220px;
+  left: 275px;
   top: 13px;
   content: "*";
   color: red;

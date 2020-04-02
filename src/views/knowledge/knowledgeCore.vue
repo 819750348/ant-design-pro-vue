@@ -2,13 +2,13 @@
   <div>
     <a-row :gutter="0">
       <a-col :span="4">
-        <professional-navigation @changeList="changeList"/>
+        <professional-navigation @changeList="changeList" @listKey="listKey"/>
       </a-col>
       <a-col :span="18" v-if="changeListKey==='1'">
         <majorList/>
       </a-col>
       <a-col :span="18" v-if="changeListKey==='2'">
-        <knowledgeBase/>
+        <knowledgeBase v-on="listeners" :nKey="navigationKey"/>
       </a-col>
     </a-row>
   </div>
@@ -32,7 +32,8 @@ export default {
        * @Author 尘埃Friend
        * @date 2019-12-03
        */
-      changeListKey: '1'
+      changeListKey: '1',
+      navigationKey: ''
     }
   },
   props: {
@@ -56,6 +57,11 @@ export default {
      */
     changeList (data) {
       this.changeListKey = data
+    },
+    listKey (key) {
+      console.log(key)
+      this.navigationKey = key
+      console.log(key)
     }
   }
 }

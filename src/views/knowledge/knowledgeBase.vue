@@ -2,22 +2,23 @@
   <div>
     <a-card :bordered="true">
       <div>
-        <span>标题:&nbsp;
+        <span style="margin-left: 20px">标题:&nbsp;
           <a-input
             v-model="titlename"
             placeholder=""
             style="width:150px;"
           />
         </span>
-        <span v-for="(s,index) in searchData" ref="inputValue" :key="index" style="margin-left: 20px;margin-top:20px;margin-bottom: 20px">
-          <span style="margin-left: 20px;margin-top:20px;margin-bottom: 20px">
-            <span>
-              {{ s.description }}
-              {{ ":" }}
-            </span>
-            <span>
-              <a-input :name="s.name" style="width:150px;"/>
-              <span v-if="index=== 1 || index % 3 ===1 "><br/></span>
+        <span v-for="(s,index) in searchData" ref="inputValue" :key="index" style="margin-left: 20px;">
+          <span>
+            {{ s.description }}
+            {{ ":" }}
+          </span>
+          <span>
+            <a-input :name="s.name" style="width:150px;"/>
+            <span v-if="index=== 1 || index % 3 ===1 ">
+              <br/>
+              <br/>
             </span>
           </span>
         </span>
@@ -131,23 +132,25 @@ export default {
        */
     query () {
       const that = this
-      that.searchlist = []
+      that.searchArray = []
       console.log(this.$refs)
-      that.searchlist.push({ 'name': 'titlename', 'value': that.titlename, 'and_or': 'and' })
+      console.log(this.nKey)
+      that.searchArray.push({ 'name': 'titlename', 'value': that.titlename, 'and_or': 'and' })
+      that.searchArray.push({ 'name': 'ktypeid', 'value': this.nKey, 'and_or': 'and' })
       for (var i = 0; i < that.$refs.inputValue.length; i++) {
-        that.searchlist.push({
-          'name': that.$refs.inputValue[i].children[0].name,
-          'value': that.$refs.inputValue[i].children[0].value,
+        that.searchArray.push({
+          'name': that.$refs.inputValue[i].children[1].children[0].name,
+          'value': that.$refs.inputValue[i].children[1].children[0].value,
           'and_or': 'and'
         })
       }
-      var searchArray = JSON.stringify(that.searchlist)
+      var obj = {}
+      obj.searchlist = that.searchArray
+      obj = JSON.stringify(obj)
       getKnowledgeBaseList({
-        formvalue: {
-          'searchlist': searchArray
-        },
+        formvalue: obj,
         index: 0,
-        size: 10
+        size: this.pagination.pageSize
       }).then(function (res) {
         that.convertKnowledgeBaseList(res)
         that.$store.commit('saveKnowledgeBaseList', res)

@@ -16,8 +16,12 @@ const knowledge = {
     createApprovalFlowState: '',
     approvalPrivateTree: '',
     approvalCatagorytree: '',
+    // 流程中专业名称id
     majorSort: '',
-    knowledgeTypeSelect: ''
+    knowledgeTypeSelect: '',
+    // 流程数据
+    knowledgeId: '',
+    approvalFlowId: ''
   },
 
   mutations: {
@@ -74,6 +78,13 @@ const knowledge = {
     },
     saveKnowledgeType: (state, data) => {
       state.knowledgeTypeSelect = data
+    },
+    // 流程
+    saveKnowledgeId: (state, data) => {
+      state.knowledgeId = data
+    },
+    saveApprovalFlowId: (state, data) => {
+      state.approvalFlowId = data
     }
   },
   actions: {}

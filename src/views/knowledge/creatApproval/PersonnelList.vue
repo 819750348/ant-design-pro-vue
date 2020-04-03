@@ -84,9 +84,9 @@ export default {
     //   console.log('selected', selectedKeys, info)
     //   this.getPersonnelModalTreeDetail(selectedKeys, info)
     // },
-    // nextSubmitModal () {
-    //   this.$emit('nextSubmitModal', 'true')
-    // },
+    nextSubmitModal () {
+      this.$emit('nextSubmitModal', 'true')
+    },
     // // 转换树的内容格式
     // setPersonnelModalTree (value) {
     //   var vm = this
@@ -124,11 +124,11 @@ export default {
     //   })
     // },
     // // 确定人员
-    // determinePersonnel (data) {
-    //   console.log(data.target.value)
-    //   this.$store.commit('SET_PERSONNEL', data.target.value)
-    //   console.log(this.$store.state.approval.personnel)
-    // },
+    determinePersonnel (data) {
+      console.log(data.target.value)
+      this.$store.commit('SET_PERSONNEL', data.target.value)
+      console.log(this.$store.state.approval.personnel)
+    },
     // /**
     //  * 树的异步数据
     //  *

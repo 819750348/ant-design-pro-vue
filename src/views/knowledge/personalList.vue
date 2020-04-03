@@ -45,7 +45,7 @@
                         <a-button style="position: relative;top: -5px" @click="visibleApply(item.id)">发起共享申请</a-button>
                         <!--<a-button style="margin-left: 10px" >修改分类</a-button>-->
                         <a-popconfirm title="确定删除吗?" @confirm="() => deleteDetails(item.id)">
-                          <a-button  style="position: relative;top: -5px;margin-left: 10px">删除</a-button>
+                          <a-button style="position: relative;top: -5px;margin-left: 10px">删除</a-button>
                         </a-popconfirm>
                       </a-col>
                     </a-row>
@@ -219,6 +219,8 @@ export default {
       createApprovalFlow({
         knowledgeId: id
       }).then(function (res) {
+        that.$store.commit('saveKnowledgeId', id)
+        that.$store.commit('saveApprovalFlowId', res.id)
         that.$store.state.knowledge.createApprovalFlowState = res
         that.applymodel = true
       }).catch(function (err) {

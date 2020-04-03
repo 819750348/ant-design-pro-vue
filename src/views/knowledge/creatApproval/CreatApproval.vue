@@ -68,6 +68,10 @@ export default {
     },
     handleCancel (e) {
       console.log(e)
+      // 关闭窗口数据清空
+      this.$store.commit('saveKnowledgeId', '')
+      this.$store.commit('saveApprovalFlowId', '')
+      this.$store.commit('setMajorSort', '')
       this.$emit('shareApply', false)
     },
     showMajorModal () {

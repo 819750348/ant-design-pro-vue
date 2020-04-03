@@ -78,7 +78,7 @@
                       {{ item.uploaddate }}
                     </span>
                     <span style="float: right;margin-right: 20px">
-                      <a-button @click="details(item.id)">详情</a-button>
+                      <a-button style="position: relative;top: -5px" @click="details(item.id)">详情</a-button>
                     </span>
                   </a-row>
                 </template>

@@ -19,7 +19,7 @@ import RouteView from '../../layouts/RouteView'
 import { getPrivateTree } from '@/api/personalKnowledge'
 import { getProfessionalNavigation, getKnowledgeBase } from '@/api/knowledgeCore'
 import { getRecentlyView } from '@/api/recentlyView'
-import './scrollbar.less'
+// import './scrollbar.less'
 import './knowledgeCSS.less'
 
 export default {

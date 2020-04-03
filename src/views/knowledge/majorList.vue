@@ -43,8 +43,8 @@
                         </a-col>
                       </a-row>
                       <a-row>
-                        <span>
-                          <span v-if="item.uploader.name.length > 5" :title="item.uploader.name">
+                        <span style="cursor:pointer">
+                          <span v-if="item.uploader.name.length > 5" :title="item.uploader.name" >
                             <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/2.png" />
                             {{ item.uploader.name.substring(0,4)+'...' }}
                           </span>
@@ -53,7 +53,7 @@
                             {{ item.uploader.name }}
                           </span>
                         </span>
-                        <span>
+                        <span style="cursor:pointer">
                           <span style="margin-left: 20px" v-if="item.KAuthors[0].name.length > 5" :title="item.KAuthors[0].name">
                             <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/1.png"/>
                             <span v-if="item.KAuthors[0].name.length > 0">
@@ -67,7 +67,7 @@
                             </span>
                           </span>
                         </span>
-                        <span>
+                        <span style="cursor:pointer">
                           <sapn style="margin-left: 20px" v-if="item.knowledgetype.name.length > 4" :title="item.knowledgetype.name">
                             <img
                               style="height: 15px;width: 15px;margin-bottom: 6px"
@@ -81,7 +81,7 @@
                             {{ item.knowledgetype.name }}
                           </sapn>
                         </span>
-                        <span>
+                        <span style="cursor:pointer">
                           <sapn style="margin-left: 20px">
                             <img
                               style="height: 15px;width: 15px;margin-bottom: 6px"
@@ -89,7 +89,7 @@
                             {{ item.uploaddate }}
                           </sapn>
                         </span>
-                        <span>
+                        <span style="cursor:pointer">
                           <span style="margin-left: 20px" v-if="item.keywords[0].name.length > 10" :title="item.keywords[0].name">
                             <img style="height: 15px;width: 15px;margin-bottom: 6px" src="@/assets/5.png"/>
                             <span v-if="item.keywords[0].name.length > 0">

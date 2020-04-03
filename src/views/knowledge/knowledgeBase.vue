@@ -9,14 +9,16 @@
             style="width:150px;"
           />
         </span>
-        <span v-for="(s,index) in searchData" ref="inputValue" :key="s">
-          <span>
-            {{ s.description }}
-            {{ ":" }}
-          </span>
-          <span>
-            <a-input :name="s.name" style="width:150px;"/>
-            <span v-if="index=== 1 || index % 3 ===1 "><br></br></span>
+        <span v-for="(s,index) in searchData" ref="inputValue" :key="index" style="margin-left: 20px;margin-top:20px;margin-bottom: 20px">
+          <span style="margin-left: 20px;margin-top:20px;margin-bottom: 20px">
+            <span>
+              {{ s.description }}
+              {{ ":" }}
+            </span>
+            <span>
+              <a-input :name="s.name" style="width:150px;"/>
+              <span v-if="index=== 1 || index % 3 ===1 "><br/></span>
+            </span>
           </span>
         </span>
         <span style="margin-left: 10px">
@@ -33,7 +35,7 @@
                         <div style="word-wrap: break-word;word-break: break-all;overflow: hidden;">
                           <a-list-item-meta>
                             <a slot="title" :href="item.href" @click="toKnowledgeDetails(item.id)" style="font-weight: bold;font-size: 14px">
-                              {{item.titleName }}</a>
+                              {{ item.titleName }}</a>
                           </a-list-item-meta>
                         </div>
                       </a-col>
@@ -64,7 +66,7 @@
                           </span>
                         </span>
                         <span style="float: right;margin-right: 20px">
-                          <a-button @click="toKnowledgeDetails(item.id)">详情</a-button>
+                          <a-button style="position: relative;top: -5px" @click="toKnowledgeDetails(item.id)">详情</a-button>
                         </span>
                       </a-col>
                     </a-row>

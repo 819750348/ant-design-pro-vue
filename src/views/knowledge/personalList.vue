@@ -42,41 +42,81 @@
                         </div>
                       </a-col>
                       <a-col :span="10">
-                        <a-button @click="visibleApply(item.id)">发起共享申请</a-button>
+                        <a-button style="position: relative;top: -5px" @click="visibleApply(item.id)">发起共享申请</a-button>
                         <!--<a-button style="margin-left: 10px" >修改分类</a-button>-->
                         <a-popconfirm title="确定删除吗?" @confirm="() => deleteDetails(item.id)">
-                          <a-button style="margin-left: 10px">删除</a-button>
+                          <a-button  style="position: relative;top: -5px;margin-left: 10px">删除</a-button>
                         </a-popconfirm>
                       </a-col>
                     </a-row>
                     <a-row>
-                      <span >
-                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/2.png"/>
-                        {{ item.uploader.name }}
-                      </span>
-                      <span style="margin-left: 20px">
-                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/1.png"/>
-                        <span v-if="item.KAuthors.length > 0">
-                          {{ item.KAuthors[0].name }}
+                      <span style="cursor:pointer" :title="item.uploader.name">
+                        <span v-if="item.uploader.name.length > 6">
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/2.png"/>
+                          {{ item.uploader.name.substring(0,4) + '...' }}
+                        </span>
+                        <span v-else>
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/2.png"/>
+                          {{ item.uploader.name }}
                         </span>
                       </span>
-                      <span style="margin-left: 20px">
-                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/5.png"/>
-                        <span v-if="item.keywords.length > 0">
-                          {{ item.keywords[0].name }}
+                      <span style="cursor:pointer" :title="item.KAuthors[0].name">
+                        <span style="margin-left: 20px" v-if="item.KAuthors.length >6">
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/1.png"/>
+                          <span v-if="item.KAuthors.length > 0">
+                            {{ item.KAuthors[0].name.substring(0,4) +'...' }}
+                          </span>
+                        </span>
+                        <span style="margin-left: 20px" v-else>
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/1.png"/>
+                          <span v-if="item.KAuthors.length > 0">
+                            {{ item.KAuthors[0].name }}
+                          </span>
                         </span>
                       </span>
-                      <span style="margin-left: 20px">
-                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
-                        {{ item.knowledgetype.name }}
+
+                      <span style="cursor:pointer" :title="item.knowledgetype.name">
+                        <span style="margin-left: 20px" v-if="item.knowledgetype.name.length >4">
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
+                          {{ item.knowledgetype.name.substring(0,3)+ '...' }}
+                        </span>
+                        <span style="margin-left: 20px" v-else>
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
+                          {{ item.knowledgetype.name }}
+                        </span>
                       </span>
-                      <span style="margin-left: 20px">
-                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
-                        {{ item.securityLevel }}
+
+                      <span style="cursor:pointer" :title="item.securityLevel">
+                        <span style="margin-left: 20px" v-if="item.securityLevel.length > 6">
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
+                          {{ item.securityLevel.substring(0,4)+ '...' }}
+                        </span>
+                        <span style="margin-left: 20px" v-else>
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/3.png"/>
+                          {{ item.securityLevel }}
+                        </span>
                       </span>
-                      <span style="margin-left: 20px">
-                        <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/4.png"/>
-                        {{ item.uploaddate }}
+
+                      <span style="cursor:pointer" :title="item.uploaddate">
+                        <span style="margin-left: 20px">
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/4.png"/>
+                          {{ item.uploaddate }}
+                        </span>
+                      </span>
+
+                      <span style="cursor:pointer" :title="item.keywords[0].name">
+                        <span style="margin-left: 20px" v-if="item.keywords[0].name.length > 10">
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/5.png"/>
+                          <span v-if="item.keywords.length > 0">
+                            {{ item.keywords[0].name.substring(0,9) + '...' }}
+                          </span>
+                        </span>
+                        <span style="margin-left: 20px" v-else>
+                          <img style="height: 15px;width: 15px;margin-bottom: 6px;" src="@/assets/5.png"/>
+                          <span v-if="item.keywords.length > 0">
+                            {{ item.keywords[0].name }}
+                          </span>
+                        </span>
                       </span>
                     </a-row>
                   </template>
@@ -116,6 +156,7 @@
 import creatApproval from './creatApproval/CreatApproval'
 import { getPrivateList, delectDetails, createApprovalFlow } from '@/api/personalKnowledge'
 import { mapState } from 'vuex'
+
 export default {
   name: 'PersonalList',
   data () {
@@ -149,11 +190,11 @@ export default {
       },
       applymodel: false,
       /**
-       * 列表删除
-       *
-       * @Author 尘埃Friend
-       * @date 2019-12-03
-       */
+         * 列表删除
+         *
+         * @Author 尘埃Friend
+         * @date 2019-12-03
+         */
       deleteVisible: false
     }
   },
@@ -168,15 +209,15 @@ export default {
       this.applymodel = val
     },
     /**
-     * 创建审批，获取审批状态
-     *
-     * @Author 尘埃Friend
-     * @date 2019-12-03
-     */
+       * 创建审批，获取审批状态
+       *
+       * @Author 尘埃Friend
+       * @date 2019-12-03
+       */
     visibleApply (id) {
       const that = this
       createApprovalFlow({
-        knowledgeId:	id
+        knowledgeId: id
       }).then(function (res) {
         that.$store.state.knowledge.createApprovalFlowState = res
         that.applymodel = true
@@ -188,7 +229,18 @@ export default {
     searchKey () {
       console.log(this.privateKnowledgeList)
       var vm = this
-      var f = { 'searchlist': [{ 'name': 'categoriesid', 'value': vm.privateTreeId, 'and_or': 'and' }, { 'name': 'titlename', 'value': vm.searchTitle, 'and_or': 'and' }, { 'name': 'knowledgetype', 'value': vm.searchType, 'and_or': 'and' }], 'personalk': '1' }
+      var f = {
+        'searchlist': [{
+          'name': 'categoriesid',
+          'value': vm.privateTreeId,
+          'and_or': 'and'
+        }, { 'name': 'titlename', 'value': vm.searchTitle, 'and_or': 'and' }, {
+          'name': 'knowledgetype',
+          'value': vm.searchType,
+          'and_or': 'and'
+        }],
+        'personalk': '1'
+      }
       var formvalue = JSON.stringify(f)
       getPrivateList({
         formvalue: formvalue,
@@ -245,29 +297,29 @@ export default {
     //     console.log(err)
     //   })
     /**
-     * 初始化分页
-     *
-     * @Author 尘埃Friend
-     * @date 2019-12-03
-     */
+       * 初始化分页
+       *
+       * @Author 尘埃Friend
+       * @date 2019-12-03
+       */
     // this.pageSize = this.privateKnowledgeList.pagesize
     // console.log(this.privateKnowledgeList)
   },
   computed: {
     ...mapState({
       /**
-       * 获取个人知识树id
-       *
-       * @Author 尘埃Friend
-       * @date 2019-12-03
-       */
+         * 获取个人知识树id
+         *
+         * @Author 尘埃Friend
+         * @date 2019-12-03
+         */
       privateTreeId: state => state.knowledge.privateTreeId
       /**
-       * 根据树获取数据列表
-       *
-       * @Author 尘埃Friend
-       * @date 2019-11-27
-       */
+         * 根据树获取数据列表
+         *
+         * @Author 尘埃Friend
+         * @date 2019-11-27
+         */
     }),
     privateKnowledgeList () {
       this.pagination.total = this.$store.state.knowledge.privateKnowledgeList.total

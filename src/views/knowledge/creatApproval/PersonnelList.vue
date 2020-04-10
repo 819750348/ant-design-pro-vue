@@ -20,8 +20,8 @@
               <a-icon type="user"/>
               {{ text }}
             </span>
-            <span slot="id" slot-scope="id">
-              <a-radio-group @change="determinePersonnel" v-model="radioValue">
+            <span slot="id" slot-scope="id,record">
+              <a-radio-group @change="determinePersonnel(record)" v-model="radioValue">
                 <a-radio :style="radioStyle" :value="id">
                   {{ "选择" }}
                 </a-radio>
@@ -40,6 +40,7 @@
 </template>
 <script>
 import './model.less'
+import { mapState } from 'vuex'
 import { setQualifiedRoleNodes, getPersonnel } from '@/api/personalKnowledge'
 
 const columns = [
@@ -124,9 +125,11 @@ export default {
     //   })
     // },
     // // 确定人员
-    determinePersonnel (data) {
-      console.log(data.target.value)
-      this.$store.commit('SET_PERSONNEL', data.target.value)
+    determinePersonnel (record) {
+      console.log(record)
+      this.$store.commit('SET_PERSONNEL', record.id)
+      this.$store.commit('SET_MAJORNAME', record.name)
+      console.log(this.$store.state.approval.majorName)
       console.log(this.$store.state.approval.personnel)
     },
     // /**
@@ -146,6 +149,7 @@ export default {
       const that = this
 
       setQualifiedRoleNodes({
+        nodeId: that.majorSort,
         id: treeNode.dataRef.children
       }).then(function (res) {
         that.setLoadTreeModal(res)
@@ -177,7 +181,11 @@ export default {
      */
     setQualifiedRoleNodes () {
       const that = this
-      setQualifiedRoleNodes({}).then(function (res) {
+      console.log(that.majorSort)
+      setQualifiedRoleNodes({
+        id: '',
+        nodeId: that.majorSort
+      }).then(function (res) {
         console.log(res)
         that.setTreeModal(res)
       }).catch(function (err) {
@@ -224,7 +232,7 @@ export default {
         id: selectedKeys[0],
         nodeId: nodeId,
         index: 0,
-        size: 15
+        size: 999999
       }).then(function (res) {
         that.personnelList = res
         console.log(res)
@@ -236,6 +244,11 @@ export default {
   created () {
     // this.setPersonnelModalTree(this.personnelModalTree)
     this.setQualifiedRoleNodes()
+  },
+  computed: {
+    ...mapState({
+      majorSort: state => state.knowledge.majorSort
+    })
   }
 }
 </script>

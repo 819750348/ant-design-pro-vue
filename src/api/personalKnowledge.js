@@ -133,3 +133,14 @@ export function getPersonnel (parameter) {
     }
   })
 }
+
+export function submitApprovalor (parameter) {
+  return axios({
+    url: 'approval!saveOrUpdateApprovalor.action',
+    method: 'post',
+    data: Qs.stringify(parameter),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}

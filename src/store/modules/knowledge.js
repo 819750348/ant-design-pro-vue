@@ -16,12 +16,13 @@ const knowledge = {
     createApprovalFlowState: '',
     approvalPrivateTree: '',
     approvalCatagorytree: '',
-    // 流程中专业名称id
-    majorSort: '',
+
     knowledgeTypeSelect: '',
     // 流程数据
     knowledgeId: '',
-    approvalFlowId: ''
+    approvalFlowId: '',
+    // 流程中专业名称id  domainid
+    majorSort: ''
   },
 
   mutations: {

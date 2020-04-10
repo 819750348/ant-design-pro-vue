@@ -21,7 +21,7 @@
           <personnel-list @nextSubmitModal="showSubmitModal"></personnel-list>
         </div>
         <div v-if="submitModal">
-          <submit-modal></submit-modal>
+          <submit-modal @handleCancel="handleCancel"></submit-modal>
         </div>
       </a-card>
       <template slot="footer">
@@ -72,6 +72,8 @@ export default {
       this.$store.commit('saveKnowledgeId', '')
       this.$store.commit('saveApprovalFlowId', '')
       this.$store.commit('setMajorSort', '')
+      this.$store.commit('SET_MAJORNAME', '')
+      this.$store.commit('SET_PERSONNEL', '')
       this.$emit('shareApply', false)
     },
     showMajorModal () {
